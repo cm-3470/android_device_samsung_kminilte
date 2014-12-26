@@ -1,0 +1,2 @@
+type sysfs_input_file, fs_type, sysfs_type;
+type wifi_efs_file, fs_type;
