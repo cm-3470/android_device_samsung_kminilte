@@ -1,4 +1,4 @@
-# Device configuration for Samsung Galaxy Light (gardalte)
+# Device configuration for Samsung Galaxy S5 mini SM-G800F (kminilte)
 
 ## Spec Sheet
 
@@ -7,20 +7,20 @@
 | CPU                     | Quad-core 1.4 GHz                 |
 | Chipset                 | Exynos 3 Quad 3470                |
 | GPU                     | Mali-400MP4                       |
-| Memory                  | 1GB RAM                           |
-| Shipped Android Version | (4.2.2,4.4.2)                     |
-| Storage                 | 8 GB                              |
+| Memory                  | 1.5GB RAM                         |
+| Shipped Android Version | (4.4.2)                           |
+| Storage                 | 16 GB                             |
 | MicroSD                 | Up to 64GB                        |
-| Battery                 | 1800 mAh                          |
-| Dimensions              | 121.4 x 63.5 x 10.2 mm            |
-| Display                 | 480 x 800 pixels                  |
-| Camera                  | 5 MP, 2592 х 1944 pixels          |
-| Release Date            | October 2013                      |
+| Battery                 | 2100 mAh                          |
+| Dimensions              | 131.1 x 64.8 x 9.1 mm             |
+| Display                 | 720 x 1280 pixels                 |
+| Camera                  | 8 MP, ? х ? pixels          |
+| Release Date            | August 2014                       |
 
 
 ## Device Picture
 
-![Samsung Galaxy Light](http://www.samsung.com/us/system/consumer/product/sg/ht/39/sght399dnatmb/t399_Garda_600x600_xlarge_cf.jpg "Samsung Galaxy Light")
+![Samsung Galaxy S5 mini](http://images.samsung.com/is/image/samsung/de_SM-G800FZBADBT_000246076_Front_blue?$DT-Gallery$ "Samsung Galaxy S5 mini")
 
 ## Copyright
 

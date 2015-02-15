@@ -1,8 +1,8 @@
 #
-# system.prop for gardalte
+# system.prop for kminilte
 #
 
-ro.sf.lcd_density=240
+ro.sf.lcd_density=320
 ro.arch=exynos3470
 persist.hdmi.hdcp_enabled=0
 persist.demo.hdmirotationlock=0

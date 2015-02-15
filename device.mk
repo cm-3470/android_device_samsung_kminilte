@@ -17,20 +17,21 @@
 $(call inherit-product, $(SRC_TARGET_DIR)/product/languages_full.mk)
 
 # Also get non-open-source specific aspects if available
-$(call inherit-product-if-exists, vendor/samsung/gardalte/gardalte-vendor.mk)
+$(call inherit-product-if-exists, vendor/samsung/kminilte/kminilte-vendor.mk)
 
-LOCAL_PATH := device/samsung/gardalte
+LOCAL_PATH := device/samsung/kminilte
 
 # Overlays
 DEVICE_PACKAGE_OVERLAYS += $(LOCAL_PATH)/overlay
 
 # Device uses high-density artwork where available
-PRODUCT_AAPT_CONFIG := normal hdpi
-PRODUCT_AAPT_PREF_CONFIG := hdpi
+#PRODUCT_AAPT_CONFIG := normal hdpi
+#PRODUCT_AAPT_PREF_CONFIG := hdpi
+
 
 # Boot animation
-TARGET_SCREEN_HEIGHT := 800
-TARGET_SCREEN_WIDTH := 480
+TARGET_SCREEN_HEIGHT := 1280
+TARGET_SCREEN_WIDTH := 720
 
 # Ramdisk
 PRODUCT_PACKAGES += \
@@ -38,6 +39,8 @@ PRODUCT_PACKAGES += \
     init.universal3470.rc \
     init.universal3470.usb.rc \
     ueventd.universal3470.rc
+PRODUCT_PACKAGES += \
+    init.wifi.rc
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -51,20 +54,20 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/tiny_hw.xml:system/etc/tiny_hw.xml
 
 # Data workaround
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/enable_data:system/bin/enable_data
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/configs/enable_data:system/bin/enable_data
 
-# HW composer
+# HW composer (needed by libMali.so)
 PRODUCT_PACKAGES += \
     libion
 
 # Keylayouts
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
+#PRODUCT_COPY_FILES += \
+#    $(LOCAL_PATH)/keylayout/gpio-keys.kl:system/usr/keylayout/gpio-keys.kl
 
 # Lights
-PRODUCT_PACKAGES += \
-    lights.exynos3
+#PRODUCT_PACKAGES += \
+#    lights.exynos3
 
 # Media config
 PRODUCT_COPY_FILES += \
@@ -84,8 +87,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/sbin/cbd:root/sbin/cbd
 
 # Samsung
-PRODUCT_PACKAGES += \
-    SamsungServiceMode
+#PRODUCT_PACKAGES += \
+#    SamsungServiceMode
 
 # Wifi
 PRODUCT_PACKAGES += \
@@ -93,7 +96,8 @@ PRODUCT_PACKAGES += \
     hostapd \
     hostapd_default.conf \
     libwpa_client \
-    wpa_supplicant
+    wpa_supplicant \
+    p2p_supplicant
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
@@ -135,12 +139,12 @@ PRODUCT_COPY_FILES += \
 
 # Dalvik heap config
 PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=64m \
+    dalvik.vm.heapgrowthlimit=128m \
     dalvik.vm.heapstartsize=8m \
-    dalvik.vm.heapsize=256m \
+    dalvik.vm.heapsize=512m \
     dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=1m \
-    dalvik.vm.heapmaxfree=4m
+    dalvik.vm.heapminfree=2m \
+    dalvik.vm.heapmaxfree=8m
 
 # HWUI config
 PRODUCT_PROPERTY_OVERRIDES += \

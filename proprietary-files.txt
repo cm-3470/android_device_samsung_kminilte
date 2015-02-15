@@ -1,87 +1,79 @@
 # Bluetooth
 vendor/firmware/bcm4334.hcd
-vendor/firmware/BT_FW_VER_BCM4334B0_002.001.013.1810.2178_Garda_ORC.hcd
-
-# Camera
-lib/libhwjpeg.so
-vendor/lib/hw/camera.universal3470.so
+vendor/firmware/BT_FW_VER_BCM4334B0_002.001.013.1792.1803_K_Mini.hcd
 
 # DRM
-etc/srm.bin
-lib/libdrmdecrypt.so
-lib/libhdcp2.so
-lib/libstagefright_hdcp.so
-lib/libwvm.so
-vendor/lib/libwvdrm_L3.so
-vendor/lib/libWVStreamControlAPI_L3.so
-vendor/lib/mediadrm/libwvdrmengine.so
-
-# GPS
-bin/gps.cer
-bin/gpsd
-etc/gps.conf
-etc/gps.xml
-lib/hw/gps.default.so
-lib/libwrappergps.so
+vendor/lib/libwvm.so
+# Needed by libwvm.so
+vendor/lib/libWVStreamControlAPI_L1.so
 
 # Graphics
 lib/egl/libEGL_mali.so
 lib/egl/libGLESv1_CM_mali.so
 lib/egl/libGLESv2_mali.so
+# Needed by libEGL_mali.so
 lib/libMali.so
 
+# See: 
+# - https://android.googlesource.com/platform/hardware/samsung_slsi/exynos5/+/master
+# - https://www.gitorious.org/replicant/hardware_samsung
+# - https://github.com/S3AOSP/android_hardware_samsung
+# Needed by libMali.so
+lib/libExynosIPService.so
+lib/libcsc.so
+# Needed by libcsc.so
+lib/libion_exynos.so
+lib/libexynosutils.so
+lib/libexynosfimc.so
+# Needed by libexynosfimc.so
+lib/libexynosv4l2.so
+lib/libMcClient.so
+
 # HWC
+vendor/lib/hw/hwcomposer.exynos3.so
 lib/hw/gralloc.exynos3.so
+# Needed by hwcomposer.exynos3.so
 lib/libdisplay.so
 lib/libdisplaymodule.so
-lib/libexynosfimc.so
 lib/libExynosHWCService.so
-lib/libExynosIPService.so
-lib/libexynosutils.so
-lib/libexynosv4l2.so
-lib/libfimg.so
 lib/libhdmimodule.so
 lib/libhdmi.so
-lib/libhwcutilsmodule.so
 lib/libhwcutils.so
-lib/libion_exynos.so
-lib/libmpp.so
 lib/libvirtualdisplaymodule.so
+# Needed by libhwcutils.so
+lib/libfimg.so
+lib/libmpp.so
+# Needed by libdisplay.so
+lib/libhwcutilsmodule.so
+# Needed by libExynosHWCService.so
 lib/libvirtualdisplay.so
-vendor/lib/hw/hwcomposer.exynos3.so
 
-# Keystore
-vendor/lib/hw/keystore.exynos3.so
-
-# Lights
+# Lights (backlight brightness, ...)
+# For replacement see:
+# - /drivers/leds/leds-ktd2026.c (ktd2026_start_led_pattern)
+# - https://github.com/Aaahh/android_device_motorola_omap34com/blob/master/liblights/lights.c
 vendor/lib/hw/lights.exynos3.so
+# Needed by lights.exynos3.so
+lib/libsecril-client.so
 
 # LPM
 bin/lpm
-lib/libQmageDecoder.so
-media/battery_batteryerror.qmg
-media/battery_charging_5.qmg
-media/battery_charging_10.qmg
-media/battery_charging_15.qmg
-media/battery_charging_20.qmg
-media/battery_charging_25.qmg
-media/battery_charging_30.qmg
-media/battery_charging_35.qmg
-media/battery_charging_40.qmg
-media/battery_charging_45.qmg
-media/battery_charging_50.qmg
-media/battery_charging_55.qmg
-media/battery_charging_60.qmg
-media/battery_charging_65.qmg
-media/battery_charging_70.qmg
-media/battery_charging_75.qmg
-media/battery_charging_80.qmg
-media/battery_charging_85.qmg
-media/battery_charging_90.qmg
-media/battery_charging_95.qmg
-media/battery_charging_100.qmg
-media/battery_error.qmg
-media/chargingwarning.qmg
+# Needed by lpm
+lib/libmaet.so
+lib/libsxqk_skia.so
+media/wireless_left.spi
+media/wireless_right.spi
+media/battery_cover.spi
+media/battery_error.spi
+media/particle_intro.spi
+media/particle_loop.spi
+media/lcd_density.txt
+media/percentage.spi
+media/battery_temperature_error.spi
+media/battery_low.spi
+media/wave_loop.spi
+media/incompatible_charger.spi
+media/battery_temperature_limit.spi
 
 # Media
 vendor/firmware/fimc_is_fw2.bin
@@ -89,6 +81,9 @@ vendor/firmware/mfc_fw.bin
 vendor/firmware/setfile_4h5.bin
 vendor/firmware/setfile_6a3.bin
 vendor/firmware/setfile_6b2.bin
+
+# Boot script (handles deferred kernels init-calls, e.g. for Wifi driver startup)
+etc/init.sec.boot.sh
 
 # MobiCore
 bin/mcDriverDaemon
@@ -101,59 +96,31 @@ app/mcRegistry/07060000000000000000000000000000.tlbin
 app/mcRegistry/ffffffff000000000000000000000004.tlbin
 app/mcRegistry/ffffffff000000000000000000000005.tlbin
 app/mcRegistry/ffffffff000000000000000000000009.tlbin
+app/mcRegistry/ffffffff00000000000000000000000a.tlbin
 app/mcRegistry/ffffffff00000000000000000000000c.tlbin
 app/mcRegistry/ffffffff00000000000000000000000d.tlbin
 app/mcRegistry/ffffffff00000000000000000000000e.tlbin
+app/mcRegistry/ffffffff00000000000000000000000f.tlbin
+app/mcRegistry/ffffffff000000000000000000000012.tlbin
+app/mcRegistry/ffffffff000000000000000000000013.tlbin
 app/mcRegistry/ffffffff000000000000000000000018.tlbin
 app/mcRegistry/ffffffffd00000000000000000000004.tlbin
+app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
-lib/libgdmcprov.so
-lib/libMcClient.so
-lib/libMcRegistry.so
-
-# OMX
-etc/ExynosOMXReg.conf
-lib/libcsc.so
-lib/libExynosOMX263d.so
-lib/libExynosOMX264d.so
-lib/libExynosOMXCmn.so
-lib/libExynosOMX_Core.so
-lib/libExynosOMXCore.so
-lib/libExynosOMXMp4vd.so
-lib/libExynosOMX_Resourcemanager.so
-lib/libExynosOMXVc1d.so
-lib/libExynosVideoApi.so
-lib/libstagefrighthw.so
-lib/omx/libOMX.Exynos.AVC.Decoder.so
-lib/omx/libOMX.Exynos.AVC.Encoder.so
-lib/omx/libOMX.Exynos.MPEG4.Decoder.so
-lib/omx/libOMX.Exynos.MPEG4.Encoder.so
 
 # Radio
-bin/at_distributor
-bin/IPSecService
-bin/rild
+lib/libsec-ril.so
+# Needed by libsec-ril.so
+lib/libsecnativefeature.so
 etc/plmn_delta.bin
 etc/plmn_se13.bin
-lib/libatparser.so
-lib/libfactoryutil.so
-lib/libomission_avoidance.so
-lib/libril.so
-lib/libsecnativefeature.so
-lib/libsecril-client.so
-lib/libsec-ril.so
-
-# Sensors
-etc/PDC.ini
-lib/hw/sensors.universal3470.so
-lib/libakm.so
+csc/sales_code.dat
 
 # Wifi
 bin/macloader
+#/bin/mfgloader
+#/bin/wlandutservice
 etc/wifi/bcmdhd_apsta.bin_b2
-etc/wifi/bcmdhd_mfg.bin_b2
 etc/wifi/bcmdhd_p2p.bin_b2
 etc/wifi/bcmdhd_sta.bin_b2
-etc/wifi/cred.conf
-etc/wifi/nvram_mfg.txt
 etc/wifi/nvram_net.txt
