@@ -2,10 +2,34 @@
 vendor/firmware/bcm4334.hcd
 vendor/firmware/BT_FW_VER_BCM4334B0_002.001.013.1792.1803_K_Mini.hcd
 
+# Camera
+lib/hw/camera.universal3470.so
+# Needed by "camera.universal3470.so"
+lib/libhwjpeg.so
+lib/libexynoscamera.so
+# Needed by libexynoscamera.so
+lib/libliveframework.so
+# Needed by "libliveframework.so"
+lib/libarcsoft_nighthawk.so
+
 # DRM
+etc/srm.bin
+lib/libdrmdecrypt.so
+lib/libhdcp2.so
+lib/libstagefright_hdcp.so
 vendor/lib/libwvm.so
+vendor/lib/libwvdrm_L1.so
 # Needed by libwvm.so
 vendor/lib/libWVStreamControlAPI_L1.so
+vendor/lib/mediadrm/libwvdrmengine.so
+
+# GPS
+bin/gps.cer
+bin/gpsd
+etc/gps.conf
+etc/gps.xml
+lib/hw/gps.default.so
+lib/libwrappergps.so
 
 # Graphics
 lib/egl/libEGL_mali.so
@@ -27,7 +51,7 @@ lib/libexynosutils.so
 lib/libexynosfimc.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
-lib/libMcClient.so
+#lib/libMcClient.so
 
 # HWC
 vendor/lib/hw/hwcomposer.exynos3.so
@@ -48,13 +72,16 @@ lib/libhwcutilsmodule.so
 # Needed by libExynosHWCService.so
 lib/libvirtualdisplay.so
 
-# Lights (backlight brightness, ...)
+# Keystore
+vendor/lib/hw/keystore.exynos3.so
+
+# Lights
 # For replacement see:
 # - /drivers/leds/leds-ktd2026.c (ktd2026_start_led_pattern)
 # - https://github.com/Aaahh/android_device_motorola_omap34com/blob/master/liblights/lights.c
 vendor/lib/hw/lights.exynos3.so
 # Needed by lights.exynos3.so
-lib/libsecril-client.so
+#lib/libsecril-client.so
 
 # LPM
 bin/lpm
@@ -107,14 +134,32 @@ app/mcRegistry/ffffffff000000000000000000000018.tlbin
 app/mcRegistry/ffffffffd00000000000000000000004.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+lib/libgdmcprov.so
+lib/libMcClient.so
+lib/libMcRegistry.so
 
 # Radio
+bin/at_distributor
+bin/smdexe
 lib/libsec-ril.so
 # Needed by libsec-ril.so
 lib/libsecnativefeature.so
 etc/plmn_delta.bin
 etc/plmn_se13.bin
 csc/sales_code.dat
+lib/libatparser.so
+lib/libfactoryutil.so
+lib/libomission_avoidance.so
+lib/libsecril-client.so
+
+# Sensors
+lib/hw/sensors.universal3470.so
+lib/libinvensense_hal.so
+# Needed by "libinvensense_hal.so"
+lib/libmllite.so
+lib/libmplmpu.so
+# GeomagneticSensor:
+lib/libacdapi_clb.so
 
 # Wifi
 bin/macloader

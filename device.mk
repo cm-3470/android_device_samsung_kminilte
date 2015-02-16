@@ -87,8 +87,8 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/sbin/cbd:root/sbin/cbd
 
 # Samsung
-#PRODUCT_PACKAGES += \
-#    SamsungServiceMode
+PRODUCT_PACKAGES += \
+    SamsungServiceMode
 
 # Wifi
 PRODUCT_PACKAGES += \

@@ -14,7 +14,7 @@
 | Battery                 | 2100 mAh                          |
 | Dimensions              | 131.1 x 64.8 x 9.1 mm             |
 | Display                 | 720 x 1280 pixels                 |
-| Camera                  | 8 MP, ? х ? pixels          |
+| Camera                  | 8 MP, 3264 × 2448 pixels          |
 | Release Date            | August 2014                       |
 
 

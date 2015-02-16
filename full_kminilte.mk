@@ -22,4 +22,4 @@ PRODUCT_NAME := full_kminilte
 PRODUCT_DEVICE := kminilte
 PRODUCT_BRAND := samsung
 PRODUCT_MANUFACTURER := samsung
-PRODUCT_MODEL := kminilte
+PRODUCT_MODEL := SM-G800F
