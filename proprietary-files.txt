@@ -1,3 +1,26 @@
+# Audio
+csc/sales_code.dat
+lib/hw/audio_policy.universal3470.so
+lib/hw/audio.primary.universal3470.so
+lib/libaudiopolicy_sec.so
+lib/libaudio-ril.so
+lib/libaudiosa.so
+lib/libcontrolcsc.so
+lib/lib_DNSe_NRSS_ver226.so
+lib/libmysound.so
+lib/lib_SA_GoogleFX_ver119k.so
+lib/lib_Samsung_AudioZoom_v100.so
+lib/libsamsungRecord_ns.so
+lib/libsamsungRecord.so
+lib/libsamsungRecord_zoom.so
+lib/lib_SamsungRec_V03011b.so
+lib/lib_Samsung_Resampler.so
+lib/lib_Samsung_SB_AM_for_ICS_v03008.so
+lib/libsamsungSoundbooster.so
+lib/libsetproperty.so
+vendor/lib/liblvverx_3.21.15.so
+vendor/lib/liblvvetx_3.21.15.so
+
 # Bluetooth
 vendor/firmware/bcm4334.hcd
 vendor/firmware/BT_FW_VER_BCM4334B0_002.001.013.1810.2178_Garda_ORC.hcd

@@ -1,5 +1,0 @@
-allow wpa wifi_data_file:file open;
-allow wpa wifi_efs_file:dir search;
-allow wpa wifi_efs_file:file { open read write };
-allow wpa efs_file:dir search;
-allow wpa system_data_file:file { write open };

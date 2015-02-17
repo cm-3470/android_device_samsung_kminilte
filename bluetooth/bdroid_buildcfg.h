@@ -21,13 +21,4 @@
 // when null the product model is used
 // #define BTM_DEF_LOCAL_NAME   "SGH-T399"
 
-// Networking, Capturing, Object Transfer
-// MAJOR CLASS: COMPUTER
-// MINOR CLASS: LAPTOP
-#define BTA_DM_COD {0x1A, 0x01, 0x0C}
-
-#define BTIF_HF_SERVICES (BTA_HSP_SERVICE_MASK)
-#define BTIF_HF_SERVICE_NAMES { BTIF_HSAG_SERVICE_NAME, NULL }
-#define PAN_NAP_DISABLED TRUE
-
 #endif

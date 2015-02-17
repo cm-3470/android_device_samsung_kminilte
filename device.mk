@@ -42,13 +42,19 @@ PRODUCT_PACKAGES += \
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
-    audio.primary.universal3470 \
     audio.usb.default \
     audio.r_submix.default
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/audio/tiny_hw.xml:system/etc/tiny_hw.xml
+    $(LOCAL_PATH)/audio/default_gain.conf:system/etc/default_gain.conff \
+    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
+    $(LOCAL_PATH)/audio/tinyucm.conf:system/etc/tinyucm.conf
+
+# Camera
+PRODUCT_PROPERTY_OVERRIDES += \
+    camera2.portability.force_api=1
 
 # Data workaround
 PRODUCT_COPY_FILES += \
@@ -89,14 +95,10 @@ PRODUCT_PACKAGES += \
 
 # Wifi
 PRODUCT_PACKAGES += \
-    dhcpcd.conf \
-    hostapd \
-    hostapd_default.conf \
-    libwpa_client \
-    wpa_supplicant
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
@@ -133,25 +135,5 @@ PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.wifi.xml:system/etc/permissions/android.hardware.wifi.xml \
     frameworks/native/data/etc/handheld_core_hardware.xml:system/etc/permissions/handheld_core_hardware.xml
 
-# Dalvik heap config
-PRODUCT_PROPERTY_OVERRIDES += \
-    dalvik.vm.heapgrowthlimit=64m \
-    dalvik.vm.heapstartsize=8m \
-    dalvik.vm.heapsize=256m \
-    dalvik.vm.heaptargetutilization=0.75 \
-    dalvik.vm.heapminfree=1m \
-    dalvik.vm.heapmaxfree=4m
-
-# HWUI config
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.hwui.texture_cache_size=48 \
-    ro.hwui.layer_cache_size=32 \
-    ro.hwui.path_cache_size=8 \
-    ro.hwui.shape_cache_size=2 \
-    ro.hwui.gradient_cache_size=1 \
-    ro.hwui.drop_shadow_cache_size=4 \
-    ro.hwui.texture_cache_flush_rate=0.5 \
-    ro.hwui.text_small_cache_width=1024 \
-    ro.hwui.text_small_cache_height=512 \
-    ro.hwui.text_large_cache_width=2048 \
-    ro.hwui.text_large_cache_height=1024
+# Dalvik VM specific for devices with 1024 MB of RAM
+$(call inherit-product-if-exists, frameworks/native/build/phone-xhdpi-1024-dalvik-heap.mk)

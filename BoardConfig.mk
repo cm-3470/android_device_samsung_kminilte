@@ -35,7 +35,7 @@ TARGET_NO_BOOTLOADER := true
 BOARD_BOOTIMAGE_PARTITION_SIZE := 8388608
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 8388608
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 1468006400
-BOARD_USERDATAIMAGE_PARTITION_SIZE := 5679087616
+BOARD_USERDATAIMAGE_PARTITION_SIZE := 5679071232
 BOARD_FLASH_BLOCK_SIZE := 4096
 
 # Include path
@@ -51,9 +51,6 @@ TARGET_KERNEL_SOURCE := kernel/samsung/exynos3470
 TARGET_BOARD_PLATFORM := exynos3
 TARGET_SOC := exynos3470
 
-# Audio
-BOARD_USES_LIBMEDIA_WITH_AUDIOPARAMETER := true
-
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -64,11 +61,10 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/gardalte/bluetooth
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/samsung/gardalte/egl/egl.cfg
 
-# Media
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL # acquire_buffer symbol for libwvm.so
-
-# PowerHAL
-TARGET_POWERHAL_VARIANT := universal3470
+# Pre-L Compatibility
+COMMON_GLOBAL_CFLAGS += \
+    -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL \
+    -DENABLE_NON_PIE_SUPPORT
 
 # Radio
 BOARD_RIL_CLASS := ../../../device/samsung/gardalte/ril
@@ -78,24 +74,6 @@ BOARD_HAS_NO_SELECT_BUTTON := true
 TARGET_RECOVERY_DEVICE_DIRS += device/samsung/gardalte
 TARGET_RECOVERY_FSTAB := device/samsung/gardalte/rootdir/etc/fstab.universal3470
 TARGET_USERIMAGES_USE_EXT4 := true
-
-# SELinux
-#BOARD_SEPOLICY_DIRS += \
-#    device/samsung/gardalte/sepolicy
-
-#BOARD_SEPOLICY_UNION += \
-#    file_contexts \
-#    device.te \
-#    domain.te \
-#    drmserver.te \
-#    file.te \
-#    gpsd.te \
-#    init.te \
-#    mediaserver.te \
-#    servicemanager.te \
-#    system_app.te \
-#    system_server.te \
-#    wpa.te
 
 # Webkit
 ENABLE_WEBGL := true
