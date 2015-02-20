@@ -34,6 +34,10 @@ TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a7
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
+# Legacy MMAP for pre-lollipop blobs
+# (needed by mcDriverDaemon which in turn is needed by cbd)
+BOARD_USES_LEGACY_MMAP := true
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := kminilte
 
