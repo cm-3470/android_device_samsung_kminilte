@@ -141,6 +141,7 @@ lib/libMcRegistry.so
 # Radio
 bin/at_distributor
 bin/smdexe
+bin/rild
 lib/libsec-ril.so
 # Needed by libsec-ril.so
 lib/libsecnativefeature.so
@@ -150,6 +151,8 @@ csc/sales_code.dat
 lib/libatparser.so
 lib/libfactoryutil.so
 lib/libomission_avoidance.so
+# Note: libril.so is specific to Samsung's ss222 LTE modem
+lib/libril.so
 lib/libsecril-client.so
 
 # Sensors
