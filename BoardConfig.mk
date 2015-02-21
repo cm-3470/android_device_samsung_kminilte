@@ -85,11 +85,13 @@ COMMON_GLOBAL_CFLAGS += \
 # (needed by mcDriverDaemon which in turn is needed by cbd)
 BOARD_USES_LEGACY_MMAP := true
 
+# RIL
+BOARD_PROVIDES_LIBRIL := true
+BOARD_MOBILEDATA_INTERFACE_NAME := "rmnet0"
+BOARD_MODEM_TYPE := ss222
+
 # Radio
 BOARD_RIL_CLASS := ../../../device/samsung/kminilte/ril
-
-BOARD_PROVIDES_LIBRIL := true
-BOARD_MODEM_TYPE := ss222
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
