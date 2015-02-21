@@ -34,10 +34,6 @@ TARGET_CPU_SMP := true
 TARGET_CPU_VARIANT := cortex-a7
 ARCH_ARM_HAVE_TLS_REGISTER := true
 
-# Legacy MMAP for pre-lollipop blobs
-# (needed by mcDriverDaemon which in turn is needed by cbd)
-BOARD_USES_LEGACY_MMAP := true
-
 # Assert
 TARGET_OTA_ASSERT_DEVICE := kminilte
 
@@ -70,9 +66,6 @@ TARGET_KERNEL_SOURCE := kernel/samsung/g800f
 TARGET_BOARD_PLATFORM := exynos3
 TARGET_SOC := exynos3470
 
-# Audio
-BOARD_USES_LIBMEDIA_WITH_AUDIOPARAMETER := true
-
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -83,35 +76,20 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/kminilte/bluetooth
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/samsung/kminilte/egl/egl.cfg
 
-# Media
-COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL # acquire_buffer symbol for libwvm.so
+# Pre-L Compatibility
+COMMON_GLOBAL_CFLAGS += \
+    -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL \
+    -DENABLE_NON_PIE_SUPPORT
 
-# PowerHAL
-TARGET_POWERHAL_VARIANT := universal3470
+# Legacy MMAP for pre-lollipop blobs
+# (needed by mcDriverDaemon which in turn is needed by cbd)
+BOARD_USES_LEGACY_MMAP := true
 
 # Radio
 BOARD_RIL_CLASS := ../../../device/samsung/kminilte/ril
 
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
-
-# SELinux
-#BOARD_SEPOLICY_DIRS += \
-#    device/samsung/kminilte/sepolicy
-
-#BOARD_SEPOLICY_UNION += \
-#    file_contexts \
-#    device.te \
-#    domain.te \
-#    drmserver.te \
-#    file.te \
-#    gpsd.te \
-#    init.te \
-#    mediaserver.te \
-#    servicemanager.te \
-#    system_app.te \
-#    system_server.te \
-#    wpa.te
 
 # Webkit
 ENABLE_WEBGL := true
