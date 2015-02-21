@@ -88,6 +88,9 @@ BOARD_USES_LEGACY_MMAP := true
 # Radio
 BOARD_RIL_CLASS := ../../../device/samsung/kminilte/ril
 
+BOARD_PROVIDES_LIBRIL := true
+BOARD_MODEM_TYPE := ss222
+
 # Recovery
 BOARD_HAS_NO_SELECT_BUTTON := true
 

@@ -88,6 +88,9 @@ PRODUCT_PACKAGES += \
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/sbin/cbd:root/sbin/cbd
 
+PRODUCT_PACKAGES += \
+    libsecril-client   
+    
 # Samsung
 PRODUCT_PACKAGES += \
     SamsungServiceMode
