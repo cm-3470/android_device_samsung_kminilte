@@ -83,8 +83,8 @@ typedef enum {
     RIL_E_SS_MODIFIED_TO_USSD = 24,             /* SS request modified to USSD */
     RIL_E_SS_MODIFIED_TO_SS = 25,               /* SS request modified to different SS request */
     RIL_E_SUBSCRIPTION_NOT_SUPPORTED = 26,      /* Subscription not supported by RIL */
-    RIL_E_MISSING_RESOURCE = 27,                /* No logical channel available */
-    RIL_E_NO_SUCH_ELEMENT = 28,                 /* Application not found on sim */
+    RIL_E_MISSING_RESOURCE = 27, /* No logical channel available */
+    RIL_E_NO_SUCH_ELEMENT = 28, /* Application not found on sim */
     RIL_E_INVALID_PARAMETER = 29 /* To Do: add description*/
 } RIL_Errno;
 
@@ -825,10 +825,10 @@ typedef struct {
 } RIL_SignalStrength_v8;
 
 typedef struct {
-    RIL_GW_SignalStrength       GW_SignalStrength;
-    RIL_CDMA_SignalStrength     CDMA_SignalStrength;
-    RIL_EVDO_SignalStrength     EVDO_SignalStrength;
-    RIL_LTE_SignalStrength_v8   LTE_SignalStrength;
+    RIL_GW_SignalStrength           GW_SignalStrength;
+    RIL_CDMA_SignalStrength         CDMA_SignalStrength;
+    RIL_EVDO_SignalStrength         EVDO_SignalStrength;
+    RIL_LTE_SignalStrength_v8       LTE_SignalStrength;
     RIL_TD_SCDMA_SignalStrength_CAF TD_SCDMA_SignalStrength;
 } RIL_SignalStrength_v10;
 
@@ -874,15 +874,6 @@ typedef struct {
     int tac;    /* 16-bit tracking area code, INT_MAX if unknown  */
 } RIL_CellIdentityLte;
 
-/** RIL_CellIdentityTdscdma */
-typedef struct {
-    int mcc;    /* 3-digit Mobile Country Code, 0..999, INT_MAX if unknown  */
-    int mnc;    /* 2 or 3-digit Mobile Network Code, 0..999, INT_MAX if unknown  */
-    int lac;    /* 16-bit Location Area Code, 0..65535, INT_MAX if unknown  */
-    int cid;    /* 28-bit UMTS Cell Identity described in TS 25.331, 0..268435455, INT_MAX if unknown  */
-    int cpid;    /* 8-bit Cell Parameters ID described in TS 25.331, 0..127, INT_MAX if unknown */
-} RIL_CellIdentityTdscdma;
-
 /** RIL_CellInfoGsm */
 typedef struct {
   RIL_CellIdentityGsm   cellIdentityGsm;
@@ -907,12 +898,6 @@ typedef struct {
   RIL_CellIdentityLte        cellIdentityLte;
   RIL_LTE_SignalStrength_v8  signalStrengthLte;
 } RIL_CellInfoLte;
-
-/** RIL_CellInfoTdscdma */
-typedef struct {
-  RIL_CellIdentityTdscdma cellIdentityTdscdma;
-  RIL_TD_SCDMA_SignalStrength signalStrengthTdscdma;
-} RIL_CellInfoTdscdma;
 
 // Must be the same as CellInfo.TYPE_XXX
 typedef enum {
@@ -942,7 +927,6 @@ typedef struct {
     RIL_CellInfoCdma    cdma;
     RIL_CellInfoLte     lte;
     RIL_CellInfoWcdma   wcdma;
-    RIL_CellInfoTdscdma tdscdma;
   } CellInfo;
 } RIL_CellInfo;
 
@@ -3834,59 +3818,8 @@ typedef struct {
  */
 #define RIL_REQUEST_SET_DATA_SUBSCRIPTION  116
 
-/**
- * RIL_REQUEST_SIM_TRANSMIT_BASIC
- *
- * Request APDU exchange on the basic channel.
- *
- * "data" is a const RIL_SIM_IO *
- *
- * "response" is a const RIL_SIM_IO_Response *
- *
- * Valid errors:
- *
- * SUCCESS
- * GENERIC_FAILURE
- * INVALID_PARAMETER
- */
-//#define RIL_REQUEST_SIM_TRANSMIT_BASIC 117
 #define RIL_REQUEST_GET_UICC_SUBSCRIPTION 117
-
-/**
- * RIL_REQUEST_SIM_OPEN_CHANNEL
- *
- * Open a new logical channel.
- *
- * "data" is a const char * containing the AID of the applet
- *
- * "response" is a int * containing the channel id
- *
- * Valid errors:
- *
- * SUCCESS
- * GENERIC_FAILURE
- * MISSING_RESOURCE
- * NO_SUCH_ELEMENT
- */
-//#define RIL_REQUEST_SIM_OPEN_CHANNEL 118
 #define RIL_REQUEST_GET_DATA_SUBSCRIPTION 118
-
-/**
- * RIL_REQUEST_SIM_CLOSE_CHANNEL
- *
- * Close a previoulsy opened logical channel.
- *
- * "data" is a const int * containing the channel id
- *
- * "response" is NULL
- *
- * Valid errors:
- *
- * SUCCESS
- * GENERIC_FAILURE
- * INVALID_PARAMETER
- */
-//#define RIL_REQUEST_SIM_CLOSE_CHANNEL 119
 #define RIL_REQUEST_SET_TRANSMIT_POWER 119
 
 #define RIL_REQUEST_SHUTDOWN 129
@@ -4466,18 +4399,7 @@ typedef struct {
  * "data" is const RIL_StkCcUnsolSsResponse *
  *
  */
-#define RIL_UNSOL_ON_SS 1038
-
-
-/**
- * RIL_UNSOL_STK_CC_ALPHA_NOTIFY
- *
- * Called when there is an ALPHA from UICC during Call Control.
- *
- * "data" is const char * containing ALPHA string from UICC in UTF-8 format.
- *
- */
-#define RIL_UNSOL_STK_CC_ALPHA_NOTIFY 1039
+#define RIL_UNSOL_ON_SS 1040
 
 /**
  * RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED
@@ -4493,7 +4415,7 @@ typedef struct {
  * ((const int *)data)[0] == 1 for Subscription Activated
  *
  */
-#define RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED 1040
+#define RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED 11031
 
 /* SAMSUNG RESPONSE */
 #define SAMSUNG_UNSOL_RESPONSE_BASE 11000
@@ -4517,21 +4439,19 @@ typedef struct {
 #define RIL_UNSOL_TWO_MIC_STATE 11018
 #define RIL_UNSOL_DHA_STATE 11019
 #define RIL_UNSOL_UART 11020
-#define RIL_UNSOL_RESPONSE_HANDOVER 11021
-#define RIL_UNSOL_IPV6_ADDR 11022
-#define RIL_UNSOL_NWK_INIT_DISC_REQUEST 11023
-#define RIL_UNSOL_RTS_INDICATION 11024
-#define RIL_UNSOL_OMADM_SEND_DATA 11025
-#define RIL_UNSOL_DUN 11026
-#define RIL_UNSOL_SYSTEM_REBOOT 11027
-#define RIL_UNSOL_VOICE_PRIVACY_CHANGED 11028
-#define RIL_UNSOL_UTS_GETSMSCOUNT 11029
-#define RIL_UNSOL_UTS_GETSMSMSG 11030
-#define RIL_UNSOL_UTS_GET_UNREAD_SMS_STATUS 11031
-#define RIL_UNSOL_MIP_CONNECT_STATUS 11032
+#define RIL_UNSOL_SIM_PB_READY 11021
+#define RIL_UNSOL_PCMCLOCK_STATE 11022
+#define RIL_UNSOL_1X_SMSPP 11023
+
+#define RIL_UNSOL_MODIFY_CALL 11028
+#define RIL_UNSOL_SRVCC_HANDOVER 11029
+#define RIL_UNSOL_CS_FALLBACK 11030
+//#define RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED 11031
+#define UNSOL_VOICE_SYSTEM_ID 11032
 
 #define RIL_UNSOL_IMS_RETRYOVER 11034
 #define RIL_UNSOL_STK_ALPHA_ID 11035
+
 #define RIL_UNSOL_RTS_INDICATION 11041
 #define RIL_UNSOL_RILD_RESET_NOTI 11042
 #define RIL_UNSOL_HOME_NETWORK_NOTI 11043

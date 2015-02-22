@@ -131,11 +131,6 @@
     {RIL_REQUEST_GET_DATA_CALL_PROFILE, dispatchInts, responseGetDataCallProfile}, //114
     {RIL_REQUEST_SET_UICC_SUBSCRIPTION, dispatchUiccSubscripton, responseVoid}, //115
     {RIL_REQUEST_SET_DATA_SUBSCRIPTION, dispatchVoid, responseVoid}, //116
-    {RIL_REQUEST_SIM_TRANSMIT_BASIC, dispatchSIM_IO, responseSIM_IO}, //117
-    {RIL_REQUEST_SIM_OPEN_CHANNEL, dispatchString, responseInts}, //118
-    {RIL_REQUEST_SIM_CLOSE_CHANNEL, dispatchInts, responseVoid}, //119
-    {RIL_REQUEST_SIM_TRANSMIT_CHANNEL, dispatchSIM_IO, responseSIM_IO}, //120
-    {RIL_REQUEST_SIM_GET_ATR, dispatchInts, responseString}, //121
     {0, NULL, NULL}, // 10001
     {RIL_REQUEST_GET_CELL_BROADCAST_CONFIG, dispatchVoid, responseVoid},
     {0, NULL, NULL}, // 10003

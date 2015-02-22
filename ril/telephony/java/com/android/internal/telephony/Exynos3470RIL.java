@@ -25,10 +25,15 @@ import android.os.Parcel;
 import android.telephony.Rlog;
 
 import android.telephony.SignalStrength;
-import com.android.internal.telephony.uicc.IccCardApplicationStatus;
-import com.android.internal.telephony.uicc.IccCardStatus;
+
+import android.telephony.PhoneNumberUtils;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+
+import com.android.internal.telephony.uicc.IccCardApplicationStatus;
+import com.android.internal.telephony.uicc.IccCardStatus;
 
 /**
  * RIL customization for Exynos3470 based devices.
@@ -190,7 +195,7 @@ public class Exynos3470RIL extends RIL {
         Object ret;
         int dataPosition = p.dataPosition(); // save off position within the Parcel
         int response = p.readInt();
- 
+
         switch(response) {
             case RIL_UNSOL_STK_CALL_CONTROL_RESULT:
                 ret = responseVoid(p);
@@ -223,7 +228,7 @@ public class Exynos3470RIL extends RIL {
             default:
                 // Rewind the Parcel
                 p.setDataPosition(dataPosition);
- 
+
                 // Forward responses that we are not overriding to the super class
                 super.processUnsolicited(p);
                 return;

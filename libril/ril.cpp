@@ -114,8 +114,8 @@ namespace android {
     #define appendPrintBuf(x...)
 #endif
 
-#define MAX_RIL_SOL     RIL_REQUEST_SET_UNSOL_CELL_INFO_LIST_RATE
-#define MAX_RIL_UNSOL   RIL_UNSOL_CELL_INFO_LIST
+#define MAX_RIL_SOL     RIL_REQUEST_SHUTDOWN
+#define MAX_RIL_UNSOL   RIL_UNSOL_ON_SS
 
 enum WakeType {DONT_WAKE, WAKE_PARTIAL};
 
@@ -759,11 +759,6 @@ dispatchSIM_IO (Parcel &p, RequestInfo *pRI) {
     // note we only check status at the end
 
     simIO.v6.cla = 0;
-    if(pRI->pCI->requestNumber == RIL_REQUEST_SIM_TRANSMIT_BASIC ||
-            pRI->pCI->requestNumber == RIL_REQUEST_SIM_TRANSMIT_CHANNEL ) {
-        status = p.readInt32(&t);
-        simIO.v6.cla = (int)t;
-    }
 
     status = p.readInt32(&t);
     simIO.v6.command = (int)t;
@@ -1765,8 +1760,8 @@ static int responseStrings(Parcel &p, void *response, size_t responselen) {
 
 static int responseStringsNetworks(Parcel &p, void *response, size_t responselen) {
     int numStrings;
-    int inQANElements = 5;
-    int outQANElements = 4;
+    int inQANElements = 6;
+    int outQANElements = 6;
 
     if (response == NULL && responselen != 0) {
         RLOGE("invalid response: NULL");
@@ -1782,7 +1777,6 @@ static int responseStringsNetworks(Parcel &p, void *response, size_t responselen
         p.writeInt32 (0);
     } else {
         char **p_cur = (char **) response;
-        int j = 0;
 
         numStrings = responselen / sizeof(char *);
         p.writeInt32 ((numStrings / inQANElements) * outQANElements);
@@ -1790,15 +1784,8 @@ static int responseStringsNetworks(Parcel &p, void *response, size_t responselen
         /* each string*/
         startResponse;
         for (int i = 0 ; i < numStrings ; i++) {
-            /* Samsung is sending 5 elements, upper layer expects 4.
-               Drop every 5th element here */
-            if (j == outQANElements) {
-                j = 0;
-            } else {
-                appendPrintBuf("%s%s,", printBuf, (char*)p_cur[i]);
-                writeStringToParcel (p, p_cur[i]);
-                j++;
-            }
+            appendPrintBuf("%s%s,", printBuf, (char*)p_cur[i]);
+            writeStringToParcel (p, p_cur[i]);
         }
         removeLastChar;
         closeResponse;
@@ -2388,46 +2375,20 @@ static int responseRilSignalStrength(Parcel &p,
     }
 
     if (responselen >= sizeof (RIL_SignalStrength_v5)) {
-        RIL_SignalStrength_v9_CAF *p_cur = ((RIL_SignalStrength_v9_CAF *) response);
+        RIL_SignalStrength_v10 *p_cur = ((RIL_SignalStrength_v10 *) response);
 
         /* gsmSignalStrength */
-        RLOGD("gsmSignalStrength (raw)=%d", p_cur->GW_SignalStrength.signalStrength);
-        gsmSignalStrength = p_cur->GW_SignalStrength.signalStrength & 0xFF;
-            if (gsmSignalStrength < 0) {
-                gsmSignalStrength = 99;
-            } else if (gsmSignalStrength > 31 && gsmSignalStrength != 99) {
-                gsmSignalStrength = 31;
-            }
-        RLOGD("gsmSignalStrength (corrected)=%d", gsmSignalStrength);
-        p.writeInt32(gsmSignalStrength);
+        p.writeInt32(p_cur->GW_SignalStrength.signalStrength);
 
         /* gsmBitErrorRate */
         p.writeInt32(p_cur->GW_SignalStrength.bitErrorRate);
 
-        /* cdmaDbm */
-        RLOGD("cdmaDbm (raw)=%d", p_cur->CDMA_SignalStrength.dbm);
-        cdmaDbm = p_cur->CDMA_SignalStrength.dbm & 0xFF;
-        if (cdmaDbm < 0) {
-            cdmaDbm = 99;
-        } else if (cdmaDbm > 31 && cdmaDbm != 99) {
-            cdmaDbm = 31;
-        }
-        //RLOGD("cdmaDbm (corrected)=%d", cdmaDbm);
-        p.writeInt32(cdmaDbm);
+        p.writeInt32(p_cur->CDMA_SignalStrength.dbm);
 
         /* cdmaEcio */
         p.writeInt32(p_cur->CDMA_SignalStrength.ecio);
 
-        /* evdoDbm */
-        RLOGD("evdoDbm (raw)=%d", p_cur->EVDO_SignalStrength.dbm);
-        evdoDbm = p_cur->EVDO_SignalStrength.dbm & 0xFF;
-        if (evdoDbm < 0) {
-            evdoDbm = 99;
-        } else if (evdoDbm > 31 && evdoDbm != 99) {
-            evdoDbm = 31;
-        }
-        //RLOGD("evdoDbm (corrected)=%d", evdoDbm);
-        p.writeInt32(evdoDbm);
+        p.writeInt32(p_cur->EVDO_SignalStrength.dbm);
 
         /* evdoEcio */
         p.writeInt32(p_cur->EVDO_SignalStrength.ecio);
@@ -2466,25 +2427,18 @@ static int responseRilSignalStrength(Parcel &p,
             p.writeInt32(p_cur->LTE_SignalStrength.rsrq);
             p.writeInt32(p_cur->LTE_SignalStrength.rssnr);
             p.writeInt32(p_cur->LTE_SignalStrength.cqi);
-	    if (responselen >= sizeof (RIL_SignalStrength_v8)) {
-	        p.writeInt32(p_cur->LTE_SignalStrength.timingAdvance);
-		if (responselen >= sizeof (RIL_SignalStrength_v9_CAF)) {
-		    p.writeInt32(p_cur->TD_SCDMA_SignalStrength.rscp);
-        } else {
-		    p.writeInt32(INT_MAX);
-		}
-	    } else {
-	       p.writeInt32(INT_MAX);
-	       p.writeInt32(INT_MAX);
-	    }
+            if (responselen >= sizeof (RIL_SignalStrength_v10)) {
+                p.writeInt32(p_cur->TD_SCDMA_SignalStrength.rscp);
+            } else {
+                p.writeInt32(INT_MAX);
+            }
         } else {
             p.writeInt32(99);
             p.writeInt32(INT_MAX);
             p.writeInt32(INT_MAX);
             p.writeInt32(INT_MAX);
             p.writeInt32(INT_MAX);
-	    p.writeInt32(INT_MAX);
-	    p.writeInt32(INT_MAX);
+            p.writeInt32(INT_MAX);
         }
 
         startResponse;
@@ -4116,11 +4070,6 @@ requestToString(int request) {
         case RIL_REQUEST_SEND_SMS_EXPECT_MORE: return "SEND_SMS_EXPECT_MORE";
         case RIL_REQUEST_SETUP_DATA_CALL: return "SETUP_DATA_CALL";
         case RIL_REQUEST_SIM_IO: return "SIM_IO";
-	case RIL_REQUEST_SIM_TRANSMIT_BASIC: return "SIM_TRANSMIT_BASIC";
-	case RIL_REQUEST_SIM_OPEN_CHANNEL: return "SIM_OPEN_CHANNEL";
-	case RIL_REQUEST_SIM_CLOSE_CHANNEL: return "SIM_CLOSE_CHANNEL";
-	case RIL_REQUEST_SIM_TRANSMIT_CHANNEL: return "SIM_TRANSMIT_CHANNEL";
-	case RIL_REQUEST_SIM_GET_ATR: return "SIM_GET_ATR";
         case RIL_REQUEST_SEND_USSD: return "SEND_USSD";
         case RIL_REQUEST_CANCEL_USSD: return "CANCEL_USSD";
         case RIL_REQUEST_GET_CLIR: return "GET_CLIR";
@@ -4197,7 +4146,7 @@ requestToString(int request) {
         case RIL_REQUEST_ACKNOWLEDGE_INCOMING_GSM_SMS_WITH_PDU: return "RIL_REQUEST_ACKNOWLEDGE_INCOMING_GSM_SMS_WITH_PDU";
         case RIL_REQUEST_STK_SEND_ENVELOPE_WITH_STATUS: return "RIL_REQUEST_STK_SEND_ENVELOPE_WITH_STATUS";
         case RIL_REQUEST_VOICE_RADIO_TECH: return "VOICE_RADIO_TECH";
-	case RIL_REQUEST_WRITE_SMS_TO_SIM: return "WRITE_SMS_TO_SIM";
+        case RIL_REQUEST_WRITE_SMS_TO_SIM: return "WRITE_SMS_TO_SIM";
         case RIL_REQUEST_GET_CELL_INFO_LIST: return"GET_CELL_INFO_LIST";
         case RIL_REQUEST_SET_UNSOL_CELL_INFO_LIST_RATE: return"SET_UNSOL_CELL_INFO_LIST_RATE";
         case RIL_REQUEST_SET_INITIAL_ATTACH_APN: return "RIL_REQUEST_SET_INITIAL_ATTACH_APN";
@@ -4244,7 +4193,7 @@ requestToString(int request) {
         case RIL_UNSOL_VOICE_RADIO_TECH_CHANGED: return "UNSOL_VOICE_RADIO_TECH_CHANGED";
         case RIL_UNSOL_CELL_INFO_LIST: return "UNSOL_CELL_INFO_LIST";
         case RIL_UNSOL_RESPONSE_IMS_NETWORK_STATE_CHANGED: return "RESPONSE_IMS_NETWORK_STATE_CHANGED";
-	case RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED: return "UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED";
+        case RIL_UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED: return "UNSOL_UICC_SUBSCRIPTION_STATUS_CHANGED";
         case RIL_UNSOL_STK_SEND_SMS_RESULT: return "RIL_UNSOL_STK_SEND_SMS_RESULT";
         default: return "<unknown request>";
     }
