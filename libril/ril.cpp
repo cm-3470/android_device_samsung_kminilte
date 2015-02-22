@@ -2019,7 +2019,7 @@ static int responseDataCallList(Parcel &p, void *response, size_t responselen)
             writeStringToParcel(p, p_cur[i].ifname);
             writeStringToParcel(p, p_cur[i].addresses);
             writeStringToParcel(p, p_cur[i].dnses);
-            writeStringToParcel(p, p_cur[i].gateways);
+            writeStringToParcel(p, p_cur[i].addresses);
             appendPrintBuf("%s[status=%d,retry=%d,cid=%d,%s,%s,%s,%s,%s,%s],", printBuf,
                 p_cur[i].status,
                 p_cur[i].suggestedRetryTime,
@@ -2029,7 +2029,7 @@ static int responseDataCallList(Parcel &p, void *response, size_t responselen)
                 (char*)p_cur[i].ifname,
                 (char*)p_cur[i].addresses,
                 (char*)p_cur[i].dnses,
-                (char*)p_cur[i].gateways);
+                (char*)p_cur[i].addresses);
         }
         removeLastChar;
         closeResponse;
