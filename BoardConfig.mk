@@ -65,6 +65,9 @@ TARGET_KERNEL_SOURCE := kernel/samsung/g800f
 TARGET_BOARD_PLATFORM := exynos3
 TARGET_SOC := exynos3470
 
+# Audio
+BOARD_USES_LIBMEDIA_WITH_AUDIOPARAMETER := true
+
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
@@ -83,6 +86,9 @@ COMMON_GLOBAL_CFLAGS += \
 # Legacy MMAP for pre-lollipop blobs
 # (needed by mcDriverDaemon which in turn is needed by cbd)
 BOARD_USES_LEGACY_MMAP := true
+
+# Media
+COMMON_GLOBAL_CFLAGS += -DADD_LEGACY_ACQUIRE_BUFFER_SYMBOL # acquire_buffer symbol for libwvm.so
 
 # RIL
 BOARD_PROVIDES_LIBRIL := true

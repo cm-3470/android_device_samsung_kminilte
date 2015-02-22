@@ -45,15 +45,13 @@ PRODUCT_PACKAGES += \
 # Audio
 PRODUCT_PACKAGES += \
     audio.a2dp.default \
+    audio.primary.universal3470 \
     audio.usb.default \
     audio.r_submix.default
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
-    $(LOCAL_PATH)/audio/default_gain.conf:system/etc/default_gain.conf \
-    $(LOCAL_PATH)/audio/mixer_paths.xml:system/etc/mixer_paths.xml \
-    $(LOCAL_PATH)/audio/tinyucm.conf:system/etc/tinyucm.conf
-#    $(LOCAL_PATH)/audio/audio_effects.conf:system/vendor/etc/audio_effects.conf \
+    $(LOCAL_PATH)/audio/tiny_hw.xml:system/etc/tiny_hw.xml
 
 # Data workaround
 #PRODUCT_COPY_FILES += \
