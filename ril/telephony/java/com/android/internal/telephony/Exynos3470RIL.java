@@ -236,7 +236,7 @@ public class Exynos3470RIL extends RIL {
                 break;
             case RIL_UNSOL_WB_AMR_STATE:
                 ret = responseInts(p);
-                //setWbAmr(((int[])ret)[0]);
+                setWbAmr(((int[])ret)[0]);
                 break;
             case RIL_UNSOL_PCMCLOCK_STATE:
                 ret = responseInts(p);
@@ -271,7 +271,6 @@ public class Exynos3470RIL extends RIL {
      *
      * @param state: 0 = unsupported, 1 = supported.
      */
-/*
     private void setWbAmr(int state) {
         if (state == 1) {
             Rlog.d(RILJ_LOG_TAG, "setWbAmr(): setting audio parameter - wb_amr=on");
@@ -281,7 +280,6 @@ public class Exynos3470RIL extends RIL {
             mAudioManager.setParameters("wide_voice_enable=false");
         }
     }
-*/
 
     @Override
     public void

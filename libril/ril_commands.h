@@ -125,12 +125,12 @@
     {RIL_REQUEST_VOICE_RADIO_TECH, dispatchVoiceRadioTech, responseInts},
     {RIL_REQUEST_GET_CELL_INFO_LIST, dispatchVoid, responseCellInfoList},
     {RIL_REQUEST_SET_UNSOL_CELL_INFO_LIST_RATE, dispatchInts, responseVoid}, // 110
-    {RIL_REQUEST_SET_INITIAL_ATTACH_APN, dispatchSetInitialAttachApn, responseVoid}, //111
-    {RIL_REQUEST_IMS_REGISTRATION_STATE, dispatchVoid, responseInts}, //112
-    {RIL_REQUEST_IMS_SEND_SMS, dispatchImsSms, responseSMS}, //113
-    {RIL_REQUEST_GET_DATA_CALL_PROFILE, dispatchInts, responseGetDataCallProfile}, //114
-    {RIL_REQUEST_SET_UICC_SUBSCRIPTION, dispatchUiccSubscripton, responseVoid}, //115
-    {RIL_REQUEST_SET_DATA_SUBSCRIPTION, dispatchVoid, responseVoid}, //116
+    {RIL_REQUEST_SET_INITIAL_ATTACH_APN, dispatchSetInitialAttachApn, responseVoid},
+    {RIL_REQUEST_IMS_REGISTRATION_STATE, dispatchVoid, responseInts},
+    {RIL_REQUEST_IMS_SEND_SMS, dispatchImsSms, responseSMS},
+    {RIL_REQUEST_GET_DATA_CALL_PROFILE, dispatchInts, responseGetDataCallProfile},
+    {RIL_REQUEST_SET_UICC_SUBSCRIPTION, dispatchUiccSubscripton, responseVoid},
+    {RIL_REQUEST_SET_DATA_SUBSCRIPTION, dispatchVoid, responseVoid},
     {0, NULL, NULL}, // 10001
     {RIL_REQUEST_GET_CELL_BROADCAST_CONFIG, dispatchVoid, responseVoid},
     {0, NULL, NULL}, // 10003
