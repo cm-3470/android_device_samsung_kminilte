@@ -13,10 +13,5 @@
 /dev/block/platform/dw_mmc.0/by-name/RECOVERY  /recovery              emmc      defaults                                                                          recoveryonly
 
 # VOLD
-/devices/platform/dw_mmc.2/mmc_host/mmc2*      auto 	              vfat	default		voldmanaged=extSdCard:auto,noemulatedsd
-/devices/platform/exynos-dwc3.0/exynos-xhci*sda,/devices/platform/s5p-ehci/usb1*sda            auto                    vfat    default     voldmanaged=UsbDriveA:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci*sdb,/devices/platform/s5p-ehci/usb1*sdb            auto                    vfat    default     voldmanaged=UsbDriveB:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci*sdc,/devices/platform/s5p-ehci/usb1*sdc            auto                    vfat    default     voldmanaged=UsbDriveC:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci*sdd,/devices/platform/s5p-ehci/usb1*sdd            auto                    vfat    default     voldmanaged=UsbDriveD:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci*sde,/devices/platform/s5p-ehci/usb1*sde            auto                    vfat    default     voldmanaged=UsbDriveE:auto
-/devices/platform/exynos-dwc3.0/exynos-xhci*sdf,/devices/platform/s5p-ehci/usb1*sdf           auto                    vfat    default     voldmanaged=UsbDriveF:auto
+/devices/platform/dw_mmc.2/mmc_host/mmc2*      auto 	              auto      defaults     voldmanaged=sdcard1:auto,noemulatedsd
+/devices/platform/s5p-ehci/usb1*               auto                   auto      defaults     voldmanaged=usbdisk0:auto

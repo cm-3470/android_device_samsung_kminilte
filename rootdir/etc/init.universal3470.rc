@@ -8,13 +8,8 @@ on init
 #    start watchdogd
 
     # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/media_rw/extSdCard 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UsbDriveA 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UsbDriveB 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UsbDriveC 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UsbDriveD 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UsbDriveE 0700 media_rw media_rw
-    mkdir /mnt/media_rw/UsbDriveF 0700 media_rw media_rw
+    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
+    mkdir /mnt/media_rw/usbdisk0 0700 media_rw media_rw
 
     # See storage config details at http://source.android.com/tech/storage/
     mkdir /mnt/shell/emulated 0700 shell shell
@@ -31,23 +26,13 @@ on init
     symlink /mnt/shell/emulated/0 /storage/emulated/legacy
 
     # map "real" external storages paths also in same way. backwards compatibility.
-    symlink /storage/extSdCard /mnt/extSdCard
-    symlink /storage/UsbDriveA /mnt/UsbDriveA
-    symlink /storage/UsbDriveB /mnt/UsbDriveB
-    symlink /storage/UsbDriveC /mnt/UsbDriveC
-    symlink /storage/UsbDriveD /mnt/UsbDriveD
-    symlink /storage/UsbDriveE /mnt/UsbDriveE
-    symlink /storage/UsbDriveF /mnt/UsbDriveF
+    symlink /storage/sdcard1 /mnt/sdcard1
+    symlink /storage/usbdisk0 /mnt/usbdisk0
 
-    export SECONDARY_STORAGE /storage/extSdCard
+    export SECONDARY_STORAGE /storage/sdcard1
 
-    mkdir /storage/extSdCard 0700 root root
-    mkdir /storage/UsbDriveA 0700 root root
-    mkdir /storage/UsbDriveB 0700 root root
-    mkdir /storage/UsbDriveC 0700 root root
-    mkdir /storage/UsbDriveD 0700 root root
-    mkdir /storage/UsbDriveE 0700 root root
-    mkdir /storage/UsbDriveF 0700 root root
+    mkdir /storage/sdcard1 0700 root root
+    mkdir /storage/usbdisk0 0700 root root
 
     mkdir /efs 0771 radio system
     symlink /dev/block/mmcblk0p13 /dev/mbin0
@@ -412,40 +397,16 @@ service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emul
     class late_start
     oneshot
 
-service fuse_extSdCard /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/extSdCard /storage/extSdCard
+service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
     class late_start
     disabled
     oneshot
 
-service fuse_UsbDriveA /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/UsbDriveA /storage/UsbDriveA
+service fuse_usbdisk0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk0 /storage/usbdisk0
     class late_start
     disabled
     oneshot
 
-service fuse_UsbDriveB /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/UsbDriveB /storage/UsbDriveB
-    class late_start
-    disabled
-    oneshot
-
-service fuse_UsbDriveC /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/UsbDriveC /storage/UsbDriveC
-    class late_start
-    disabled
-    oneshot
-
-service fuse_UsbDriveD /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/UsbDriveD /storage/UsbDriveD
-    class late_start
-    disabled
-    oneshot
-
-service fuse_UsbDriveE /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/UsbDriveE /storage/UsbDriveE
-    class late_start
-    disabled
-    oneshot
-
-service fuse_UsbDriveF /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/UsbDriveF /storage/UsbDriveF
-    class late_start
-    disabled
-    oneshot
 
 # Set watchdog timer to 20 seconds and pet it every 10 seconds to get a 10 second margin
 # service watchdogd /sbin/watchdogd 10 10
