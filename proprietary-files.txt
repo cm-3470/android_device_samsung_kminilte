@@ -144,14 +144,11 @@ lib/libMcRegistry.so
 
 # Radio
 bin/at_distributor
-#bin/rild
 etc/plmn_delta.bin
 etc/plmn_se13.bin
 lib/libatparser.so
 lib/libfactoryutil.so
 lib/libomission_avoidance.so
-#lib/libril.so
-#lib/libsecril-client.so
 lib/libsec-ril.so
 # Needed by libsec-ril.so
 lib/libsecnativefeature.so
@@ -167,8 +164,6 @@ lib/libacdapi_clb.so
 
 # Wifi
 bin/macloader
-#/bin/mfgloader
-#/bin/wlandutservice
 etc/wifi/bcmdhd_apsta.bin_b2
 etc/wifi/bcmdhd_p2p.bin_b2
 etc/wifi/bcmdhd_sta.bin_b2
