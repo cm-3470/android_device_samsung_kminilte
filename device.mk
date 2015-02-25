@@ -96,7 +96,6 @@ PRODUCT_PACKAGES += \
 # Wifi
 PRODUCT_PACKAGES += \
     wpa_supplicant \
-    wpa_supplicant.conf
 #    dhcpcd.conf \
 #    hostapd \
 #    hostapd_default.conf \
@@ -104,6 +103,7 @@ PRODUCT_PACKAGES += \
 #    p2p_supplicant
 
 PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
     $(LOCAL_PATH)/wifi/wpa_supplicant_overlay.conf:system/etc/wifi/wpa_supplicant_overlay.conf \
     $(LOCAL_PATH)/wifi/p2p_supplicant_overlay.conf:system/etc/wifi/p2p_supplicant_overlay.conf
 
