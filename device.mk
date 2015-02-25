@@ -53,10 +53,6 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf \
     $(LOCAL_PATH)/audio/tiny_hw.xml:system/etc/tiny_hw.xml
 
-# Data workaround
-#PRODUCT_COPY_FILES += \
-#    $(LOCAL_PATH)/configs/enable_data:system/bin/enable_data
-
 # HW composer (needed by libMali.so)
 PRODUCT_PACKAGES += \
     libion
