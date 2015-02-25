@@ -92,11 +92,11 @@ PRODUCT_PACKAGES += \
 # Wifi
 PRODUCT_PACKAGES += \
     wpa_supplicant \
-#    dhcpcd.conf \
-#    hostapd \
-#    hostapd_default.conf \
-#    libwpa_client \
-#    p2p_supplicant
+    hostapd
+
+# CM12 config uses pmf=1 which fails to connect with some APs
+# See: https://code.google.com/p/android/issues/detail?id=78702
+#wpa_supplicant.conf
 
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/wifi/wpa_supplicant.conf:system/etc/wifi/wpa_supplicant.conf \
