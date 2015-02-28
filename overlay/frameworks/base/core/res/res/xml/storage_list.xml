@@ -37,6 +37,7 @@
     <!-- internal emulated storage -->
     <storage android:storageDescription="@string/storage_internal"
              android:emulated="true"
+             android:primary="true"
              android:mtpReserve="100" />
 
     <!-- external SD card storage -->

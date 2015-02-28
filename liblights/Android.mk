@@ -1,4 +1,4 @@
-# Copyright (C) 2011 The Android Open Source Project
+# Copyright (C) 2014 The CyanogenMod Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -12,22 +12,19 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-LOCAL_PATH := $(call my-dir)
-
+LOCAL_PATH:= $(call my-dir)
+# HAL module implemenation stored in
+# hw/<COPYPIX_HARDWARE_MODULE_ID>.<ro.board.platform>.so
 include $(CLEAR_VARS)
 
-LOCAL_MODULE := audio.primary.$(TARGET_BOOTLOADER_BOARD_NAME)
+LOCAL_SRC_FILES := lights.c
+
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
+
+LOCAL_SHARED_LIBRARIES := liblog
+
+LOCAL_MODULE := lights.exynos3
+
 LOCAL_MODULE_TAGS := optional
-
-LOCAL_SRC_FILES := audio_hw.c ril_interface.c
-
-LOCAL_C_INCLUDES += \
-	external/tinyalsa/include \
-	external/expat/lib \
-	$(call include-path-for, audio-utils) \
-	$(call include-path-for, audio-effects)
-
-LOCAL_SHARED_LIBRARIES := liblog libcutils libtinyalsa libaudioutils libdl libexpat
 
 include $(BUILD_SHARED_LIBRARY)
