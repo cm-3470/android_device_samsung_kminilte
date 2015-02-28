@@ -83,9 +83,7 @@ vendor/lib/hw/keystore.exynos3.so
 # For replacement see:
 # - /drivers/leds/leds-ktd2026.c (ktd2026_start_led_pattern)
 # - https://github.com/Aaahh/android_device_motorola_omap34com/blob/master/liblights/lights.c
-vendor/lib/hw/lights.exynos3.so
-# Needed by lights.exynos3.so
-#lib/libsecril-client.so
+#vendor/lib/hw/lights.exynos3.so
 
 # LPM
 bin/lpm
