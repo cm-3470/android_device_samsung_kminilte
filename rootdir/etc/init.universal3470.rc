@@ -411,6 +411,12 @@ service fuse_usbdisk0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdis
     disabled
     oneshot
 
+service prepare_param /system/bin/prepare_param.sh /dev/block/platform/dw_mmc.0/by-name/PARAM
+	class main
+	user root
+	group root
+	seclabel u:r:prepare_param:s0
+	oneshot
 
 # Set watchdog timer to 20 seconds and pet it every 10 seconds to get a 10 second margin
 # service watchdogd /sbin/watchdogd 10 10
