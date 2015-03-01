@@ -116,6 +116,11 @@ vendor/firmware/setfile_4h5.bin
 vendor/firmware/setfile_6a3.bin
 vendor/firmware/setfile_6b2.bin
 
+# NFC
+lib/hw/nfc_nci.universal3470.so
+etc/sec_s3fwrn5_rfreg.bin
+vendor/firmware/sec_s3fwrn5_firmware.bin
+
 # Boot script (handles deferred kernels init-calls, e.g. for Wifi driver startup)
 etc/init.sec.boot.sh
 

@@ -47,6 +47,12 @@ TARGET_KERNEL_SOURCE := kernel/samsung/kminilte
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/kminilte/bluetooth
 
+# NFC
+# Chipset: Samsung s3fwrn5
+# Note: as libnfc-nci only supports pn547 and bcm2079x, select pn547 here but use the stock s3fwrn5 hal
+BOARD_NFC_CHIPSET := pn547
+BOARD_NFC_HAL_SUFFIX := universal3470
+
 # Recovery
 TARGET_RECOVERY_DEVICE_DIRS += device/samsung/kminilte
 TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470

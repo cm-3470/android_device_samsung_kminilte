@@ -61,6 +61,10 @@ on post-fs-data
 # Multimedia property for Smart View
 	setprop media.enable-commonsource true
 
+#nfc
+    setprop ro.nfc.port "I2C"
+    mkdir /data/nfc 0700 nfc nfc
+    mkdir /data/nfc/param 0700 nfc nfc
 
 #Private Mode
     mkdir /data/privatemode 0770 system system
