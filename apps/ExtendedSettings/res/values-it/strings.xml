@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Impostazioni avanzate</string>
+
+    <!-- Page Headers -->
+    <string name="tab_general_title">VARIE</string>
+    <string name="tab_performance_title">PERFORMANCE</string>
+    <string name="tab_touchkey_title">TOUCHKEY</string>
+    <string name="tab_bln_title">BLN</string>
+
+    <!-- Page General -->
+    <string name="category_screen_title">Display</string>
+    <string name="g_sensor_title">Calibrazione orizzontale</string>
+    <string name="g_sensor_summary">Calibra il dispositivo con l’accelerometro</string>
+    <string name="gsensor_ready">Posizionate il dispositivo su una superficie piana e toccate Calibra</string>
+    <string name="gsensor_calibrating">Calibrazione in corso. Non muovere il dispositivo. Attendere...</string>
+    <string name="gsensor_nofile">Impossibile trovare il file offset. Riprovare</string>
+    <string name="gsensor_end">Calibrazione avvenuta</string>
+    <string name="gsensor_button1">Completo</string>
+    <string name="gsensor_button2">Calibra</string>
+
+    <string name="category_fast_charge_title">Supporto caricamento rapido</string>
+    <string name="force_fast_charge_usbwarning">Rimuovi il cavo USB</string>
+    <string name="force_fast_charge">Forza caricamento rapido</string>
+    <string name="force_fast_charge_summary">Rileva i PC connessi alla porta USB come semplici caricatori USB, per un più rapido caricamento della batteria</string>
+
+    <string name="category_otg_title">USB-OTG</string>
+    <string name="otg_charge_title">Ricarica USB-OTG</string>
+    <string name="otg_charge_summary">Supporto all\'alimentazione in modalità USB host.\nAttenzione: Se la ricarica è stata attivata, per evitare danni, assicuratevi che la sorgente di alimentazione (e.g. USB-Hub) supporti l\'assorbimento di corrente richiesto.</string>
+
+    <string name="category_bluetooth_title">Bluetooth</string>
+    <string name="a2dp_sink_title">A2DP Sink</string>
+    <string name="a2dp_sink_summary_on">L\'A2DP Sink è abilitato, l\'A2DP Source è disabilitato</string>
+    <string name="a2dp_sink_summary_off">L\'A2DP Sink è disabilitato, l\'A2DP Source è abilitato</string>
+    <string name="a2dp_sink_error_bt_active">Il Bluetooth deve essere disattivato prima di poter modificare la modalità A2DP.</string>
+
+    <!-- Page Performance -->
+    <string name="category_performance_title">Performance</string>
+    <string name="highend_gfx_title">Opzione High-End GFX</string>
+    <string name="highend_gfx_summary_on">Gli effetti grafici di alta qualità sono abilitati, funzionalità come il lock screen, status e notification bar trasparenti sono abilitate</string>
+    <string name="highend_gfx_summary_off">Gli effetti grafici di alta qualità sono disabilitati, funzionalità come il lock screen, status e notification bar trasparenti sono disabilitate</string>
+    <string name="highend_gfx_error">Impossibile impostare l\'opzione High-End GFX, per favore controlla che l\'app abbia i permessi di root.</string>
+
+    <string name="low_ram_title">Opzione Low RAM</string>
+    <string name="low_ram_summary_on">L\'opzione Low RAM è abilitata, le funzionalità che richiedono molta memoria sono disabilitate</string>
+    <string name="low_ram_summary_off">L\'opzione Low RAM è disabilitata, le funzionalità che richiedono molta memoria sono abilitate</string>
+    <string name="low_ram_error">Impossibile impostare l\'opzione LowRam, per favore controlla che l\'app abbia i permessi di root.</string>
+
+    <string name="category_apps_services_title">App e Servizi</string>
+    <string name="max_bg_apps_title">Max app in background</string>
+    <string name="max_bg_apps_summary">Imposta il numero massimo di app in esecuzione in background</string>
+    <string name="max_bg_apps_error">Impossibile impostare il numero massimo di app, per favore controlla che l\'app abbia i permessi di root.</string>
+
+    <string name="max_bg_services_title">Max servizi in background</string>
+    <string name="max_bg_services_summary">Imposta il numero massimo di servizi in esecuzione in background</string>
+    <string name="max_bg_services_error">Impossibile impostare il numero massimo di servizi, per favore controlla che l\'app abbia i permessi di root.</string>
+
+    <string name="reboot_alert">E\' necessario un riavvio per applicare l\'impostazione.\nVuoi riavviare adesso?\n\nPremi Sì per riavviare ora oppure No se preferisci riavviare più tardi.</string>
+    <string name="reboot_wait">Il dispositivo verrà riavviato in %1$d secondi, per favore attendere.</string>
+    <string name="reboot_yes">Sì</string>
+    <string name="reboot_no">No</string>
+
+    <!-- Page TouchKey -->
+    <string name="category_touchkey_title">Tasti a sfioramento</string>
+    <string name="backlight_timeout_title">Timer retroilluminazione</string>
+    <string name="backlight_timeout_summary">Imposta l\'intervallo dopo cui la retroilluminazione dei tasti si spegne</string>
+    <string name="touchlight_status_title">Retroilluminazione pressioni touchscreen</string>
+    <string name="touchlight_status_summary">Attiva/disattiva la retroilluminazione dei touchkey in caso di pressioni del touchscreen</string>
+
+    <string name="category_pkfmanager_title">Pressioni fantasma</string>
+    <string name="pkfmanager_title">Filtro delle pressioni fantasma</string>
+    <string name="pkfmanager_summary">Filtra le pressioni dei tasti causate dall\'interferenza dell\'antenna (applicazione esterna)</string>
+
+    <!-- Page BLN -->
+    <string name="category_bln_title">Notifiche luminose</string>
+    <string name="bln_type_title">Modalità di notifica</string>
+    <string name="bln_type_summary">Imposta la modalità con cui una notifica verrà segnalata dai pulsanti luminosi</string>
+    <string name="bln_blink_timeout_title">Durata del lampeggiamento</string>
+    <string name="bln_blink_timeout_summary">Imposta la durata del lampeggiamento dei pulsanti</string>
+    <string name="bln_blink_interval_on_title">Durata illuminazione accesa</string>
+    <string name="bln_blink_interval_on_summary">Imposta la durata di illuminazione accesa durante il lampeggiamento</string>
+    <string name="bln_blink_interval_off_title">Durata illuminazione spenta</string>
+    <string name="bln_blink_interval_off_summary">Imposta la durata di illuminazione spenta durante il lampeggiamento</string>
+    <string name="bln_static_timeout_title">Durata dell\'illuminazione fissa</string>
+    <string name="bln_static_timeout_summary">Imposta la durata dell\'illuminazione fissa dei pulsanti</string>
+</resources>

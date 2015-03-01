@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string-array name="backlight_timeout_entries">
+        <item>Alapértelmezett (1.6 maásodperc)</item>
+        <item>0.5 másodperc</item>
+        <item>1 másodperc</item>
+        <item>2 másodperc</item>
+        <item>5 másodperc</item>
+        <item>Soha</item>
+    </string-array>
+
+    <string-array name="bln_type_entries">
+        <item>Kikapcsolva</item>
+        <item>Villogás</item>
+        <item>Folytonos</item>
+        <item>Villogás és folytonos felváltva</item>
+    </string-array>
+
+    <string-array name="bln_timeout_entries">
+        <item>10 másodperc</item>
+        <item>15 másodperc</item>
+        <item>20 másodperc</item>
+        <item>30 másodperc</item>
+        <item>1 perc</item>
+        <item>2 perc</item>
+        <item>5 perc</item>
+        <item>10 perc</item>
+        <item>15 perc</item>
+        <item>30 perc</item>
+        <item>45 perc</item>
+        <item>1 óra</item>
+    </string-array>
+
+    <string-array name="bln_blink_interval_entries">
+        <item>0.25 másodperc</item>
+        <item>0.5 másodperc</item>
+        <item>1 másodperc</item>
+        <item>1.5 másodperc</item>
+        <item>2 másodperc</item>
+        <item>3 másodperc</item>
+        <item>4 másodperc</item>
+        <item>5 másodperc</item>
+    </string-array>
+</resources>

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Geavanceerde instellingen</string>
+
+    <!-- Page Headers -->
+    <string name="tab_general_title">ALGEMEEN</string>
+    <string name="tab_performance_title">PERFORMANTIE</string>
+    <string name="tab_touchkey_title">TOUCHKEY</string>
+    <string name="tab_bln_title">BLN</string>
+    
+    <!-- Page General -->
+    <string name="category_screen_title">Scherm</string>
+    <string name="g_sensor_title">Horizontale kalibratie</string>
+    <string name="g_sensor_summary">Horizontaal kalibreren met de acceleratiemeter</string>
+    <string name="gsensor_ready">Plaats op een vlakke ondergrond en tik op Kalibreren</string>
+    <string name="gsensor_calibrating">Kalibreren. Verplaats apparaat niet. Even geduld...</string>
+    <string name="gsensor_nofile">Kan margebestand niet vinden. Probeer het opnieuw</string>
+    <string name="gsensor_end">Gekalibreerd</string>
+    <string name="gsensor_button1">Voltooid</string>
+    <string name="gsensor_button2">Kalibreer</string>
+
+    <string name="category_fast_charge_title">Snel Opladen ondersteuning</string>
+    <string name="force_fast_charge">Forceer snel opladen</string>
+    <string name="force_fast_charge_summary">Detecteert een via USB verbonden PC als een gewone lader, om sneller op te laden</string>
+
+    <!-- Page Performance -->
+    <string name="category_performance_title">Performantie</string>
+    <string name="low_ram_title">Weinig RAM schakelaar</string>
+    <string name="low_ram_summary_on">Weinig RAM is ingeschakeld, functionaliteit voor apparaten met veel RAM is niet beschikbaar</string>
+    <string name="low_ram_summary_off">Weinig RAM is uitgeschakeld, functionaliteit voor apparaten met veel RAM is beschikbaar</string>
+    <string name="low_ram_error">Onmogelijk om de instelling aan te passen, gelieve voor deze applicatie root-toegang toe te staan</string>
+
+    <string name="reboot_alert">Om deze instelling toe te passen is opnieuw opstarten noodzakelijk.\nWilt u nu opnieuw opstarten?\n\nTik op Ja om nu opnieuw op te starten of op Nee als u dit later wilt doen.</string>
+    <string name="reboot_wait">Het apparaat wordt opnieuw opgestart over %1$d seconden, even geduld.</string>
+    <string name="reboot_yes">Ja</string>
+    <string name="reboot_no">Nee</string>
+
+    <!-- Page TouchKey -->
+    <string name="category_touchkey_title">Aanraakknoppen</string>
+    <string name="backlight_timeout_title">Time-out achtergrondverlichting</string>
+    <string name="backlight_timeout_summary">Vertraging voor automatisch uitschakelen achtergrondverlichting aanpassen</string>
+    <string name="touchlight_status_title">Achtergrondverlichting als op het scherm wordt getikt</string>
+    <string name="touchlight_status_summary">Actievatiestatus van achtergrondverlichting indien op het scherm wordt getikt</string>
+
+    <string name="category_pkfmanager_title">Fout geregistreerde tikken</string>
+    <string name="pkfmanager_title">Filter fout geregistreerde tikken</string>
+    <string name="pkfmanager_summary">Filter tikken op de aanraakknoppen veroorzaakt door interferentie van de antenne (externe applicatie)</string>
+
+    <!-- Page BLN -->
+    <string name="category_bln_title">Achtergrondverlichting Notificatie</string>
+    <string name="bln_type_title">Notificatietype</string>
+    <string name="bln_type_summary">De manier waarop een notificatie wordt weergegeven door de achtergrondverlichting</string>
+    <string name="bln_blink_timeout_title">Knipperen time-out</string>
+    <string name="bln_blink_timeout_summary">De periode waarin de lichten knipperen</string>
+    <string name="bln_blink_interval_on_title">Knipperen AAN interval</string>
+    <string name="bln_blink_interval_on_summary">Het interval waarin het licht AAN is</string>
+    <string name="bln_blink_interval_off_title">Knipperen UIT interval</string>
+    <string name="bln_blink_interval_off_summary">Het interval waarin het licht UIT is</string>
+    <string name="bln_static_timeout_title">Continu licht time-out</string>
+    <string name="bln_static_timeout_summary">De periode waarin het licht continu aan blijft</string>
+
+</resources>

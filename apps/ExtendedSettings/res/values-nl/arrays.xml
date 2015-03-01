@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string-array name="backlight_timeout_entries">
+        <item>Standaard (1.6 seconden)</item>
+        <item>0.5 seconden</item>
+        <item>1 seconden</item>
+        <item>2 seconden</item>
+        <item>5 seconden</item>
+        <item>Nooit</item>
+    </string-array>
+
+    <string-array name="bln_type_entries">
+        <item>Uitgeschakeld</item>
+        <item>Knipperend licht</item>
+        <item>Continu licht</item>
+        <item>Knipperend en continu licht</item>
+    </string-array>
+
+    <string-array name="bln_timeout_entries">
+        <item>10 seconden</item>
+        <item>15 seconden</item>
+        <item>20 seconden</item>
+        <item>30 seconden</item>
+        <item>1 minuut</item>
+        <item>2 minuut</item>
+        <item>5 minuut</item>
+        <item>10 minuut</item>
+        <item>15 minuut</item>
+        <item>30 minuut</item>
+        <item>45 minuut</item>
+        <item>1 uur</item>
+    </string-array>
+
+    <string-array name="bln_blink_interval_entries">
+        <item>0.25 seconden</item>
+        <item>0.5 seconden</item>
+        <item>1 seconden</item>
+        <item>1.5 seconden</item>
+        <item>2 seconden</item>
+        <item>3 seconden</item>
+        <item>4 seconden</item>
+        <item>5 seconden</item>
+    </string-array>
+</resources>

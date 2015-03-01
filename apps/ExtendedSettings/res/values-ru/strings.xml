@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Расширенные настройки</string>
+
+    <string name="category_touchkey_title">Сенсорные кнопки</string>
+    <string name="backlight_timeout_title">Подсветка кнопок</string>
+    <string name="backlight_timeout_summary">Настройка времени подсветки сенсорных кнопок</string>
+    <string name="touchlight_status_title">Подсветка при касании экрана</string>
+    <string name="touchlight_status_summary">Включение подсветки при касании сенсорного экрана</string>
+
+    <string name="category_screen_title">Экран</string>
+    <string name="g_sensor_title">Горизонтальная калибровка</string>
+    <string name="g_sensor_summary">Горизонтальная калибровка с помощью акселерометра</string>
+    <string name="gsensor_ready">Положите устройство на ровную поверхность и нажмите "Калибровка"</string>
+    <string name="gsensor_calibrating">Калибровка. Не перемещайте устройство. Пожалуйста, подождите...</string>
+    <string name="gsensor_nofile">Невозможно найти файл калибровки. Попытайтесь снова</string>
+    <string name="gsensor_end">Откалибровано</string>
+    <string name="gsensor_button1">Завершено</string>
+    <string name="gsensor_button2">Калибровка</string>
+
+    <string name="category_fast_charge_title">Поддержка быстрой зарядки</string>
+    <string name="force_fast_charge">Быстрая зарядка</string>
+    <string name="force_fast_charge_summary">Определяет компьютер, подключенный через USB-порт, как зарядное устройство для более быстрого режима зарядки.</string>
+
+    <string name="category_pkfmanager_title">Фантомные нажатия</string>
+    <string name="pkfmanager_title">Фильтр фантомных нажатий</string>
+    <string name="pkfmanager_summary">Фильтр ненужных нажатий на кнопки, возникающих из-за интерференции антенны (дополнительное приложение)</string>
+</resources>

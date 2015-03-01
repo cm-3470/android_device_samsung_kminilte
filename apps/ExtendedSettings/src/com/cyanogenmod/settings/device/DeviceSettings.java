@@ -1,0 +1,191 @@
+/*
+ * Copyright (C) 2013 The CyanogenMod Project
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+package com.cyanogenmod.settings.device;
+
+import android.app.ActionBar;
+import android.app.ActionBar.Tab;
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
+import android.content.Context;
+import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
+
+import com.cyanogenmod.settings.device.R;
+
+import java.util.ArrayList;
+
+public class DeviceSettings extends Activity {
+
+    public static final String SHARED_PREFERENCES_BASENAME = "com.cyanogenmod.settings.device";
+    public static final String ACTION_UPDATE_PREFERENCES = "com.cyanogenmod.settings.device.UPDATE";
+
+    /* Tab General */
+    public static final String KEY_GSENSOR = "gsensor";
+    public static final String KEY_FAST_CHARGE = "force_fast_charge";
+    public static final String KEY_OTG_CHARGE = "otg_charge";
+    public static final String KEY_A2DP_SINK = "a2dp_sink";
+    
+    /* Tab Performance */
+    public static final String KEY_HIGHEND_GFX = "highend_gfx";
+    public static final String KEY_LOW_RAM = "low_ram";
+    public static final String KEY_MAX_BG_APPS = "max_bg_apps";
+    public static final String KEY_MAX_BG_SERVICES = "max_bg_services";
+
+    /* Tab TouchKey */
+    public static final String KEY_BACKLIGHT_TIMEOUT = "backlight_timeout";
+    public static final String KEY_TOUCHLIGHT_STATUS = "touchlight_status";
+    public static final String KEY_PKFMANAGER = "pkfmanager";
+
+    /* Tab Backlight Notification */
+    public static final String KEY_BLN_TYPE = "bln_type";
+    public static final String KEY_BLN_BLINK_TIMEOUT = "bln_blink_timeout";
+    public static final String KEY_BLN_BLINK_INTERVAL_ON = "bln_blink_interval_on";
+    public static final String KEY_BLN_BLINK_INTERVAL_OFF = "bln_blink_interval_off";
+    public static final String KEY_BLN_STATIC_TIMEOUT = "bln_static_timeout";
+
+    ViewPager mViewPager;
+    TabsAdapter mTabsAdapter;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+        mViewPager = new ViewPager(this);
+        mViewPager.setId(R.id.viewPager);
+        setContentView(mViewPager);
+
+        final ActionBar bar = getActionBar();
+        bar.setDisplayHomeAsUpEnabled(true);
+        bar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        bar.setDisplayOptions(ActionBar.DISPLAY_SHOW_TITLE, ActionBar.DISPLAY_SHOW_TITLE);
+        bar.setTitle(R.string.app_name);
+
+        mTabsAdapter = new TabsAdapter(this, mViewPager);
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_general_title),
+                GeneralFragmentActivity.class, null);
+
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_performance_title),
+                PerformanceFragmentActivity.class, null);
+
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_touchkey_title),
+                TouchKeyFragmentActivity.class, null);
+
+        mTabsAdapter.addTab(bar.newTab().setText(R.string.tab_bln_title),
+                BacklightNotificationFragmentActivity.class, null);
+
+        if (savedInstanceState != null) {
+            bar.setSelectedNavigationItem(savedInstanceState.getInt("tab", 0));
+        }
+
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt("tab", getActionBar().getSelectedNavigationIndex());
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    public static class TabsAdapter extends FragmentPagerAdapter
+            implements ActionBar.TabListener, ViewPager.OnPageChangeListener {
+        private final Context mContext;
+        private final ActionBar mActionBar;
+        private final ViewPager mViewPager;
+        private final ArrayList<TabInfo> mTabs = new ArrayList<TabInfo>();
+
+        static final class TabInfo {
+            private final Class<?> clss;
+            private final Bundle args;
+
+            TabInfo(Class<?> _class, Bundle _args) {
+                clss = _class;
+                args = _args;
+            }
+        }
+
+        public TabsAdapter(Activity activity, ViewPager pager) {
+            super(activity.getFragmentManager());
+            mContext = activity;
+            mActionBar = activity.getActionBar();
+            mViewPager = pager;
+            mViewPager.setAdapter(this);
+            mViewPager.setOnPageChangeListener(this);
+        }
+
+        public void addTab(ActionBar.Tab tab, Class<?> clss, Bundle args) {
+            TabInfo info = new TabInfo(clss, args);
+            tab.setTag(info);
+            tab.setTabListener(this);
+            mTabs.add(info);
+            mActionBar.addTab(tab);
+            notifyDataSetChanged();
+        }
+
+        @Override
+        public int getCount() {
+            return mTabs.size();
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            TabInfo info = mTabs.get(position);
+            return Fragment.instantiate(mContext, info.clss.getName(), info.args);
+        }
+
+        @Override
+        public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+        }
+
+        @Override
+        public void onPageSelected(int position) {
+            mActionBar.setSelectedNavigationItem(position);
+        }
+
+        @Override
+        public void onPageScrollStateChanged(int state) {
+        }
+
+        @Override
+        public void onTabSelected(Tab tab, FragmentTransaction ft) {
+            Object tag = tab.getTag();
+            for (int i=0; i<mTabs.size(); i++) {
+                if (mTabs.get(i) == tag) {
+                    mViewPager.setCurrentItem(i);
+                }
+            }
+        }
+
+        @Override
+        public void onTabUnselected(Tab tab, FragmentTransaction ft) {
+        }
+
+        @Override
+        public void onTabReselected(Tab tab, FragmentTransaction ft) {
+        }
+    }
+}

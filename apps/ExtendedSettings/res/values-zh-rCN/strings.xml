@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">高级设置</string>
+
+    <!-- Page Headers -->
+    <string name="tab_general_title">调整</string>
+    <string name="tab_performance_title">性能</string>
+    <string name="tab_touchkey_title">触控键</string>
+    <string name="tab_bln_title">呼吸灯</string>
+
+    <!-- Page General -->
+    <string name="category_screen_title">屏幕</string>
+    <string name="g_sensor_title">水平校准</string>
+    <string name="g_sensor_summary">使用加速计作水平校准</string>
+    <string name="gsensor_ready">将手机放在水平面上，然后轻触“校准”</string>
+    <string name="gsensor_calibrating">校准中... 请勿移动手机</string>
+    <string name="gsensor_nofile">找不到文件，请重试</string>
+    <string name="gsensor_end">校准</string>
+    <string name="gsensor_button1">完成</string>
+    <string name="gsensor_button2">校准</string>
+
+    <string name="category_fast_charge_title">快速充电设置</string>
+    <string name="force_fast_charge_usbwarning">移除 USB 线缆</string>
+    <string name="force_fast_charge">启用快速充电</string>
+    <string name="force_fast_charge_summary">若检测到USB线连接到电脑，充电会加快。（提醒：打开后无法使用大容量存储）</string>
+
+    <string name="category_otg_title">USB-OTG</string>
+    <string name="otg_charge_title">USB-OTG 充电</string>
+    <string name="otg_charge_summary">充电支持USB主机模式.\n注意: 请确认连接的带电源线缆 (例如 USB-Hub) 可以调控功耗，以避免充电时的危险性</string>
+
+    <string name="category_bluetooth_title">蓝牙</string>
+    <string name="a2dp_sink_title">A2DP Sink</string>
+    <string name="a2dp_sink_summary_on">A2DP Sink 已启用, A2DP Source 已禁用</string>
+    <string name="a2dp_sink_summary_off">A2DP Sink 已禁用, A2DP Source 已启用</string>
+    <string name="a2dp_sink_error_bt_active">更改 A2DP 模式前请先关闭蓝牙</string>
+
+    <!-- Page Performance -->
+    <string name="category_performance_title">性能</string>
+    <string name="highend_gfx_title">高品质图形效果切换</string>
+    <string name="highend_gfx_summary_on">高品质图形效果已启用，状态栏、通知栏等透明特效已启用</string>
+    <string name="highend_gfx_summary_off">高品质图形效果已禁用，状态栏、通知栏等透明特效已禁用</string>
+    <string name="highend_gfx_error">无法设置，请先允许该应用程序获取ROOT权限</string>
+
+    <string name="low_ram_title">低RAM切换</string>
+    <string name="low_ram_summary_on">低RAM优化已启用, 部分占用较多RAM的系统功能已禁用</string>
+    <string name="low_ram_summary_off">低RAM优化已禁用, 部分占用较多RAM的系统功能已启用</string>
+    <string name="low_ram_error">无法调用低RAM优化设置，请先允许该应用程序获取ROOT权限</string>
+
+    <string name="category_apps_services_title">应用程序与服务</string>
+    <string name="max_bg_apps_title">最多后台进程数量</string>
+    <string name="max_bg_apps_summary">设置最多可同时在后台运行的应用程序数量</string>
+    <string name="max_bg_apps_error">无法设置后台进程数量，请先授予ROOT权限</string>
+
+    <string name="max_bg_services_title">最多后台服务数量</string>
+    <string name="max_bg_services_summary">设置最多可同时在后台运行的服务数量</string>
+    <string name="max_bg_services_error">无法设置后台服务数量，请先授予ROOT权限</string>
+
+    <string name="reboot_alert">需要重启手机来应用你的更改\n你想现在重启手机吗？\n\n点是立即重启，点否稍后重启</string>
+    <string name="reboot_wait">设备将会在 %1$d 秒后重启, 请稍后</string>
+    <string name="reboot_yes">是</string>
+    <string name="reboot_no">否</string>
+
+    <!-- Page TouchKey -->
+    <string name="category_touchkey_title">触控键</string>
+    <string name="backlight_timeout_title">按键灯超时</string>
+    <string name="backlight_timeout_summary">调整触控键背光自动关闭前的延迟时间</string>
+    <string name="touchlight_status_title">点击屏幕时背光</string>
+    <string name="touchlight_status_summary">点击屏幕时激活触控键背光状态</string>
+
+    <string name="category_pkfmanager_title">虚假触控键</string>
+    <string name="pkfmanager_title">触控过滤值</string>
+    <string name="pkfmanager_summary">调用第三方软件调节虚拟触控值，能避免天线信号干扰造成的自动返回桌面等问题</string>
+
+    <!-- Page BLN -->
+    <string name="category_bln_title">呼吸灯通知</string>
+    <string name="bln_type_title">通知类型</string>
+    <string name="bln_type_summary">设置触控键呼吸灯闪烁的方式</string>
+    <string name="bln_blink_timeout_title">呼吸灯超时</string>
+    <string name="bln_blink_timeout_summary">设置闪烁的总持续时间</string>
+    <string name="bln_blink_interval_on_title">点亮时长</string>
+    <string name="bln_blink_interval_on_summary">设置每次呼吸灯点亮的时长</string>
+    <string name="bln_blink_interval_off_title">熄灭时长</string>
+    <string name="bln_blink_interval_off_summary">设置每次呼吸灯熄灭的时长</string>
+    <string name="bln_static_timeout_title">常亮灯超时</string>
+    <string name="bln_static_timeout_summary">设置常亮灯的总持续时间</string>
+</resources>

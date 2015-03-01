@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Fastcharge -->
+    <PreferenceCategory android:title="@string/category_fast_charge_title" >
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="force_fast_charge"
+            android:summary="@string/force_fast_charge_summary"
+            android:title="@string/force_fast_charge" />
+    </PreferenceCategory>
+
+    <!-- USB-OTG -->
+    <PreferenceCategory android:title="@string/category_otg_title" >
+        <ListPreference
+            android:key="otg_charge"
+            android:title="@string/otg_charge_title"
+            android:summary="@string/otg_charge_summary"
+            android:entries="@array/otg_charge_entries"
+            android:entryValues="@array/otg_charge_entries_values"
+            android:defaultValue="none" />
+    </PreferenceCategory>
+
+    <!-- Bluetooth -->
+    <PreferenceCategory android:title="@string/category_bluetooth_title" >
+        <CheckBoxPreference
+            android:key="a2dp_sink"
+            android:title="@string/a2dp_sink_title"
+            android:summaryOn="@string/a2dp_sink_summary_on"
+            android:summaryOff="@string/a2dp_sink_summary_off"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
+    <!-- GSensor calibration -->
+    <PreferenceCategory android:title="@string/category_screen_title" >
+        <Preference
+            android:key="gsensor"
+            android:summary="@string/g_sensor_summary"
+            android:title="@string/g_sensor_title" >
+            <intent android:action="com.cyanogenmod.settings.device.GSensor" />
+        </Preference>
+    </PreferenceCategory>
+
+</PreferenceScreen>

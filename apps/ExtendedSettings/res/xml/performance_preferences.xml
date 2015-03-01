@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2014 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:cyanogenmod="http://cyanogenmod">
+
+    <!-- Performance -->
+    <PreferenceCategory android:title="@string/category_performance_title">
+        <CheckBoxPreference
+            android:key="highend_gfx"
+            android:title="@string/highend_gfx_title"
+            android:summaryOn="@string/highend_gfx_summary_on"
+            android:summaryOff="@string/highend_gfx_summary_off"
+            android:defaultValue="false" />
+        <CheckBoxPreference
+            android:key="low_ram"
+            android:title="@string/low_ram_title"
+            android:summaryOn="@string/low_ram_summary_on"
+            android:summaryOff="@string/low_ram_summary_off"
+            android:defaultValue="true" />
+    </PreferenceCategory>
+
+    <!-- Apps & Services -->
+    <PreferenceCategory android:title="@string/category_apps_services_title">
+        <com.cyanogenmod.settings.device.SeekBarPreference
+            android:key="max_bg_apps"
+            android:title="@string/max_bg_apps_title"
+            android:summary="@string/max_bg_apps_summary"
+            android:defaultValue="16"
+            cyanogenmod:minValue="8"
+            cyanogenmod:maxValue="32" />
+        <com.cyanogenmod.settings.device.SeekBarPreference
+            android:key="max_bg_services"
+            android:title="@string/max_bg_services_title"
+            android:summary="@string/max_bg_services_summary"
+            android:defaultValue="8"
+            cyanogenmod:minValue="2"
+            cyanogenmod:maxValue="24" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

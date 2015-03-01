@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Προηγμένες ρυθμίσεις</string>
+
+    <!-- Page Headers -->
+    <string name="tab_general_title">Γενικά</string>
+    <string name="tab_performance_title">Επίδοση</string>
+    <string name="tab_touchkey_title">TOUCHKEY</string>
+    <string name="tab_bln_title">BLN</string>
+
+    <!-- Page General -->
+    <string name="category_screen_title">Οθόνη</string>
+    <string name="g_sensor_title">Oριζόντια βαθμονόμηση</string>
+    <string name="g_sensor_summary">Οριζόντια βαθμονόμηση χρησιμοποιώντας το επιταχυνσιόμετρο</string>
+    <string name="gsensor_ready">Τοποθετήστε τη συσκευή σε μια επίπεδη επιφάνεια και πιέστε Εκτελέστε βαθμονόμηση</string>
+    <string name="gsensor_calibrating">Βαθμονόμηση. Μην μετακινείτε τη συσκευή. Παρακαλώ περιμένετε ...</string>
+    <string name="gsensor_nofile">Αδύνατο να βρεθεί η θέση του αρχείου.Δοκιμάστε ξανά</string>
+    <string name="gsensor_end">Βαθμονομημένο</string>
+    <string name="gsensor_button1">Ολοκληρώθηκε</string>
+    <string name="gsensor_button2">Βαθμονόμησε</string>
+
+    <string name="category_fast_charge_title">Υποστήριξη γρήγορης φόρτισης</string>
+    <string name="force_fast_charge">Πολύ γρήγορη φόρτιση</string>
+    <string name="force_fast_charge_summary">Εντοπισμός σύνδεσης USB-PC ως USB Wall Charger, για γρηγορότερη κατάσταση φόρτισης</string>
+
+    <!-- Page Performance -->
+    <string name="category_performance_title">Επίδοση</string>
+    <string name="low_ram_title">Αλλαγή σε Low RAM</string>
+    <string name="low_ram_summary_on">Η Low RAM ειναι ενεργή, τα χαρακτηριστικά της large-RAM είναι ανενεργά</string>
+    <string name="low_ram_summary_off">Η Low RAM είναι ανενεργή, τα χαρακτηριστικά τηςlarge-RAM είναι ενεργά</string>
+    <string name="low_ram_error">Αδύνατο να ορίσετε τη ρύθμιση LowRam, παρακαλούμε να εκχωρήσετε τα δικαιώματα root για αυτήν την εφαρμογή.</string>
+
+    <string name="reboot_alert">Για να εφαρμόσετε τη ρύθμιση, απαιτείται επανεκκίνηση.\nΘέλετε να κάνετε επανεκκίνηση τώρα;\n\nΠατήστε Ναι για να επανεκκινήσετε τώρα, Όχι αν προτιμάτε να επανεκκινήσετε αργότερα.</string>
+    <string name="reboot_wait">Η συσκευή θα κάνει επανεκκίνηση σε %1$d δευτερόλεπτα, παρακαλώ περιμένετε.</string>
+    <string name="reboot_yes">Ναι</string>
+    <string name="reboot_no">Όχι</string>
+
+    <!-- Page TouchKey -->
+    <string name="category_touchkey_title">Touch Keys</string>
+    <string name="backlight_timeout_title">Χρονικό περιθώριο Backlight </string>
+    <string name="backlight_timeout_summary">Προσαρμογή της καθυστέρησης πριν κλείσει αυτόματο το touch key backlight</string>
+    <string name="touchlight_status_title">Backlight στην Οθόνη τύπου αφής</string>
+    <string name="touchlight_status_summary">Ενεργοποίηση κατάστασης των touchkeys backlight στην οθόνη τύπου αφής</string>
+
+    <string name="category_pkfmanager_title">Phantom key presses</string>
+    <string name="pkfmanager_title">Phantom key presses filter</string>
+    <string name="pkfmanager_summary">Φιλτράρισμα των ανεπιθύμητων πατημάτων πλήκτρων εξαιτίας της παρεμβολής της κεραίας (εξωτερική εφαρμογή)</string>
+
+    <!-- Page BLN -->
+    <string name="category_bln_title">Ειδοποίηση Backlight</string>
+    <string name="bln_type_title">Τύπος Ειδοποίησης</string>
+    <string name="bln_type_summary">Ρύθμιση του τρόπου που θα αναφέρεται μια ειδοποίηση από τα touchkey lights</string>
+    <string name="bln_blink_timeout_title">Χρονικό περιθώριο Blinking Lights</string>
+    <string name="bln_blink_timeout_summary">Ρύθμιση της διάρκειας χρόνου των blinking lights</string>
+    <string name="bln_blink_interval_on_title">Blink ON Interval</string>
+    <string name="bln_blink_interval_on_summary">Ρύθμιση της διάρκειας διαστήματος για κάθε ενεργό blink</string>
+    <string name="bln_blink_interval_off_title">Blink OFF Interval</string>
+    <string name="bln_blink_interval_off_summary">Ρύθμιση της διάρκειας διαστήματος για κάθε κλείσιμο του blink</string>
+    <string name="bln_static_timeout_title">Χρονικό περιθώριο των Static Lights</string>
+    <string name="bln_static_timeout_summary">Ρύθμιση της χρονικής διάρκειας των στατικών φώτων</string>
+</resources>

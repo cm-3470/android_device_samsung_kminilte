@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Setari Avansate</string>
+
+    <string name="category_touchkey_title">Tastele Sensibile la atingere</string>
+    <string name="backlight_timeout_title">Durata iluminarii de fundal</string>
+    <string name="backlight_timeout_summary">Reglarea unei intarzieri inainte ca lumina de fundal a tastelor tactile sa se opreasca</string>
+    <string name="touchlight_status_title">Iluminare tastelor la atingerea ecranului</string>
+    <string name="touchlight_status_summary">Activarea starii luminei de fundal a tastelor tactile la atingerea ecranului </string>
+
+    <string name="category_screen_title">Ecran</string>
+    <string name="g_sensor_title">Calibrare orizontala</string>
+    <string name="g_sensor_summary">Calibrare orizontala folosind accelerometrul</string>
+    <string name="gsensor_ready">Plasati dispozitivul pe o suprafata dreapta si apasati Calibrare</string>
+    <string name="gsensor_calibrating">Se calibreaza.Nu misca dispozitivul.Te rugam sa astepti...</string>
+    <string name="gsensor_nofile">Imposibil de gasit fisierul.Incercati din nou</string>
+    <string name="gsensor_end">Calibrat</string>
+    <string name="gsensor_button1">Terminat</string>
+    <string name="gsensor_button2">Calibreaza</string>
+
+    <string name="category_fast_charge_title">Suport pentru Incarcarea Rapida</string>
+    <string name="force_fast_charge">Fortarea Incarcarii Rapide</string>
+    <string name="force_fast_charge_summary">Detectarea USB--ului conectat la PC ca un incarcator, pentru o incarcare mai rapida</string>
+
+    <string name="category_pkfmanager_title">Atingerile "fantoma"</string>
+    <string name="pkfmanager_title">Filtru pentru atingerile "fantoma"</string>
+    <string name="pkfmanager_summary">Filtrarea atingerilor nedorite cauzate de interferenta antenei (folosind o aplicatie externa)</string>
+</resources>

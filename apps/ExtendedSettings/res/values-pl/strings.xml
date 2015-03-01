@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Zaawansowane ustawienia</string>
+
+    <!-- Page Headers -->
+    <string name="tab_general_title">OGÓLNE</string>
+    <string name="tab_performance_title">WYDAJNOŚĆ</string>
+    <string name="tab_touchkey_title">KLAWISZE DOTYKOWE</string>
+    <string name="tab_bln_title">BLN</string>
+
+    <!-- Page General -->
+    <string name="category_screen_title">Ekran</string>
+    <string name="g_sensor_title">Pozioma kalibracja</string>
+    <string name="g_sensor_summary">Kalibruj poziomo używajac akceleromentra</string>
+    <string name="gsensor_ready">Połóż urządzenie na płaskiej powierzchni i kliknij Kalibruj</string>
+    <string name="gsensor_calibrating">Kalibracja. Nie ruszaj urządzenia. Proszę czekać...</string>
+    <string name="gsensor_nofile">Nie można znaleźć właściwego pliku. Spróbuj ponownie</string>
+    <string name="gsensor_end">Skalibrowano</string>
+    <string name="gsensor_button1">Ukończono</string>
+    <string name="gsensor_button2">Kalibruj</string>
+
+    <string name="category_fast_charge_title">Wsparcie dla szybkiego ładowania</string>
+    <string name="force_fast_charge">Wymuś szybkie ładowanie</string>
+    <string name="force_fast_charge_summary">Podłącz telefon do komputera przez port USB w celu włączenia szybkiego ładowania</string>
+
+    <!-- Page Performance -->
+    <string name="category_performance_title">Wydajność</string>
+    <string name="low_ram_title">Kontrola Low RAM</string>
+    <string name="low_ram_summary_on">Low RAM jest włączony, funkcje wymagające dużej ilości RAM-u są wyłączone</string>
+    <string name="low_ram_summary_off">Low RAM jest wyłączony, funkcje wymagające dużej ilości RAM-u są włączone</string>
+    <string name="low_ram_error">Nie udało się zmienić ustawień Low RAM. Proszę nadać uprawnienia root dla tej aplikacji.</string>
+
+    <string name="reboot_alert">Aby zastosować ustawienia, wymagane jest ponowne uruchomienie telefonu.\nCzy chcesz uruchomić ponownie telefon teraz?\n\nNaciśnij TAK, aby uruchomić ponownie telefon. NIE, jeżeli chcesz uruchomić ponownie telefon później.</string>
+    <string name="reboot_wait">Telefon zostanie ponownie uruchomiony za %1$d sekund, proszę czekać.</string>
+    <string name="reboot_yes">Tak</string>
+    <string name="reboot_no">Nie</string>
+
+    <!-- Page TouchKey -->
+    <string name="category_touchkey_title">Klawisze dotykowe</string>
+    <string name="backlight_timeout_title">Czas trwania podświetlenia</string>
+    <string name="backlight_timeout_summary">Ustaw czas po jakim zgaśnie podświetlenie klawiszy dotykowych</string>
+    <string name="touchlight_status_title">Wyłączenie podświetlenia po kliknięciu w ekran dotykowy</string>
+    <string name="touchlight_status_summary">Aktywuj wyłączenie podświetlania po kliknięciu w ekran dotykowy</string>
+
+    <string name="category_pkfmanager_title">Przypadkowe kliknięcia</string>
+    <string name="pkfmanager_title">Filtr przypadkowych kliknięć</string>
+    <string name="pkfmanager_summary">Filtr przypadkowych kliknięć spowodowanych zakłóceniami (zewnętrzna aplikacja)</string>
+
+    <!-- Page BLN -->
+    <string name="category_bln_title">Powiadomienia podświetleniem</string>
+    <string name="bln_type_title">Typ powiadomienia</string>
+    <string name="bln_type_summary">Wybierz w jaki sposób będziesz powiadamiany poprzez podświetlanie klawiszy funkcyjnych</string>
+    <string name="bln_blink_timeout_title">Długość migania światła</string>
+    <string name="bln_blink_timeout_summary">Ustaw czas trwania migania</string>
+    <string name="bln_blink_interval_on_title">Przerwa po zapaleniu światła</string>
+    <string name="bln_blink_interval_on_summary">Ustaw czas trwania przerwy po każdym zapaleniu światła</string>
+    <string name="bln_blink_interval_off_title">Przerwa po zgaszeniu światła</string>
+    <string name="bln_blink_interval_off_summary">Ustaw czas trwania przerwy po każdym zgaszeniu światła</string>
+    <string name="bln_static_timeout_title">Długość świecenia ciągłego światła</string>
+    <string name="bln_static_timeout_summary">Ustaw długość trwania świecenia ciągłego światła</string>
+</resources>

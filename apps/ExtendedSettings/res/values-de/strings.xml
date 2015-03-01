@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Erweiterte Einstellungen</string>
+
+    <!-- Page Headers -->
+    <string name="tab_general_title">GENERAL</string>
+    <string name="tab_performance_title">PERFORMANCE</string>
+    <string name="tab_touchkey_title">TOUCHKEY</string>
+    <string name="tab_bln_title">BLN</string>
+
+    <!-- Page General -->
+    <string name="category_screen_title">Anzeige</string>
+    <string name="g_sensor_title">Horizontale Kalibrierung</string>
+    <string name="g_sensor_summary">Horizontale Kalibrierung mit Accelerometer</string>
+    <string name="gsensor_ready">Platziere das Gerät auf einer flachen Ebene und drücke "Kalibrieren"</string>
+    <string name="gsensor_calibrating">Kalibriere. Gerät nicht bewegen. Bitte warten...</string>
+    <string name="gsensor_nofile">Offset-Datei nicht gefunden. Erneut versuchen</string>
+    <string name="gsensor_end">Kalibriert</string>
+    <string name="gsensor_button1">Fertig</string>
+    <string name="gsensor_button2">Kalibrieren</string>
+
+    <string name="category_fast_charge_title">Ladeeinstellungen</string>
+    <string name="force_fast_charge">Schnelles Laden</string>
+    <string name="force_fast_charge_summary">Den über USB angeschlossenen PC als Aufladestecker erkennen, um schneller zu laden</string>
+
+    <string name="category_otg_title">USB-OTG</string>
+    <string name="otg_charge_title">USB-OTG Laden</string>
+    <string name="otg_charge_summary">Laden im USB-Host Modus.\nAchtung: Um Schäden zu vermeiden, muss die Stromquelle (z.B. USB-Hub) hierzu geeignet sein.</string>
+
+    <string name="category_bluetooth_title">Bluetooth</string>
+    <string name="a2dp_sink_title">A2DP Sink</string>
+    <string name="a2dp_sink_summary_on">A2DP Sink ist aktiviert, A2DP Source ist deaktiviert</string>
+    <string name="a2dp_sink_summary_off">A2DP Sink ist deaktiviert, A2DP Source ist aktiviert</string>
+    <string name="a2dp_sink_error_bt_active">Bluetooth muss zum Ändern des A2DP Modus deaktiviert sein.</string>
+
+    <!-- Page Performance -->
+    <string name="category_performance_title">Performance</string>
+    <string name="highend_gfx_title">High-End GFX Schalter</string>
+    <string name="highend_gfx_summary_on">High-End Grafikeffekte sind aktiviert, z. B. Transparenz des Sperrbildschirms, der Status- und Benachrichtigungszeile</string>
+    <string name="highend_gfx_summary_off">High-End Grafikeffekte sind deaktiviert, keine Transparenz des Sperrbildschirms, der Status- und Benachrichtigungszeile</string>
+    <string name="highend_gfx_error">High-End Grafikeffekte lassen sich nicht aktivieren. Stelle sicher, dass die App Root-Rechte hat.</string>
+
+    <string name="low_ram_title">Low RAM Schalter</string>
+    <string name="low_ram_summary_on">Low RAM ist aktiviert, large-RAM ist deaktiviert.</string>
+    <string name="low_ram_summary_off">Low RAM ist deaktiviert, large-RAM ist aktiviert</string>
+    <string name="low_ram_error">LowRAM Einstellung kann nicht übernommen werden, stelle sicher, dass die App Root Berechtigungen hat.</string>
+
+    <string name="category_apps_services_title">Apps und Dienste</string>
+    <string name="max_bg_apps_title">Max Hintergrund Apps</string>
+    <string name="max_bg_apps_summary">Legt die maximale Anzahl der gleichzeitig im Hintergrund laufenden Apps fest</string>
+    <string name="max_bg_apps_error">Änderung des Limits der im Hintergrund laufenden Apps nicht möglich, die App benötigt Root-Berechtigung.</string>
+
+    <string name="max_bg_services_title">Max Hintergrund Dienste</string>
+    <string name="max_bg_services_summary">Legt die maximale Anzahl der gleichzeitig im Hintergrund laufenden Dienste fest</string>
+    <string name="max_bg_services_error">Änderung des Limits der im Hintergrund laufenden Dienste nicht möglich, die App benötigt Root-Berechtigung.</string>
+
+    <string name="reboot_alert">Zur Übernahme der Einstellungen ist ein Neustart notwendig.\nMöchtest Du jetzt neu starten?\n\nDrücke Ja um neu zu starten, Nein wenn Du später neu starten willst.</string>
+    <string name="reboot_wait">Das Gerät startet in %1$d Sekunden neu, bitte warten.</string>
+    <string name="reboot_yes">Ja</string>
+    <string name="reboot_no">Nein</string>
+
+    <!-- Page TouchKey -->
+    <string name="category_touchkey_title">Touch Keys</string>
+    <string name="backlight_timeout_title">Hintergrundbeleuchtung</string>
+    <string name="backlight_timeout_summary">Verzögerung der Hintergrundbeleuchtung der Touch Keys einstellen</string>
+    <string name="touchlight_status_title">Hintergrundbeleuchtung bei Touchscreenberührung</string>
+    <string name="touchlight_status_summary">(De-)Aktivieren der Touch Key Hintergrundbeleuchtung bei Berührung des Touchscreens</string>
+
+    <string name="category_pkfmanager_title">Phantom Tastendrücke</string>
+    <string name="pkfmanager_title">Phantom Tastendrückefilter</string>
+    <string name="pkfmanager_summary">Filtert durch die Interferenz der Antenne verursachte Tastatureingaben (externe App)</string>
+
+    <!-- Page BLN -->
+    <string name="category_bln_title">LED Benachrichtigunglicht</string>
+    <string name="bln_type_title">Art der Benachrichtigung</string>
+    <string name="bln_type_summary">Wähle die Art, wie die LEDs Benachrichtigungen darstellen</string>
+    <string name="bln_blink_timeout_title">Maximale Blinkdauer</string>
+    <string name="bln_blink_timeout_summary">Einstellung für die maximale Blinkdauer</string>
+    <string name="bln_blink_interval_on_title">LED AN Intervall</string>
+    <string name="bln_blink_interval_on_summary">Einstellung für die Dauer der LED AN</string>
+    <string name="bln_blink_interval_off_title">LED AUS Intervall</string>
+    <string name="bln_blink_interval_off_summary">Einstellung für die Dauer der LED AUS</string>
+    <string name="bln_static_timeout_title">Dauer des statischen Leuchtens der LED</string>
+    <string name="bln_static_timeout_summary">Einstellungen für die Dauer des statischen Leuchtens der LED</string>
+</resources>

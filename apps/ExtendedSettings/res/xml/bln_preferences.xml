@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright (C) 2014 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <!-- Backlight Notification (BLN) -->
+    <PreferenceCategory android:title="@string/category_bln_title" >
+        <ListPreference
+            android:key="bln_type"
+            android:title="@string/bln_type_title"
+            android:summary="@string/bln_type_summary"
+            android:entries="@array/bln_type_entries"
+            android:entryValues="@array/bln_type_entries_values"
+            android:defaultValue="NONE" />
+        <ListPreference
+            android:key="bln_blink_timeout"
+            android:title="@string/bln_blink_timeout_title"
+            android:summary="@string/bln_blink_timeout_summary"
+            android:entries="@array/bln_timeout_entries"
+            android:entryValues="@array/bln_timeout_entries_values"
+            android:defaultValue="60" />
+        <ListPreference
+            android:key="bln_blink_interval_on"
+            android:title="@string/bln_blink_interval_on_title"
+            android:summary="@string/bln_blink_interval_on_summary"
+            android:entries="@array/bln_blink_interval_entries"
+            android:entryValues="@array/bln_blink_interval_entries_values"
+            android:defaultValue="500" />
+        <ListPreference
+            android:key="bln_blink_interval_off"
+            android:title="@string/bln_blink_interval_off_title"
+            android:summary="@string/bln_blink_interval_off_summary"
+            android:entries="@array/bln_blink_interval_entries"
+            android:entryValues="@array/bln_blink_interval_entries_values"
+            android:defaultValue="500" />
+        <ListPreference
+            android:key="bln_static_timeout"
+            android:title="@string/bln_static_timeout_title"
+            android:summary="@string/bln_static_timeout_summary"
+            android:entries="@array/bln_timeout_entries"
+            android:entryValues="@array/bln_timeout_entries_values"
+            android:defaultValue="60" />
+    </PreferenceCategory>
+
+</PreferenceScreen>

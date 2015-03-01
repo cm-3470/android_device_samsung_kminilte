@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Напредна подешавања</string>
+
+    <string name="category_touchkey_title">Додирни тастери</string>
+    <string name="backlight_timeout_title">Осветљеност тастера</string>
+    <string name="backlight_timeout_summary">Подеси дужину трајања осветљености</string>
+    <string name="touchlight_status_title">Осветљеност тастера при додиру екрана</string>
+    <string name="touchlight_status_summary">Укључује осветљеност приликом додира екрана</string>
+
+    <string name="category_screen_title">Екран</string>
+    <string name="g_sensor_title">Хоризонтална калибрација</string>
+    <string name="g_sensor_summary">Хоризонтална калибрација помоћу акцелерометра</string>
+    <string name="gsensor_ready">Поставите уређај на равну површину и притисните Калибриши</string>
+    <string name="gsensor_calibrating">Калибрација у току. Не померајте уређај. Сачекајте...</string>
+    <string name="gsensor_nofile">Није могуће пронаћи offset фајл. Покушајте поново</string>
+    <string name="gsensor_end">Калибрисано</string>
+    <string name="gsensor_button1">Заврши</string>
+    <string name="gsensor_button2">Калибриши</string>
+
+    <string name="category_fast_charge_title">Брзо пуњење</string>
+    <string name="force_fast_charge">Укључи брзо пуњење</string>
+    <string name="force_fast_charge_summary">Препознај USB конекцију рачунара као зидни прикључак за брже пуњење</string>
+
+    <string name="category_pkfmanager_title">Нежељени притисци тастера</string>
+    <string name="pkfmanager_title">Одбацивање нежељених притисака</string>
+    <string name="pkfmanager_summary">Одбацивање нежељених притисака тастера, узрокованих сметњама антене (екстерна апликација)</string>
+</resources>

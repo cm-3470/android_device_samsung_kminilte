@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:xliff="urn:oasis:names:tc:xliff:document:1.2">
+    <string-array name="backlight_timeout_entries">
+        <item>По умолчанию (1.6 секунд)</item>
+        <item>0.5 секунд</item>
+        <item>1 секунд</item>
+        <item>2 секунд</item>
+        <item>5 секунд</item>
+        <item>Никогда</item>
+    </string-array>
+</resources>

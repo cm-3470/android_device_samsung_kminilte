@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright (C) 2013 The CyanogenMod Project
+
+     Licensed under the Apache License, Version 2.0 (the "License");
+     you may not use this file except in compliance with the License.
+     You may obtain a copy of the License at
+
+          http://www.apache.org/licenses/LICENSE-2.0
+
+     Unless required by applicable law or agreed to in writing, software
+     distributed under the License is distributed on an "AS IS" BASIS,
+     WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+     See the License for the specific language governing permissions and
+     limitations under the License.
+ -->
+<resources>
+    <string name="app_name">Opciones avanzadas</string>
+
+    <!-- Page Headers -->
+    <string name="tab_general_title">GENERAL</string>
+    <string name="tab_performance_title">RENDIMENTO</string>
+    <string name="tab_touchkey_title">TECLAS</string>
+    <string name="tab_bln_title">BLN</string>
+
+    <!-- Page General -->
+    <string name="category_screen_title">Pantalla</string>
+    <string name="g_sensor_title">Calibración horizontal</string>
+    <string name="g_sensor_summary">Calibrar dispositivo con el acelerómetro</string>
+    <string name="gsensor_ready">Coloca el dispositivo en una superficie plana y pulsa Calibrar</string>
+    <string name="gsensor_calibrating">Calibración en curso. No muevas el dispositivo. Espera, por favor...</string>
+    <string name="gsensor_nofile">Imposible encontrar el archivo offset. Inténtalo de nuevo</string>
+    <string name="gsensor_end">Calibración completada</string>
+    <string name="gsensor_button1">Completo</string>
+    <string name="gsensor_button2">Calibrar</string>
+
+    <string name="category_fast_charge_title">Carga rápida</string>
+    <string name="force_fast_charge_usbwarning">Desconecta el cable USB</string>
+    <string name="force_fast_charge">Forzar carga rápida</string>
+    <string name="force_fast_charge_summary">Detectar PC conectado al puerto USB como un cargador USB, para una carga más rápida</string>
+
+    <!-- Page Performance -->
+    <string name="category_performance_title">Rendimento</string>
+    <string name="low_ram_title">Optimizar RAM</string>
+    <string name="low_ram_summary_on">Uso óptimo de RAM activado. Las funciones con gran consumo de RAM están desactivadas</string>
+    <string name="low_ram_summary_off">Uso óptimo de RAM desactivado. Las funciones con gran consumo de RAM están activadas</string>
+    <string name="low_ram_error">Imposible optimizar RAM. Por favor, establece permisos root para esta función</string>
+
+    <string name="reboot_alert">Para aplicar la configuración es necesario reiniciar.\n¿Reiniciar ahora?\n\nPulsa Sí para reiniciar ahora, o pulsa No para reiniciar más tarde.</string>
+    <string name="reboot_wait">El dispositivo se reiniciará en %1$d segundos. Espera, por favor.</string>
+    <string name="reboot_yes">Sí</string>
+    <string name="reboot_no">No</string>
+
+    <!-- Page TouchKey -->
+    <string name="category_touchkey_title">Teclas táctiles</string>
+    <string name="backlight_timeout_title">Duración de retroiluminación</string>
+    <string name="backlight_timeout_summary">"Configurar la duración de la iluminacion de las teclas"</string>
+    <string name="touchlight_status_title">Retroiluminación al pulsar en la pantalla</string>
+    <string name="touchlight_status_summary">Iluminar teclas táctiles al pulsar en la pantalla</string>
+
+    <string name="category_pkfmanager_title">Pulsaciones fantasmas</string>
+    <string name="pkfmanager_title">Filtro de las pulsaciones fantasma</string>
+    <string name="pkfmanager_summary">"Filtra las pulsaciones fantasma de las teclas, causadas por la interferencia de la antena (aplicación externa)"</string>
+
+    <!-- Page BLN -->
+    <string name="category_bln_title">Notificaciones luminosas</string>
+    <string name="bln_type_title">Tipo de notificación</string>
+    <string name="bln_type_summary">Configurar notificaciones luminosas</string>
+    <string name="bln_blink_timeout_title">Duración del parpadeo</string>
+    <string name="bln_blink_timeout_summary">Configurar la duración del parpadeo</string>
+    <string name="bln_blink_interval_on_title">LED encendido</string>
+    <string name="bln_blink_interval_on_summary">Tiempo que estará el LED encendido en cada parpadeo</string>
+    <string name="bln_blink_interval_off_title">LED apagado</string>
+    <string name="bln_blink_interval_off_summary">Tiempo que estará el LED apagado en cada parpadeo</string>
+    <string name="bln_static_timeout_title">Duración de LED encendido estático</string>
+    <string name="bln_static_timeout_summary">Tiempo que estará el LED encendido estático</string>
+</resources>
