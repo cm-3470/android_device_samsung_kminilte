@@ -31,11 +31,11 @@ TARGET_OTA_ASSERT_DEVICE := kminilte
 
 # Filesystems
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10485760
+BOARD_CACHEIMAGE_PARTITION_SIZE := 314572800
 BOARD_RECOVERYIMAGE_PARTITION_SIZE := 12582912
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2411724800
 #BOARD_USERDATAIMAGE_PARTITION_SIZE := 12834570240(-16384)
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12834553856
-BOARD_CACHEIMAGE_PARTITION_SIZE := 314572800
 
 # Include path
 TARGET_SPECIFIC_HEADER_PATH += device/samsung/kminilte/include
@@ -49,23 +49,32 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/kminilte/bluetooth
 
 # Recovery
 TARGET_RECOVERY_DEVICE_DIRS += device/samsung/kminilte
-#TARGET_RECOVERY_FSTAB := device/samsung/gardalte/rootdir/etc/fstab.universal3470
-BOARD_HAS_NO_SELECT_BUTTON := true
+TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470
 
-# Webkit
-ENABLE_WEBGL := true
+# SELinux
+BOARD_SEPOLICY_DIRS += \
+   device/samsung/kminilte/sepolicy
 
-# Vendor Init
-#TARGET_UNIFIED_DEVICE := true
-#TARGET_INIT_VENDOR_LIB := libinit_gardalte
-#TARGET_LIBINIT_DEFINES_FILE := device/samsung/gardalte/init/init_gardalte.c
+BOARD_SEPOLICY_UNION += \
+    file_contexts \
+    service_contexts \
+    device.te \
+    domain.te \
+    drmserver.te \
+    file.te \
+    gpsd.te \
+    init.te \
+    mediaserver.te \
+    servicemanager.te \
+    system_app.te \
+    system_server.te \
+    vold.te \
+    wpa.te
 
 # TWRP
 DEVICE_RESOLUTION := 720x1280
+RECOVERY_SDCARD_ON_DATA := true
+BOARD_HAS_NO_REAL_SDCARD := true
 BOARD_USE_CUSTOM_RECOVERY_FONT := \"roboto_23x41.h\"
-BOARD_RECOVERY_SWIPE := true
-BOARD_HAS_NO_MISC_PARTITION := true
-BOARD_USES_MMC_UTILS := true
-BOARD_SUPPRESS_EMMC_WIPE := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true

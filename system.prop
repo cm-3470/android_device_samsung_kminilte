@@ -3,15 +3,10 @@
 #
 
 ro.sf.lcd_density=320
-ro.arch=exynos3470
 persist.hdmi.hdcp_enabled=0
 persist.demo.hdmirotationlock=0
 rild.libpath=/system/lib/libsec-ril.so
 rild.libargs=-d /dev/umts_ipc0
-ro.telephony.ril_class=Exynos3470RIL
-ro.telephony.default_network=9
-telephony.lteOnGsmDevice=1
 
-# VoLTE/IMS
-persist.radio.calls.on.ims=true
-persist.radio.jbims=1
+ro.ril.hsxpa=1
+ro.ril.gprsclass=10

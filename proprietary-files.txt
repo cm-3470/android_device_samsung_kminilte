@@ -76,6 +76,9 @@ lib/libhwcutilsmodule.so
 # Needed by libExynosHWCService.so
 lib/libvirtualdisplay.so
 
+# ConsumerIR Hal
+lib/hw/consumerir.default.so
+
 # Keystore
 vendor/lib/hw/keystore.exynos3.so
 
@@ -83,7 +86,9 @@ vendor/lib/hw/keystore.exynos3.so
 # For replacement see:
 # - /drivers/leds/leds-ktd2026.c (ktd2026_start_led_pattern)
 # - https://github.com/Aaahh/android_device_motorola_omap34com/blob/master/liblights/lights.c
-#vendor/lib/hw/lights.exynos3.so
+vendor/lib/hw/lights.exynos3.so
+# Needed by lights.exynos3.so
+#lib/libsecril-client.so
 
 # LPM
 bin/lpm
@@ -139,6 +144,22 @@ app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
 lib/libgdmcprov.so
 lib/libMcClient.so
 lib/libMcRegistry.so
+
+# OMX
+etc/ExynosOMXReg.conf
+lib/libExynosOMX263d.so
+lib/libExynosOMX264d.so
+lib/libExynosOMXCmn.so
+lib/libExynosOMX_Core.so
+lib/libExynosOMXCore.so
+lib/libExynosOMXMp4vd.so
+lib/libExynosOMX_Resourcemanager.so
+lib/libExynosOMXVc1d.so
+lib/libstagefrighthw.so
+lib/omx/libOMX.Exynos.AVC.Decoder.so
+lib/omx/libOMX.Exynos.AVC.Encoder.so
+lib/omx/libOMX.Exynos.MPEG4.Decoder.so
+lib/omx/libOMX.Exynos.MPEG4.Encoder.so
 
 # Radio
 bin/at_distributor
