@@ -46,6 +46,10 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_PACKAGES += \
 #    libion_exynos
 
+# Keylayouts
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/keylayout/sec_touchkey.kl:system/usr/keylayout/sec_touchkey.kl
+
 # Lights
 #PRODUCT_PACKAGES += \
 #    lights.exynos3
