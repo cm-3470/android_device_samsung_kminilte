@@ -38,14 +38,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity android:name=".GSensor"
-            android:label="@string/g_sensor_title">
-            <intent-filter>
-                <action android:name="com.cyanogenmod.settings.device.GSensor" />
-                <category android:name="android.intent.category.DEFAULT" />
-            </intent-filter>
-        </activity>
         
         <receiver android:name=".Startup" >
             <intent-filter android:priority="100" >

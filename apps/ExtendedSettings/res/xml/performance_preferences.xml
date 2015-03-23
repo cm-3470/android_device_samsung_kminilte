@@ -19,36 +19,10 @@
 
     <!-- Performance -->
     <PreferenceCategory android:title="@string/category_performance_title">
-        <CheckBoxPreference
-            android:key="highend_gfx"
-            android:title="@string/highend_gfx_title"
-            android:summaryOn="@string/highend_gfx_summary_on"
-            android:summaryOff="@string/highend_gfx_summary_off"
-            android:defaultValue="false" />
-        <CheckBoxPreference
-            android:key="low_ram"
-            android:title="@string/low_ram_title"
-            android:summaryOn="@string/low_ram_summary_on"
-            android:summaryOff="@string/low_ram_summary_off"
-            android:defaultValue="true" />
     </PreferenceCategory>
 
     <!-- Apps & Services -->
     <PreferenceCategory android:title="@string/category_apps_services_title">
-        <com.cyanogenmod.settings.device.SeekBarPreference
-            android:key="max_bg_apps"
-            android:title="@string/max_bg_apps_title"
-            android:summary="@string/max_bg_apps_summary"
-            android:defaultValue="16"
-            cyanogenmod:minValue="8"
-            cyanogenmod:maxValue="32" />
-        <com.cyanogenmod.settings.device.SeekBarPreference
-            android:key="max_bg_services"
-            android:title="@string/max_bg_services_title"
-            android:summary="@string/max_bg_services_summary"
-            android:defaultValue="8"
-            cyanogenmod:minValue="2"
-            cyanogenmod:maxValue="24" />
     </PreferenceCategory>
 
 </PreferenceScreen>

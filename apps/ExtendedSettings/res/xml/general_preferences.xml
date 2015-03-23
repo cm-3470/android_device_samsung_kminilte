@@ -15,6 +15,16 @@
  -->
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <!-- Bluetooth -->
+    <PreferenceCategory android:title="@string/category_bluetooth_title" >
+        <CheckBoxPreference
+            android:key="a2dp_sink"
+            android:title="@string/a2dp_sink_title"
+            android:summaryOn="@string/a2dp_sink_summary_on"
+            android:summaryOff="@string/a2dp_sink_summary_off"
+            android:defaultValue="false" />
+    </PreferenceCategory>
+
     <!-- Fastcharge -->
     <PreferenceCategory android:title="@string/category_fast_charge_title" >
         <CheckBoxPreference
@@ -33,26 +43,6 @@
             android:entries="@array/otg_charge_entries"
             android:entryValues="@array/otg_charge_entries_values"
             android:defaultValue="none" />
-    </PreferenceCategory>
-
-    <!-- Bluetooth -->
-    <PreferenceCategory android:title="@string/category_bluetooth_title" >
-        <CheckBoxPreference
-            android:key="a2dp_sink"
-            android:title="@string/a2dp_sink_title"
-            android:summaryOn="@string/a2dp_sink_summary_on"
-            android:summaryOff="@string/a2dp_sink_summary_off"
-            android:defaultValue="false" />
-    </PreferenceCategory>
-
-    <!-- GSensor calibration -->
-    <PreferenceCategory android:title="@string/category_screen_title" >
-        <Preference
-            android:key="gsensor"
-            android:summary="@string/g_sensor_summary"
-            android:title="@string/g_sensor_title" >
-            <intent android:action="com.cyanogenmod.settings.device.GSensor" />
-        </Preference>
     </PreferenceCategory>
 
 </PreferenceScreen>

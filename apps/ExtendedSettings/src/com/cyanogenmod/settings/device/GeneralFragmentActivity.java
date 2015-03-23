@@ -32,7 +32,6 @@ public class GeneralFragmentActivity extends PreferenceFragment {
     private CheckBoxPreference mFastCharge;
     private ListPreference mOTGCharge;
     private CheckBoxPreference mA2dpSinkStatus;
-    private Preference mGSensor;
     private FileObserver mObserver;
 
     private Handler mHandler = new Handler();
@@ -61,9 +60,10 @@ public class GeneralFragmentActivity extends PreferenceFragment {
 
         Context mContext = getActivity();
 
-        mGSensor = (Preference) findPreference(DeviceSettings.KEY_GSENSOR);
-        mGSensor.setEnabled(GSensor.isSupported());
-
+        mA2dpSinkStatus = (CheckBoxPreference) findPreference(DeviceSettings.KEY_A2DP_SINK);
+        mA2dpSinkStatus.setEnabled(A2dpSink.isSupported());
+        mA2dpSinkStatus.setOnPreferenceChangeListener(new A2dpSink());
+        
         mFastCharge = (CheckBoxPreference) findPreference(DeviceSettings.KEY_FAST_CHARGE);
         mFastCharge.setEnabled(FastCharge.isSupported());
         mFastCharge.setOnPreferenceChangeListener(new FastCharge(mContext));
@@ -79,10 +79,6 @@ public class GeneralFragmentActivity extends PreferenceFragment {
         mOTGCharge = (ListPreference) findPreference(DeviceSettings.KEY_OTG_CHARGE);
         mOTGCharge.setEnabled(OTGCharge.isSupported());
         mOTGCharge.setOnPreferenceChangeListener(new OTGCharge());
-
-        mA2dpSinkStatus = (CheckBoxPreference) findPreference(DeviceSettings.KEY_A2DP_SINK);
-        mA2dpSinkStatus.setEnabled(A2dpSink.isSupported());
-        mA2dpSinkStatus.setOnPreferenceChangeListener(new A2dpSink());
     }
 
     @Override
