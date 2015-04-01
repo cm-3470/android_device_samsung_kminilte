@@ -27,7 +27,7 @@ ifeq ($(HOST_OS),linux)
 endif
 
 # Assert
-TARGET_OTA_ASSERT_DEVICE := kminilte
+TARGET_OTA_ASSERT_DEVICE := kminiltexx,kminiltedv,kminilteub
 
 # Filesystems
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10485760
@@ -76,6 +76,11 @@ BOARD_SEPOLICY_UNION += \
     system_server.te \
     vold.te \
     wpa.te
+
+# Vendor Init
+TARGET_UNIFIED_DEVICE := true
+TARGET_INIT_VENDOR_LIB := libinit_kminilte
+TARGET_LIBINIT_DEFINES_FILE := device/samsung/gardalte/init/init_kminilte.c
 
 # TWRP
 DEVICE_RESOLUTION := 720x1280
