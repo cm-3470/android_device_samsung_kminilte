@@ -54,6 +54,10 @@ PRODUCT_COPY_FILES += \
 #PRODUCT_PACKAGES += \
 #    lights.exynos3
 
+# Power
+PRODUCT_PACKAGES += \
+    power.exynos3
+
 # Media config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml

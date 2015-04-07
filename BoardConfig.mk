@@ -57,6 +57,8 @@ BOARD_NFC_HAL_SUFFIX := universal3470
 TARGET_RECOVERY_DEVICE_DIRS += device/samsung/kminilte
 TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470
 
+# PowerHAL
+TARGET_POWERHAL_VARIANT := exynos3
 # SELinux
 BOARD_SEPOLICY_DIRS += \
    device/samsung/kminilte/sepolicy
