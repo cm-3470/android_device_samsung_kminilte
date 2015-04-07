@@ -59,6 +59,10 @@ TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470
 
 # PowerHAL
 TARGET_POWERHAL_VARIANT := exynos3
+
+# Lights
+TARGET_PROVIDES_LIBLIGHT := true
+
 # SELinux
 BOARD_SEPOLICY_DIRS += \
    device/samsung/kminilte/sepolicy
