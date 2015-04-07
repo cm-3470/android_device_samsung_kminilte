@@ -76,9 +76,6 @@ lib/libhwcutilsmodule.so
 # Needed by libExynosHWCService.so
 lib/libvirtualdisplay.so
 
-# ConsumerIR Hal
-lib/hw/consumerir.default.so
-
 # Keystore
 vendor/lib/hw/keystore.exynos3.so
 

@@ -58,6 +58,10 @@ PRODUCT_COPY_FILES += \
 PRODUCT_PACKAGES += \
     power.exynos3
 
+# IR
+PRODUCT_PACKAGES += \
+    consumerir.universal3470
+
 # Media config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
