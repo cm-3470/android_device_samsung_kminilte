@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!-- Copyright (C) 2013 The CyanogenMod Project
+<!-- Copyright (C) 2014 The CyanogenMod Project
 
      Licensed under the Apache License, Version 2.0 (the "License");
      you may not use this file except in compliance with the License.
@@ -15,6 +15,8 @@
 -->
 
 <resources>
+    <!-- Whether or not the dock settings are to be displayed for this device when docked -->
+    <bool name="has_dock_settings">true</bool>
     <!-- make home button wake configurable in display settings -->
     <bool name="config_show_homeWake">true</bool>
     <!-- Whether to show a preference item for mobile plan -->
