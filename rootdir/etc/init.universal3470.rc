@@ -39,6 +39,32 @@ on init
     restorecon /dev/mbin0
     symlink  /sys/devices/12110000.usb/ehci_power /dev/ehci_power
 
+ # permission for CHARGING
+   chown system radio /sys/class/power_supply/battery/batt_reset_soc
+   chown system radio /sys/class/power_supply/battery/batt_slate_mode
+   chown system radio /sys/class/power_supply/battery/factory_mode
+   chown system radio /sys/class/power_supply/battery/siop_level
+   chown system radio /sys/class/power_supply/battery/wc_enable
+   chown system radio /sys/class/power_supply/battery/update
+   chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/call
+   chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/video
+   chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/music
+   chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/browser
+   chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/hotspot
+   chown sdcard_rw sdcard_rw /sys/class/power_supply/battery/camera
+   chown system radio /sys/class/power_supply/battery/talk_wcdma
+   chown system radio /sys/class/power_supply/battery/talk_gsm
+   chown system radio /sys/class/power_supply/battery/call
+   chown system radio /sys/class/power_supply/battery/data_call
+   chown system radio /sys/class/power_supply/battery/gps
+   chown system radio /sys/class/power_supply/battery/wifi
+   chown system radio /sys/class/power_supply/battery/lte
+   chown system radio /sys/class/power_supply/battery/lcd
+   chown system radio /sys/class/power_supply/ps/status
+   chmod 0664 /sys/class/power_supply/ps/status
+   chmod 0664 /sys/class/power_supply/battery/batt_temp_table
+   chown system radio /sys/class/power_supply/battery/batt_temp_table
+
 #Private Mode
     mkdir /mnt/shell/privatemode 0700 system system
     mkdir /storage/Private 0000 system system
