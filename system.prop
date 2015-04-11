@@ -14,3 +14,5 @@ ro.ril.gprsclass=10
 # Uncomment the following line to enable Bluetooth A2DP sink
 #persist.service.bt.a2dp.sink=true
 
+ro.nfc.sec_hal=true
+
