@@ -1,0 +1,134 @@
+From 677f669ea20af68f3953ce6875f3119f89f2e749 Mon Sep 17 00:00:00 2001
+From: CTXz <patrick_pedersen_02032001@yahoo.com>
+Date: Fri, 23 Oct 2015 20:47:37 +0200
+Subject: [PATCH] Added Extra MediaDefs and MetaData extensions to fix libffmpeg_utils break
+
+---
+ include/media/stagefright/MediaDefs.h | 38 +++++++++++++++++++++++++++++
+ include/media/stagefright/MetaData.h  | 45 +++++++++++++++++++++++++++++++++++
+ 2 files changed, 83 insertions(+)
+
+diff --git a/include/media/stagefright/MediaDefs.h b/include/media/stagefright/MediaDefs.h
+index 8b1e63b..e1d80fd 100644
+--- a/include/media/stagefright/MediaDefs.h
++++ b/include/media/stagefright/MediaDefs.h
+@@ -62,6 +62,44 @@ extern const char *MEDIA_MIMETYPE_CONTAINER_WVM;
+ 
+ extern const char *MEDIA_MIMETYPE_TEXT_3GPP;
+ extern const char *MEDIA_MIMETYPE_TEXT_SUBRIP;
++extern const char *MEDIA_MIMETYPE_VIDEO_DIVX;
++extern const char *MEDIA_MIMETYPE_VIDEO_DIVX311;
++extern const char *MEDIA_MIMETYPE_VIDEO_DIVX4;
++extern const char *MEDIA_MIMETYPE_VIDEO_FLV1;
++extern const char *MEDIA_MIMETYPE_VIDEO_MJPEG;
++extern const char *MEDIA_MIMETYPE_VIDEO_RV;
++extern const char *MEDIA_MIMETYPE_VIDEO_VC1;
++extern const char *MEDIA_MIMETYPE_VIDEO_WMV;
++extern const char *MEDIA_MIMETYPE_VIDEO_HEVC;
++extern const char *MEDIA_MIMETYPE_VIDEO_FFMPEG;
++
++extern const char *MEDIA_MIMETYPE_AUDIO_AC3;
++extern const char *MEDIA_MIMETYPE_AUDIO_APE;
++extern const char *MEDIA_MIMETYPE_AUDIO_DTS;
++extern const char *MEDIA_MIMETYPE_AUDIO_PCM;
++extern const char *MEDIA_MIMETYPE_AUDIO_RA;
++extern const char *MEDIA_MIMETYPE_AUDIO_WMA;
++extern const char *MEDIA_MIMETYPE_AUDIO_FFMPEG;
++
++extern const char *MEDIA_MIMETYPE_CONTAINER_APE;
++extern const char *MEDIA_MIMETYPE_CONTAINER_ASF;
++extern const char *MEDIA_MIMETYPE_CONTAINER_DIVX;
++extern const char *MEDIA_MIMETYPE_CONTAINER_DTS;
++extern const char *MEDIA_MIMETYPE_CONTAINER_FLAC;
++extern const char *MEDIA_MIMETYPE_CONTAINER_FLV;
++extern const char *MEDIA_MIMETYPE_CONTAINER_MOV;
++extern const char *MEDIA_MIMETYPE_CONTAINER_MP2;
++extern const char *MEDIA_MIMETYPE_CONTAINER_MPG;
++extern const char *MEDIA_MIMETYPE_CONTAINER_RA;
++extern const char *MEDIA_MIMETYPE_CONTAINER_RM;
++extern const char *MEDIA_MIMETYPE_CONTAINER_TS;
++extern const char *MEDIA_MIMETYPE_CONTAINER_WEBM;
++extern const char *MEDIA_MIMETYPE_CONTAINER_WMA;
++extern const char *MEDIA_MIMETYPE_CONTAINER_WMV;
++extern const char *MEDIA_MIMETYPE_CONTAINER_VC1;
++extern const char *MEDIA_MIMETYPE_CONTAINER_HEVC;
++extern const char *MEDIA_MIMETYPE_CONTAINER_FFMPEG;
++
+ extern const char *MEDIA_MIMETYPE_TEXT_VTT;
+ extern const char *MEDIA_MIMETYPE_TEXT_CEA_608;
+ extern const char *MEDIA_MIMETYPE_DATA_TIMED_ID3;
+diff --git a/include/media/stagefright/MetaData.h b/include/media/stagefright/MetaData.h
+index 8d4e15a..bc0d709 100644
+--- a/include/media/stagefright/MetaData.h
++++ b/include/media/stagefright/MetaData.h
+@@ -48,8 +48,12 @@ enum {
+     kKeyChannelCount      = '#chn',  // int32_t
+     kKeyChannelMask       = 'chnm',  // int32_t
+     kKeySampleRate        = 'srte',  // int32_t (audio sampling rate Hz)
++    kKeyExtSampleRate     = 'exsr',  // int32_t (extenstion audio sampling rate Hz)
+     kKeyFrameRate         = 'frmR',  // int32_t (video frame rate fps)
+     kKeyBitRate           = 'brte',  // int32_t (bps)
++    kKeyCodecId           = 'cdid',  // int32_t
++    kKeyBitspersample     = '#bps',  // int32_t
++    kKeySampleFormat      = 'sfmt',  // int32_t
+     kKeyESDS              = 'esds',  // raw data
+     kKeyAACProfile        = 'aacp',  // int32_t
+     kKeyAVCC              = 'avcc',  // raw data
+@@ -130,6 +134,21 @@ enum {
+     kKeyValidSamples      = 'valD',  // int32_t
+ 
+     kKeyIsUnreadable      = 'unre',  // bool (int32_t)
++    kKeyRawCodecSpecificData = 'rcsd',  // raw data - added to support mmParser
++    kKeyDivXVersion       = 'DivX',  // int32_t
++    kKeyDivXDrm           = 'QDrm',  // void *
++    kKeyWMAEncodeOpt      = 'eopt',  // int32_t
++    kKeyWMABlockAlign     = 'blka',  // int32_t
++    kKeyWMAVersion        = 'wmav',  // int32_t
++    kKeyWMAAdvEncOpt1     = 'ade1',  // int16_t
++    kKeyWMAAdvEncOpt2     = 'ade2',  // int32_t
++    kKeyWMAFormatTag      = 'fmtt',  // int64_t
++    kKeyWMABitspersample  = 'bsps',  // int64_t
++    kKeyWMAVirPktSize     = 'vpks',  // int64_t
++    kKeyWMVProfile        = 'wmvp',  // int32_t
++    kKeyWMVVersion        = 'wmvv',  // int32_t
++    kKeyRVVersion         = '#rvv',  // int32_t
++    kKeyBlockAlign        = 'blk',   // int32_t , should be different from kKeyWMABlockAlign
+ 
+     // An indication that a video buffer has been rendered.
+     kKeyRendered          = 'rend',  // bool (int32_t)
+@@ -190,6 +209,32 @@ enum {
+     kTypeD263        = 'd263',
+ };
+ 
++enum {
++    kTypeDivXVer_3_11,
++    kTypeDivXVer_4,
++    kTypeDivXVer_5,
++    kTypeDivXVer_6,
++};
++
++enum {
++    kTypeWMA,
++    kTypeWMAPro,
++    kTypeWMALossLess,
++};
++
++enum {
++    kTypeWMVVer_7, // WMV1
++    kTypeWMVVer_8, // WMV2
++    kTypeWMVVer_9, // WMV3
++};
++
++// http://en.wikipedia.org/wiki/RealVideo
++enum {
++    kTypeRVVer_G2, // rv20: RealVideo G2
++    kTypeRVVer_8,  // rv30: RealVideo 8
++    kTypeRVVer_9,  // rv40: RealVideo 9
++};
++
+ class MetaData : public RefBase {
+ public:
+     MetaData();
+-- 
+2.1.4
+
