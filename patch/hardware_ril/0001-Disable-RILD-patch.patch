@@ -1,0 +1,96 @@
+From 5003bfe36b459e48a5d69dbe8aed2a20c1e0ff04 Mon Sep 17 00:00:00 2001
+From: CTXz <patrick_pedersen_02032001@yahoo.com>
+Date: Sat, 24 Oct 2015 21:18:44 +0200
+Subject: [PATCH 1/1] Disable RILD patch
+
+---
+ rild/Android.mk | 58 ++++++++++++++++++++++++++++-----------------------------
+ 1 file changed, 29 insertions(+), 29 deletions(-)
+
+diff --git a/rild/Android.mk b/rild/Android.mk
+index 8aae88d..db0fcb5 100644
+--- a/rild/Android.mk
++++ b/rild/Android.mk
+@@ -1,50 +1,50 @@
+ # Copyright 2006 The Android Open Source Project
+ 
+-LOCAL_PATH:= $(call my-dir)
+-include $(CLEAR_VARS)
++#LOCAL_PATH:= $(call my-dir)
++#include $(CLEAR_VARS)
+ 
+-LOCAL_SRC_FILES:= \
+-	rild.c
++#LOCAL_SRC_FILES:= \
++#	rild.c
+ 
+ 
+-LOCAL_SHARED_LIBRARIES := \
+-	liblog \
+-	libcutils \
+-	libril \
+-	libdl
++#LOCAL_SHARED_LIBRARIES := \
++#	liblog \
++#	libcutils \
++#	libril \
++#	libdl
+ 
+ # temporary hack for broken vendor rils
+-LOCAL_WHOLE_STATIC_LIBRARIES := \
+-	librilutils_static
++#LOCAL_WHOLE_STATIC_LIBRARIES := \
++#	librilutils_static
+ 
+-LOCAL_CFLAGS := -DRIL_SHLIB
++#LOCAL_CFLAGS := -DRIL_SHLIB
+ #LOCAL_CFLAGS += -DANDROID_MULTI_SIM
+ 
+-ifeq ($(SIM_COUNT), 2)
+-    LOCAL_CFLAGS += -DANDROID_SIM_COUNT_2
+-endif
++#ifeq ($(SIM_COUNT), 2)
++#    LOCAL_CFLAGS += -DANDROID_SIM_COUNT_2
++#endif
+ 
+-LOCAL_MODULE:= rild
+-LOCAL_MODULE_TAGS := optional
++#LOCAL_MODULE:= rild
++#LOCAL_MODULE_TAGS := optional
+ 
+-LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/libril
++#LOCAL_C_INCLUDES += $(TARGET_OUT_HEADERS)/libril
+ 
+-include $(BUILD_EXECUTABLE)
++#include $(BUILD_EXECUTABLE)
+ 
+ # For radiooptions binary
+ # =======================
+-include $(CLEAR_VARS)
++#include $(CLEAR_VARS)
+ 
+-LOCAL_SRC_FILES:= \
+-	radiooptions.c
++#LOCAL_SRC_FILES:= \
++#	radiooptions.c
+ 
+-LOCAL_SHARED_LIBRARIES := \
+-	liblog \
+-	libcutils \
++#LOCAL_SHARED_LIBRARIES := \
++#	liblog \
++#	libcutils \
+ 
+-LOCAL_CFLAGS := \
++#LOCAL_CFLAGS := \
+ 
+-LOCAL_MODULE:= radiooptions
+-LOCAL_MODULE_TAGS := debug
++#LOCAL_MODULE:= radiooptions
++#LOCAL_MODULE_TAGS := debug
+ 
+-include $(BUILD_EXECUTABLE)
++#include $(BUILD_EXECUTABLE)
+-- 
+2.1.4
+
