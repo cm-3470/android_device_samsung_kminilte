@@ -5,34 +5,9 @@ on early-init
     mkdir /efs 0771 radio system
 
 on init
-#    start watchdogd
-
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-    mkdir /mnt/media_rw/usbdisk0 0700 media_rw media_rw
-
-    # See storage config details at http://source.android.com/tech/storage/
-    mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-
-    export EXTERNAL_STORAGE /storage/emulated/legacy
-    export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
-
     # Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-    symlink /storage/emulated/legacy /storage/sdcard0
-    symlink /mnt/shell/emulated/0 /storage/emulated/legacy
-
-    # map "real" external storages paths also in same way. backwards compatibility.
-    symlink /storage/sdcard1 /mnt/sdcard1
-    symlink /storage/usbdisk0 /mnt/usbdisk0
-
-    export SECONDARY_STORAGE /storage/sdcard1
-
-    mkdir /storage/sdcard1 0700 root root
-    mkdir /storage/usbdisk0 0700 root root
+    symlink /sdcard /mnt/sdcard
+    symlink /sdcard /storage/sdcard0
 
     mkdir /efs 0771 radio system
     symlink /dev/block/mmcblk0p13 /dev/mbin0
@@ -70,10 +45,6 @@ on init
     mkdir /storage/Private 0000 system system
 
 on post-fs-data
-    # we will remap this as /mnt/sdcard with the sdcard fuse tool
-    mkdir /data/media 0770 media_rw media_rw
-    chown media_rw media_rw /data/media
-
     setprop vold.post_fs_data_done 1
 
     # Add sockets for WiFi operation
@@ -209,7 +180,6 @@ on boot
 
 on fs
     mount_all /fstab.universal3470
-    setprop ro.crypto.fuse_sdcard true
 
 #For Absolute Persistence Partition 
     mkdir /persdata 0755 system system 
@@ -393,6 +363,11 @@ on fs
 # Fingerprint
     mkdir /dev/validity 0770 system system
 
+service sensorservice /system/bin/sensorservice
+    class main
+    user system
+    group system
+
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /system/bin/vcsFPService
     class late_start
@@ -422,21 +397,6 @@ service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF0000000000000
     user system
     group system
 
-# virtual sdcard daemon running as media_rw (1023)
-service sdcard /system/bin/sdcard -u 1023 -g 1023 -l /data/media /mnt/shell/emulated
-    class late_start
-    oneshot
-
-service fuse_sdcard1 /system/bin/sdcard -u 1023 -g 1023 -w 1023 -d /mnt/media_rw/sdcard1 /storage/sdcard1
-    class late_start
-    disabled
-    oneshot
-
-service fuse_usbdisk0 /system/bin/sdcard -u 1023 -g 1023 -d /mnt/media_rw/usbdisk0 /storage/usbdisk0
-    class late_start
-    disabled
-    oneshot
-
 service prepare_param /system/bin/prepare_param.sh /dev/block/platform/dw_mmc.0/by-name/PARAM
 	class main
 	user root
@@ -460,11 +420,11 @@ on property:ro.debuggable=1
     write /sys/module/fiq_debugger/parameters/kgdb_enable 1
 
 # Modem boot daemon
-service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
-    class main
-    user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log shell
-    seclabel u:r:cbd:s0
+#service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
+#    class main
+#    user root
+#    group radio cache inet misc audio sdcard_r sdcard_rw log shell
+#    seclabel u:r:cbd:s0
 
 # CS service
 service cs_service /system/bin/cs
