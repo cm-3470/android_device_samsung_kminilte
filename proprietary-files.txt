@@ -194,6 +194,3 @@ lib/lib_SamsungRec_V04003.so
 lib/lib_Samsung_AudioZoom_v100.so
 lib/lib_Samsung_Resampler.so
 lib/lib_Samsung_SB_AM_for_ICS_v04004.so
-
-# RIL
-lib/libril.so
