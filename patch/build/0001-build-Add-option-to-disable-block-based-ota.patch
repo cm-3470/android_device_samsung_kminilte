@@ -1,0 +1,44 @@
+From ad63936eb97ac3f7642afffa22b5106ec854ef8f Mon Sep 17 00:00:00 2001
+From: sub77 <sub77@ymail.com>
+Date: Thu, 3 Sep 2015 20:25:01 +0200
+Subject: [PATCH 1/1] build: Add option to disable block-based ota
+
+While block-based is great when building on a local machine, it kills rsync
+performance when syncing rebuilds from remote machines.  Provide an option
+to disable it for those whose network bandwidth is less than their device's
+emmc bandwidth.
+
+Change-Id: I91370b218de1254472b18a2f8d904444415bc115
+Usage: export BLOCK_BASED_OTA=false
+---
+ core/Makefile | 7 ++++++-
+ 1 file changed, 6 insertions(+), 1 deletion(-)
+
+diff --git a/core/Makefile b/core/Makefile
+index 382116d..36386dc 100644
+--- a/core/Makefile
++++ b/core/Makefile
+@@ -1678,6 +1678,11 @@ ifeq ($(TARGET_BUILD_TYPE),debug)
+ endif
+ name := $(name)-ota-$(FILE_NAME_TAG)
+ 
++ifneq ($(BLOCK_BASED_OTA),false)
++    $(INTERNAL_OTA_PACKAGE_TARGET): block_based := --block
++endif
++
++
+ INTERNAL_OTA_PACKAGE_TARGET := $(PRODUCT_OUT)/$(name).zip
+ 
+ $(INTERNAL_OTA_PACKAGE_TARGET): KEY_CERT_PAIR := $(DEFAULT_KEY_CERT_PAIR)
+@@ -1717,7 +1722,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE) $(DISTTOOLS)
+ 	@echo -e ${CL_YLW}"Package OTA:"${CL_RST}" $@"
+ 	$(hide) MKBOOTIMG=$(MKBOOTIMG) \
+ 	   $(OTA_FROM_TARGET_SCRIPT) -v \
+-	   --block \
++	   $(block_based) \
+ 	   $(if $(WITH_LZMA_OTA), -z) \
+ 	   -p $(HOST_OUT) \
+ 	   -k $(KEY_CERT_PAIR) \
+-- 
+2.1.0
+
