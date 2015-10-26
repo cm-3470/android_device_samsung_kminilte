@@ -29,6 +29,10 @@ endif
 # Assert
 TARGET_OTA_ASSERT_DEVICE := kminiltexx,kminiltedv,kminilteub,kminilte
 
+# Use file-based OTA zips
+BLOCK_BASED_OTA := false
+
+
 # Filesystems
 # Note: the BOARD_...IMAGE_PARTITION_SIZE values define the image sizes, 
 # not the partition sizes. So the image sizes can also be lower than the partition size. 
