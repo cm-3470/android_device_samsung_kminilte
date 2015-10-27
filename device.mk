@@ -38,6 +38,15 @@ PRODUCT_PACKAGES += \
     init.wifi.rc \
     ueventd.universal3470.rc
 
+#ADB
+ADDITIONAL_DEFAULT_PROPERTIES += \
+ro.adb.secure=0	\
+ro.secure=0	\
+persist.sys.root_access=3	\
+ro.allow.mock.location=0	\
+ro.debuggable=1	\
+persist.sys.usb.config=mtp,adb
+
 # Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
