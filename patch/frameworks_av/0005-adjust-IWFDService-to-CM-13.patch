@@ -1,0 +1,35 @@
+From 8c502b300c145ba14208a7675eaf782f504991a7 Mon Sep 17 00:00:00 2001
+From: tobigun <hennymcc@yahoo.de>
+Date: Tue, 27 Oct 2015 23:03:27 +0100
+Subject: [PATCH] adjust IWFDService to CM-13
+
+Change-Id: I687e83a3e90912066c1b7d6cd36f5dabf2266517
+---
+ media/libmedia/IWFDService.cpp | 4 ++--
+ 1 file changed, 2 insertions(+), 2 deletions(-)
+
+diff --git a/media/libmedia/IWFDService.cpp b/media/libmedia/IWFDService.cpp
+index f27be42..923c8f6 100644
+--- a/media/libmedia/IWFDService.cpp
++++ b/media/libmedia/IWFDService.cpp
+@@ -66,7 +66,7 @@ struct BpWFDService : public BpInterface<IWFDService> {
+                         const sp<IWFDServiceListener> &listener) {
+         Parcel data, reply;
+         data.writeInterfaceToken(BpWFDService::getInterfaceDescriptor());
+-        data.writeStrongBinder(listener->asBinder());
++        data.writeStrongBinder(IInterface::asBinder(listener));
+         remote()->transact(WFD_ADD_LISTENER, data, &reply);
+         return reply.readInt32();
+     }
+@@ -75,7 +75,7 @@ struct BpWFDService : public BpInterface<IWFDService> {
+                         const sp<IWFDServiceListener> &listener) {
+         Parcel data, reply;
+         data.writeInterfaceToken(BpWFDService::getInterfaceDescriptor());
+-        data.writeStrongBinder(listener->asBinder());
++        data.writeStrongBinder(IInterface::asBinder(listener));
+         remote()->transact(WFD_REMOVE_LISTENER, data, &reply);
+         return reply.readInt32();
+     }
+-- 
+1.9.1
+
