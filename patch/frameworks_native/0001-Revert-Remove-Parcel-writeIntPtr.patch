@@ -1,0 +1,42 @@
+From 4bbe208baff12490ba14c2d08903d8a740bd5873 Mon Sep 17 00:00:00 2001
+From: tobigun <hennymcc@yahoo.de>
+Date: Mon, 26 Oct 2015 01:03:48 +0100
+Subject: [PATCH] Revert "Remove Parcel::writeIntPtr."
+
+Change-Id: If64f2591e1fb04a643a4b17e4377e232375beb16
+---
+ include/binder/Parcel.h | 1 +
+ libs/binder/Parcel.cpp  | 5 +++++
+ 2 files changed, 6 insertions(+)
+
+diff --git a/include/binder/Parcel.h b/include/binder/Parcel.h
+index 3ada1e9..aedc2a6 100644
+--- a/include/binder/Parcel.h
++++ b/include/binder/Parcel.h
+@@ -100,6 +100,7 @@ public:
+     status_t            writeUint64(uint64_t val);
+     status_t            writeFloat(float val);
+     status_t            writeDouble(double val);
++    status_t            writeIntPtr(intptr_t val);
+     status_t            writeCString(const char* str);
+     status_t            writeString8(const String8& str);
+     status_t            writeString16(const String16& str);
+diff --git a/libs/binder/Parcel.cpp b/libs/binder/Parcel.cpp
+index 7a4ddc4..1d122a2 100644
+--- a/libs/binder/Parcel.cpp
++++ b/libs/binder/Parcel.cpp
+@@ -801,6 +801,11 @@ status_t Parcel::writeDouble(double val)
+ 
+ #endif
+ 
++status_t Parcel::writeIntPtr(intptr_t val)
++{
++    return writeAligned(val);
++}
++
+ status_t Parcel::writeCString(const char* str)
+ {
+     return write(str, strlen(str)+1);
+-- 
+1.9.1
+
