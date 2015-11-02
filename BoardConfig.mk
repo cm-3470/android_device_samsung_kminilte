@@ -83,7 +83,7 @@ BOARD_SEPOLICY_DIRS += \
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_kminilte
-TARGET_LIBINIT_DEFINES_FILE := device/samsung/gardalte/init/init_kminilte.c
+TARGET_LIBINIT_DEFINES_FILE := device/samsung/kminilte/init/init_kminilte.cpp
 
 # TWRP
 DEVICE_RESOLUTION := 720x1280
