@@ -420,11 +420,11 @@ on property:ro.debuggable=1
     write /sys/module/fiq_debugger/parameters/kgdb_enable 1
 
 # Modem boot daemon
-#service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
-#    class main
-#    user root
-#    group radio cache inet misc audio sdcard_r sdcard_rw log shell
-#    seclabel u:r:cbd:s0
+service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
+    class main
+    user root
+    group radio cache inet misc audio sdcard_r sdcard_rw log shell
+    seclabel u:r:cbd:s0
 
 # CS service
 service cs_service /system/bin/cs
