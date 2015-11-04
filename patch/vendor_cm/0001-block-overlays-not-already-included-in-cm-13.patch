@@ -1,27 +1,23 @@
-From 99529b3ba30da50d91f116b0501ff24bf34bc520 Mon Sep 17 00:00:00 2001
+From 8dcd6e57c433cebb6d35c37cf7a390d1d4743368 Mon Sep 17 00:00:00 2001
 From: tobigun <hennymcc@yahoo.de>
 Date: Sun, 25 Oct 2015 02:47:55 +0100
 Subject: [PATCH] block overlays not already included in cm-13
 
 Change-Id: I7eee9696d6beb56eec619abc36ff6f8caa279562
 ---
- .../base/packages/SettingsProvider/res/values/defaults.xml        | 6 +++---
+ .../base/packages/SettingsProvider/res/values/defaults.xml        | 4 ++--
  .../TelephonyProvider/res/values-mcc310-mnc260/config.xml         | 2 +-
  .../TelephonyProvider/res/values-mcc310-mnc410/config.xml         | 2 +-
  .../TelephonyProvider/res/values-mcc450-mnc08/config.xml          | 2 +-
  .../common/packages/services/Telecomm/res/values/cm_config.xml    | 8 ++++----
- 5 files changed, 10 insertions(+), 10 deletions(-)
+ 5 files changed, 9 insertions(+), 9 deletions(-)
 
 diff --git a/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml b/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
-index d0802f7..626aebf 100644
+index 1c43857..ad6ca76 100644
 --- a/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
 +++ b/overlay/common/frameworks/base/packages/SettingsProvider/res/values/defaults.xml
-@@ -20,11 +20,11 @@
-     <string name="def_backup_transport">com.google.android.backup/.BackupTransportService</string>
- 
-     <!-- Enable notification counters in statusbar -->
--    <integer name="def_notif_count">1</integer>
-+    <!--integer name="def_notif_count">1</integer-->
+@@ -23,8 +23,8 @@
+     <integer name="def_notif_count">1</integer>
  
      <!-- Right QS pulldown -->
 -    <integer name="def_qs_quick_pulldown">1</integer>
