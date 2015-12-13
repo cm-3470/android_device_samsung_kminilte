@@ -76,6 +76,9 @@ TARGET_POWERHAL_VARIANT := exynos3
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# GUI
+BOARD_EGL_NEEDS_HANDLE_VALUE := true
+
 # SELinux
 BOARD_SEPOLICY_DIRS += \
    device/samsung/kminilte/sepolicy
