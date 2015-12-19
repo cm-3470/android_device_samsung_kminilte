@@ -1,0 +1,47 @@
+From 018479e7a232a9408d0b3b5b13f8ad40e8838c50 Mon Sep 17 00:00:00 2001
+From: tobigun <hennymcc@yahoo.de>
+Date: Sun, 8 Nov 2015 11:13:34 +0100
+Subject: [PATCH] fix "cannot locate symbol
+ "_ZN7android16MediaBufferGroup14acquire_bufferEPPNS_11MediaBufferE"
+ referenced by libwvm.so"
+
+Change-Id: Ia786d7c9874c0a2e5a5540f9068264c39d550056
+---
+ include/media/stagefright/MediaBufferGroup.h | 4 +++-
+ media/libstagefright/MediaBufferGroup.cpp    | 5 +++++
+ 2 files changed, 8 insertions(+), 1 deletion(-)
+
+diff --git a/include/media/stagefright/MediaBufferGroup.h b/include/media/stagefright/MediaBufferGroup.h
+index a006f7f..62e3fd7 100644
+--- a/include/media/stagefright/MediaBufferGroup.h
++++ b/include/media/stagefright/MediaBufferGroup.h
+@@ -39,7 +39,9 @@ public:
+     // The returned buffer will have a reference count of 1.
+     // If nonBlocking is true and a buffer is not immediately available,
+     // buffer is set to NULL and it returns WOULD_BLOCK.
+-    status_t acquire_buffer(MediaBuffer **buffer, bool nonBlocking = false);
++    status_t acquire_buffer(MediaBuffer **buffer, bool nonBlocking);
++
++    status_t acquire_buffer(MediaBuffer **buffer);
+ 
+ protected:
+     virtual void signalBufferReturned(MediaBuffer *buffer);
+diff --git a/media/libstagefright/MediaBufferGroup.cpp b/media/libstagefright/MediaBufferGroup.cpp
+index 6ac6d4a..4c63018 100644
+--- a/media/libstagefright/MediaBufferGroup.cpp
++++ b/media/libstagefright/MediaBufferGroup.cpp
+@@ -84,6 +84,11 @@ exit:
+     return OK;
+ }
+ 
++status_t MediaBufferGroup::acquire_buffer(
++        MediaBuffer **out) {
++    return acquire_buffer(out, false);
++}
++
+ void MediaBufferGroup::signalBufferReturned(MediaBuffer *) {
+     Mutex::Autolock autoLock(mLock);
+     mCondition.signal();
+-- 
+1.9.1
+
