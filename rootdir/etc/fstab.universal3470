@@ -13,5 +13,5 @@
 /dev/block/platform/dw_mmc.0/by-name/RECOVERY  /recovery              emmc      defaults                                                                          recoveryonly
 
 # VOLD
-/devices/platform/dw_mmc.2/mmc_host/mmc2*      auto 	              auto      defaults     voldmanaged=sdcard1:auto,noemulatedsd
+/devices/platform/dw_mmc.2/mmc_host/mmc2*      auto 	              auto      defaults     voldmanaged=sdcard1:auto,encryptable=userdata
 /devices/platform/s5p-ehci/usb1*               auto                   auto      defaults     voldmanaged=usbdisk0:auto,noemulatedsd
