@@ -443,10 +443,10 @@ service_redefine ril-daemon /system/bin/rild
     onrestart restart cpboot-daemon
 
 # AT Distributor for factory test
-service at_distributor /system/bin/at_distributor
-    class late_start
-    user root
-    group radio misc log
+#service at_distributor /system/bin/at_distributor
+#    class late_start
+#    user root
+#    group radio misc log
 
 on property:sys.mobicoredaemon.enable=true
     start cs_service
