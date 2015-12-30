@@ -363,11 +363,6 @@ on fs
 # Fingerprint
     mkdir /dev/validity 0770 system system
 
-service sensorservice /system/bin/sensorservice
-    class main
-    user system
-    group system
-
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /system/bin/vcsFPService
     class late_start
