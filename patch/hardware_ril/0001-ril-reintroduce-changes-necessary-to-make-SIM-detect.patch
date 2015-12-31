@@ -1,0 +1,42 @@
+From 8b72ab2de76d648400f72156dc8314338f74ebe5 Mon Sep 17 00:00:00 2001
+From: tobigun <hennymcc@yahoo.de>
+Date: Thu, 31 Dec 2015 15:47:03 +0100
+Subject: [PATCH] ril: reintroduce changes necessary to make SIM detection work
+
+libril checks the size of RIL_CardStatus to detect whether it is v6 or
+v5. As Samsung added some additional fields the version cannot be
+detected correctly anymore.
+
+Change-Id: I0d786787e0416d110b9930f9a72384d0f50dcd5d
+---
+ include/telephony/ril.h | 7 +++++++
+ 1 file changed, 7 insertions(+)
+
+diff --git a/include/telephony/ril.h b/include/telephony/ril.h
+index 2e71367..834fead 100644
+--- a/include/telephony/ril.h
++++ b/include/telephony/ril.h
+@@ -503,6 +503,7 @@ typedef struct {
+     char *data;     /* May be NULL*/
+     char *pin2;     /* May be NULL*/
+     char *aidPtr;   /* AID value, See ETSI 102.221 8.1 and 101.220 4, NULL if no value. */
++    int cla;	    /* Class of the APDU command */
+ } RIL_SIM_IO_v6;
+ 
+ /* Used by RIL_REQUEST_SIM_TRANSMIT_APDU_CHANNEL and
+@@ -770,6 +771,12 @@ typedef struct
+   int              pin1_replaced;   /* applicable to USIM, CSIM & ISIM */
+   RIL_PinState     pin1;
+   RIL_PinState     pin2;
++  /* Samsung enhancements */
++  int              pin1_num_retries;
++  int              puk1_num_retries;
++  int              pin2_num_retries;
++  int              puk2_num_retries;
++  int              perso_unblock_retries;
+ } RIL_AppStatus;
+ 
+ /* Deprecated, use RIL_CardStatus_v6 */
+-- 
+1.9.1
+
