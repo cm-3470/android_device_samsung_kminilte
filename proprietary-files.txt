@@ -10,18 +10,14 @@ lib/libexynosv4l2.so
 #lib/libMcClient.so
 
 # Bluetooth
-vendor/firmware/bcm4334.hcd
-vendor/firmware/BT_FW_VER_BCM4334B0_002.001.013.1792.1803_K_Mini.hcd
+vendor/firmware/bcm4334_V1831.2468.hcd
+vendor/firmware/bcm4339_V1831.2468.hcd
 
 # Camera
 lib/hw/camera.universal3470.so
 # Needed by "camera.universal3470.so"
 lib/libhwjpeg.so
 lib/libexynoscamera.so
-# Needed by libexynoscamera.so
-lib/libliveframework.so
-# Needed by "libliveframework.so"
-lib/libarcsoft_nighthawk.so
 
 # DRM
 etc/srm.bin
@@ -29,7 +25,6 @@ lib/libdrmdecrypt.so
 lib/libhdcp2.so
 lib/libstagefright_hdcp.so
 vendor/lib/libwvm.so
-vendor/lib/libwvdrm_L1.so
 # Needed by libwvm.so
 vendor/lib/libWVStreamControlAPI_L1.so
 vendor/lib/mediadrm/libwvdrmengine.so
@@ -58,7 +53,7 @@ lib/libExynosIPService.so
 #lib/libcsc.so
 
 # HWC
-vendor/lib/hw/hwcomposer.exynos3.so
+lib/hw/hwcomposer.exynos3.so
 lib/hw/gralloc.exynos3.so
 # Needed by hwcomposer.exynos3.so
 lib/libdisplay.so
@@ -77,7 +72,7 @@ lib/libhwcutilsmodule.so
 lib/libvirtualdisplay.so
 
 # Keystore
-vendor/lib/hw/keystore.exynos3.so
+lib/hw/keystore.exynos3470.so
 
 # LPM
 bin/lpm
@@ -140,15 +135,8 @@ lib/libMcClient.so
 lib/libMcRegistry.so
 
 # OMX
-etc/ExynosOMXReg.conf
-lib/libExynosOMX263d.so
-lib/libExynosOMX264d.so
-lib/libExynosOMXCmn.so
 lib/libExynosOMX_Core.so
-lib/libExynosOMXCore.so
-lib/libExynosOMXMp4vd.so
 lib/libExynosOMX_Resourcemanager.so
-lib/libExynosOMXVc1d.so
 lib/libstagefrighthw.so
 lib/omx/libOMX.Exynos.AVC.Decoder.so
 lib/omx/libOMX.Exynos.AVC.Encoder.so
@@ -183,14 +171,13 @@ etc/wifi/bcmdhd_sta.bin_b2
 etc/wifi/nvram_net.txt
 
 # Audio
-lib/hw/audio.vendor.universal3470.so
 lib/libaudio-ril.so
 lib/libsamsungRecord.so
 lib/libsamsungRecord_ns.so
 lib/libsamsungRecord_zoom.so
 lib/libsamsungSoundbooster.so
 lib/lib_DNSe_NRSS_ver226.so
-lib/lib_SamsungRec_V04003.so
-lib/lib_Samsung_AudioZoom_v100.so
+lib/lib_SamsungRec_V04004.so
+lib/lib_Samsung_AudioZoom_v102.so
 lib/lib_Samsung_Resampler.so
 lib/lib_Samsung_SB_AM_for_ICS_v04004.so
