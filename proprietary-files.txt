@@ -1,10 +1,10 @@
 # General
-csc/sales_code.dat
 lib/libcsc.so
 # Needed by libcsc.so
 lib/libion_exynos.so
 lib/libexynosutils.so
 lib/libexynosfimc.so
+lib/libexynosscaler.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
 #lib/libMcClient.so
@@ -25,6 +25,7 @@ lib/libdrmdecrypt.so
 lib/libhdcp2.so
 lib/libstagefright_hdcp.so
 vendor/lib/libwvm.so
+vendor/lib/libwvdrm_L1.so
 # Needed by libwvm.so
 vendor/lib/libWVStreamControlAPI_L1.so
 vendor/lib/mediadrm/libwvdrmengine.so
@@ -89,6 +90,7 @@ media/lcd_density.txt
 media/percentage.spi
 media/battery_temperature_error.spi
 media/battery_low.spi
+media/dock_error.spi
 media/wave_loop.spi
 media/incompatible_charger.spi
 media/battery_temperature_limit.spi
@@ -126,10 +128,12 @@ app/mcRegistry/ffffffff00000000000000000000000e.tlbin
 app/mcRegistry/ffffffff00000000000000000000000f.tlbin
 app/mcRegistry/ffffffff000000000000000000000012.tlbin
 app/mcRegistry/ffffffff000000000000000000000013.tlbin
+app/mcRegistry/ffffffff000000000000000000000017.tlbin
 app/mcRegistry/ffffffff000000000000000000000018.tlbin
 app/mcRegistry/ffffffffd00000000000000000000004.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+app/mcRegistry/fffffffff0000000000000000000001e.tlbin
 lib/libgdmcprov.so
 lib/libMcClient.so
 lib/libMcRegistry.so
@@ -145,7 +149,6 @@ lib/omx/libOMX.Exynos.MPEG4.Encoder.so
 
 # Radio
 bin/at_distributor
-etc/plmn_delta.bin
 etc/plmn_se13.bin
 lib/libatparser.so
 lib/libfactoryutil.so
@@ -171,6 +174,9 @@ etc/wifi/bcmdhd_sta.bin_b2
 etc/wifi/nvram_net.txt
 
 # Audio
+# Note: "audio.primary.universal3470.so" renamed to "audio.vendor.universal3470.so"
+# as it will be loaded by a wrapper with the name "audio.primary.universal3470.so"
+lib/hw/audio.vendor.universal3470.so
 lib/libaudio-ril.so
 lib/libsamsungRecord.so
 lib/libsamsungRecord_ns.so
