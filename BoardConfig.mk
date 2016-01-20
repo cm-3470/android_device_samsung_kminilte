@@ -93,7 +93,7 @@ TARGET_INIT_VENDOR_LIB := libinit_kminilte
 TARGET_LIBINIT_DEFINES_FILE := device/samsung/kminilte/init/init_kminilte.cpp
 
 # Audio
-TARGET_EXYNOS3_AUDIO_FROM_SOURCE := false
+TARGET_EXYNOS3_AUDIO_FROM_SOURCE := true
 
 # TWRP
 DEVICE_RESOLUTION := 720x1280
