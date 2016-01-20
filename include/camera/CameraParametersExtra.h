@@ -18,6 +18,11 @@
  */
 
 #define CAMERA_PARAMETERS_EXTRA_C \
+const char CameraParameters::ISO_AUTO[] = "iso-auto";\
+const char CameraParameters::ISO_100[] = "iso-100";\
+const char CameraParameters::ISO_200[] = "iso-200";\
+const char CameraParameters::ISO_400[] = "iso-400";\
+const char CameraParameters::ISO_800[] = "iso-800";\
 const char CameraParameters::EFFECT_CARTOONIZE[] = "cartoonize";\
 const char CameraParameters::EFFECT_POINT_RED_YELLOW[] = "point-red-yellow";\
 const char CameraParameters::EFFECT_POINT_GREEN[] = "point-green";\
@@ -29,6 +34,11 @@ const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "yuv420sp";\
 int CameraParameters::getInt64(const char *key) const { return -1; }
 
 #define CAMERA_PARAMETERS_EXTRA_H \
+    static const char ISO_AUTO[];\
+    static const char ISO_100[];\
+    static const char ISO_200[];\
+    static const char ISO_400[];\
+    static const char ISO_800[];\
     static const char EFFECT_CARTOONIZE[];\
     static const char EFFECT_POINT_RED_YELLOW[];\
     static const char EFFECT_POINT_GREEN[];\
