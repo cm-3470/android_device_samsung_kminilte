@@ -174,9 +174,6 @@ etc/wifi/bcmdhd_sta.bin_b2
 etc/wifi/nvram_net.txt
 
 # Audio
-# Note: "audio.primary.universal3470.so" renamed to "audio.vendor.universal3470.so"
-# as it will be loaded by a wrapper with the name "audio.primary.universal3470.so"
-lib/hw/audio.vendor.universal3470.so
 lib/libaudio-ril.so
 lib/libsamsungRecord.so
 lib/libsamsungRecord_ns.so
