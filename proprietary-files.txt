@@ -54,9 +54,7 @@ lib/libExynosIPService.so
 #lib/libcsc.so
 
 # HWC
-lib/hw/hwcomposer.exynos3.so
 lib/hw/gralloc.exynos3.so
-# Needed by hwcomposer.exynos3.so
 lib/libdisplay.so
 lib/libdisplaymodule.so
 lib/libExynosHWCService.so
