@@ -1,0 +1,41 @@
+From 1e7e2be36ac152e2293038dc2cde4b01b04729a1 Mon Sep 17 00:00:00 2001
+From: tobigun <hennymcc@yahoo.de>
+Date: Tue, 26 Jan 2016 23:50:35 +0100
+Subject: [PATCH] add writeString16 with uint16_t for ABI compatibility with
+ Lollipop RIlD
+
+Change-Id: Icc912d26a06cb9501b3d81b8f5abc1f9a27a99f9
+---
+ include/binder/Parcel.h | 3 +++
+ libs/binder/Parcel.cpp  | 1 +
+ 2 files changed, 4 insertions(+)
+
+diff --git a/include/binder/Parcel.h b/include/binder/Parcel.h
+index 05b8d1b..ba867e7 100644
+--- a/include/binder/Parcel.h
++++ b/include/binder/Parcel.h
+@@ -105,6 +105,9 @@ public:
+     status_t            writeString8(const String8& str);
+     status_t            writeString16(const String16& str);
+     status_t            writeString16(const char16_t* str, size_t len);
++#ifdef COMPAT_RILD_LOLLIPOP
++    status_t            writeString16(const uint16_t* str, size_t len);
++#endif
+     status_t            writeStrongBinder(const sp<IBinder>& val);
+     status_t            writeWeakBinder(const wp<IBinder>& val);
+     status_t            writeInt32Array(size_t len, const int32_t *val);
+diff --git a/libs/binder/Parcel.cpp b/libs/binder/Parcel.cpp
+index 1ea2089..38b00ed 100644
+--- a/libs/binder/Parcel.cpp
++++ b/libs/binder/Parcel.cpp
+@@ -17,6 +17,7 @@
+ #define LOG_TAG "Parcel"
+ //#define LOG_NDEBUG 0
+ 
++#define COMPAT_RILD_LOLLIPOP
+ #include <binder/Parcel.h>
+ 
+ #include <binder/IPCThreadState.h>
+-- 
+1.9.1
+

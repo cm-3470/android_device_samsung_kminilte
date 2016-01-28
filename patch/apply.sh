@@ -11,7 +11,7 @@ for i in $(find "$PATCHBASE"/* -type d); do
 		PATCHTARGET=$(echo $PATCHTARGET | sed 's/_/\//')
 		if [ -d "$CMBASE/$PATCHTARGET" ]; then break; fi
 	done
-	
+
 	if [ "$PATCHTARGET" = "bootable/recovery" ]; then
         # recovery might be replaced by TWRP -> only patch if CM recovery is used
         cd $CMBASE/bootable/recovery
@@ -21,9 +21,10 @@ for i in $(find "$PATCHBASE"/* -type d); do
             echo "WARN: Recovery does not seem to be CM one -> patches will not be applied"
             continue
         fi
-    fi    
-	
+    fi
+
+	echo
 	echo applying $PATCHNAME to $PATCHTARGET
 	cd "$CMBASE/$PATCHTARGET" || exit 1
-	git am --ignore-whitespace -3 "$PATCHBASE/$PATCHNAME"/* || exit 1
+	git am --ignore-whitespace -3 "$PATCHBASE/$PATCHNAME"/*.patch || exit 1
 done
