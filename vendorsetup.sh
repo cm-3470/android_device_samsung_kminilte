@@ -1,3 +1,3 @@
-add_lunch_combo cm_kminilte-eng
-add_lunch_combo cm_kminilte-user
-add_lunch_combo cm_kminilte-userdebug
+add_lunch_combo bliss_kminilte-eng
+add_lunch_combo bliss_kminilte-user
+add_lunch_combo bliss_kminilte-userdebug
