@@ -1,27 +1,23 @@
 # General
-csc/sales_code.dat
 lib/libcsc.so
 # Needed by libcsc.so
 lib/libion_exynos.so
 lib/libexynosutils.so
 lib/libexynosfimc.so
+lib/libexynosscaler.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
 #lib/libMcClient.so
 
 # Bluetooth
-vendor/firmware/bcm4334.hcd
-vendor/firmware/BT_FW_VER_BCM4334B0_002.001.013.1792.1803_K_Mini.hcd
+vendor/firmware/bcm4334_V1831.2468.hcd
+vendor/firmware/bcm4339_V1831.2468.hcd
 
 # Camera
 lib/hw/camera.universal3470.so
 # Needed by "camera.universal3470.so"
 lib/libhwjpeg.so
 lib/libexynoscamera.so
-# Needed by libexynoscamera.so
-lib/libliveframework.so
-# Needed by "libliveframework.so"
-lib/libarcsoft_nighthawk.so
 
 # DRM
 etc/srm.bin
@@ -77,7 +73,7 @@ lib/libhwcutilsmodule.so
 lib/libvirtualdisplay.so
 
 # Keystore
-vendor/lib/hw/keystore.exynos3.so
+lib/hw/keystore.exynos3470.so
 
 # LPM
 bin/lpm
@@ -94,6 +90,7 @@ media/lcd_density.txt
 media/percentage.spi
 media/battery_temperature_error.spi
 media/battery_low.spi
+media/dock_error.spi
 media/wave_loop.spi
 media/incompatible_charger.spi
 media/battery_temperature_limit.spi
@@ -131,24 +128,19 @@ app/mcRegistry/ffffffff00000000000000000000000e.tlbin
 app/mcRegistry/ffffffff00000000000000000000000f.tlbin
 app/mcRegistry/ffffffff000000000000000000000012.tlbin
 app/mcRegistry/ffffffff000000000000000000000013.tlbin
+app/mcRegistry/ffffffff000000000000000000000017.tlbin
 app/mcRegistry/ffffffff000000000000000000000018.tlbin
 app/mcRegistry/ffffffffd00000000000000000000004.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+app/mcRegistry/fffffffff0000000000000000000001e.tlbin
 lib/libgdmcprov.so
 lib/libMcClient.so
 lib/libMcRegistry.so
 
 # OMX
-etc/ExynosOMXReg.conf
-lib/libExynosOMX263d.so
-lib/libExynosOMX264d.so
-lib/libExynosOMXCmn.so
 lib/libExynosOMX_Core.so
-lib/libExynosOMXCore.so
-lib/libExynosOMXMp4vd.so
 lib/libExynosOMX_Resourcemanager.so
-lib/libExynosOMXVc1d.so
 lib/libstagefrighthw.so
 lib/omx/libOMX.Exynos.AVC.Decoder.so
 lib/omx/libOMX.Exynos.AVC.Encoder.so
@@ -157,7 +149,6 @@ lib/omx/libOMX.Exynos.MPEG4.Encoder.so
 
 # Radio
 bin/at_distributor
-etc/plmn_delta.bin
 etc/plmn_se13.bin
 lib/libatparser.so
 lib/libfactoryutil.so
@@ -183,13 +174,15 @@ etc/wifi/bcmdhd_sta.bin_b2
 etc/wifi/nvram_net.txt
 
 # Audio
+# Note: "audio.primary.universal3470.so" renamed to "audio.vendor.universal3470.so"
+# as it will be loaded by a wrapper with the name "audio.primary.universal3470.so"
 lib/libaudio-ril.so
 lib/libsamsungRecord.so
 lib/libsamsungRecord_ns.so
 lib/libsamsungRecord_zoom.so
 lib/libsamsungSoundbooster.so
 lib/lib_DNSe_NRSS_ver226.so
-lib/lib_SamsungRec_V04003.so
-lib/lib_Samsung_AudioZoom_v100.so
+lib/lib_SamsungRec_V04004.so
+lib/lib_Samsung_AudioZoom_v102.so
 lib/lib_Samsung_Resampler.so
 lib/lib_Samsung_SB_AM_for_ICS_v04004.so
