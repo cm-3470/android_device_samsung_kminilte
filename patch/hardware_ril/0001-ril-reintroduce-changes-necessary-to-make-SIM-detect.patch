@@ -42,7 +42,7 @@ index 2e71367..09cc5a8 100644
      int             numberPresentation; /* 0=Allowed, 1=Restricted, 2=Not Specified/Unknown 3=Payphone */
      char *          name;       /* Remote party name */
      int             namePresentation; /* 0=Allowed, 1=Restricted, 2=Not Specified/Unknown 3=Payphone */
-+    int             unknown3;  
++    int             unknown3;
      RIL_UUS_Info *  uusInfo;    /* NULL or Pointer to User-User Signaling Information */
 +    RIL_Call_extra * extra;
  } RIL_Call;
@@ -127,7 +127,7 @@ index 2e71367..09cc5a8 100644
 +#define RIL_REQUEST_SEND_SMS_COUNT 10050
 +#define RIL_REQUEST_SEND_SMS_MSG 10051
 +#define RIL_REQUEST_SEND_SMS_MSG_READ_STATUS 10052
-+#define RIL_REQUEST_MODEM_HANGUP 10053    
++#define RIL_REQUEST_MODEM_HANGUP 10053
 +#define RIL_REQUEST_SET_SIM_POWER 10054
 +#define RIL_REQUEST_SET_PREFERRED_NETWORK_LIST 10055
 +#define RIL_REQUEST_GET_PREFERRED_NETWORK_LIST 10056
