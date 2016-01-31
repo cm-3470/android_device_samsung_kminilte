@@ -39,7 +39,7 @@
 #include <utils/Atomic.h>
 
 #include "MPLSensor.h"
-#include "PressureSensor.IIO.secondary.h"
+#include "PressureSensor.dummy.h"
 #include "MPLSupport.h"
 #include "sensor_params.h"
 
@@ -124,10 +124,10 @@ static struct sensor_t sSensorList[] =
     {"MPL Accelerometer", "Invensense", 1,
      SENSORS_ACCELERATION_HANDLE,
      SENSOR_TYPE_ACCELEROMETER, 10240.0f, 1.0f, 0.5f, 10000, 0, 64, 0, 0, 0, 0, {}},
-    {"MPL Magnetic Field", "Invensense", 1,
+    {"HSCDTD008A Magnetic Field", "Alps", 1,
      SENSORS_MAGNETIC_FIELD_HANDLE,
      SENSOR_TYPE_MAGNETIC_FIELD, 10240.0f, 1.0f, 0.5f, 10000, 0, 64, 0, 0, 0, 0, {}},
-    {"MPL Raw Magnetic Field", "Invensense", 1,
+    {"HSCDTD008A Raw Magnetic Field", "Alps", 1,
      SENSORS_RAW_MAGNETIC_FIELD_HANDLE,
      SENSOR_TYPE_MAGNETIC_FIELD_UNCALIBRATED, 10240.0f, 1.0f, 0.5f, 10000, 0, 64, 0, 0, 0, 0, {}},
 #ifdef ENABLE_PRESSURE
@@ -5302,6 +5302,13 @@ void MPLSensor::setGyroBias()
 {
     VFUNC_LOG;
 
+#ifndef SUPPORTS_GYRO_BIAS
+
+    mGyroBiasApplied = false;
+    mGyroBiasAvailable = false;
+
+#else
+    
     if(mGyroBiasAvailable == false)
         return;
 
@@ -5337,7 +5344,7 @@ void MPLSensor::setGyroBias()
     mGyroBiasAvailable = false;
     LOGV_IF(EXTRA_VERBOSE, "HAL:Gyro DMP Calibrated Bias Applied");
 
-    return;
+#endif
 }
 
 void MPLSensor::getFactoryAccelBias()
