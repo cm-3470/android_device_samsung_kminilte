@@ -50,8 +50,8 @@ void vendor_load_properties()
 
     if (strstr(bootloader, "G800F")) {
         /* kminiltexx */
-        property_set("ro.build.fingerprint", "samsung/kminiltexx/kminilte:4.4.2/KOT49H/G800FXXU1ANL1:user/release-keys");
-        property_set("ro.build.description", "kminiltexx-user 4.4.2 KOT49H G800FXXU1ANL1 release-keys");
+        property_set("ro.build.fingerprint", "samsung/kminiltexx/kminilte:5.1.1/LMY47X/G800FXXU1BOL4:user/release-keys");
+        property_set("ro.build.description", "kminiltexx-user 5.1.1 LMY47X G800FXXU1BOL4 release-keys");
         property_set("ro.product.model", "SM-G800F");
         property_set("ro.product.device", "kminiltexx");
     } else if (strstr(bootloader, "G800Y")) {
