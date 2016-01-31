@@ -167,11 +167,6 @@ lib/libsec-ril.so
 lib/libsecnativefeature.so
 
 # Sensors
-lib/hw/sensors.universal3470.so
-lib/libinvensense_hal.so
-# Needed by "libinvensense_hal.so"
-lib/libmllite.so
-lib/libmplmpu.so
 # GeomagneticSensor:
 lib/libacdapi_clb.so
 
