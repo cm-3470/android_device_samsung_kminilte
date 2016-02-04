@@ -68,6 +68,10 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     consumerir.universal3470
 
+# Sensors
+PRODUCT_PACKAGES += \
+    sensors.universal3470
+
 # Media config
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/media/media_profiles.xml:system/etc/media_profiles.xml
