@@ -14,7 +14,7 @@
 
 LOCAL_PATH := $(call my-dir)
 
-ifneq ($(filter true,$(TARGET_EXYNOS3_AUDIO_FROM_SOURCE)),)
+ifeq ($(TARGET_EXYNOS3_AUDIO_FROM_SOURCE),true)
 
 # Audio HAL
 include $(CLEAR_VARS)
