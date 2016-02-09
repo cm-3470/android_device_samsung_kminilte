@@ -38,12 +38,12 @@ typedef int (*Magnetic_Calibrate_func)(sensor_data_t *in, sensors_vec_t *out);
 typedef int (*Magnetic_Set_Delay_func)(uint64_t delay);
 typedef int (*Magnetic_Initialize_func)();
 
-static void *lib_acdapi_clb;
-static int (*Magnetic_Enable)(void);
-static int (*Magnetic_Disable)(void);
-static int (*Magnetic_Calibrate)(sensor_data_t *in, sensors_vec_t *out);
-static int (*Magnetic_Set_Delay)(uint64_t delay);
-static int (*Magnetic_Initialize)();
+static void *lib_acdapi_clb = 0;
+static Magnetic_Enable_func Magnetic_Enable = 0;
+static Magnetic_Disable_func Magnetic_Disable = 0;
+static Magnetic_Calibrate_func Magnetic_Calibrate = 0;
+static Magnetic_Set_Delay_func Magnetic_Set_Delay = 0;
+static Magnetic_Initialize_func Magnetic_Initialize = 0;
 
 static void LoadLibrary() {
     lib_acdapi_clb = dlopen("libacdapi_clb.so", RTLD_NOW);

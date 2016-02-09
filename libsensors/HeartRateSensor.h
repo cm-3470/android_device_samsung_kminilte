@@ -30,13 +30,38 @@
 
 struct input_event;
 
-class HeartRateSensor:public SamsungSensorBase 
+class HeartRateSensor: public SamsungSensorBase 
 {
-    virtual int enable(int32_t handle, int en);
-    virtual bool handleEvent(input_event const * event);
 public:
     HeartRateSensor();
     ~HeartRateSensor();
+    
+    virtual int enable(int32_t handle, int en);
+    virtual bool handleEvent(input_event const * event);
+
+private:
+    
+    bool sync();
+    
+    void pulseDetectReset();
+    bool pulseDetect(int *chanSums, int *chanData);
+    
+private:
+
+    int mRawBuffer[8];
+    int mRawBufferIndex;
+    int mSumSlotA;
+    int mSumSlotB;
+    int mSubMode;
+    
+private:
+
+    int mAvg[8];
+    int mMinVal[8];
+    int mMaxVal[8];
+    bool mLastDetect;
+    int mBpm;
+    int64_t mLastPulseTime;
 };
 
 /*****************************************************************************/

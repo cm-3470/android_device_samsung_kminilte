@@ -1,4 +1,4 @@
-# Copyright (C) 2008 The Android Open Source Project
+# Copyright (C) 2014 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
@@ -11,23 +11,29 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# Modified 2011 by InvenSense, Inc
 
 ifeq ($(TARGET_PROVIDES_LIBSENSORS),true)
 
 LOCAL_PATH := $(call my-dir)
 
-INVENSENSE_PATH := hardware/invensense/65xx/libsensors_iio
+INVENSENSE_PATH := hardware/invensense/6515/libsensors_iio
+PROPRIETARY_PATH := vendor/samsung/$(TARGET_DEVICE)/proprietary
 
 # InvenSense fragment of the HAL
 include $(CLEAR_VARS)
 
-LOCAL_CLANG_CFLAGS += $(my_ignored_clang_warnings)
+#LOCAL_CLANG_CFLAGS += $(my_ignored_clang_warnings)
 LOCAL_MODULE := libinvensense_hal
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_OWNER := invensense
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\" -Werror -Wall
-LOCAL_CFLAGS += -DANDROID_JELLYBEAN
+LOCAL_CFLAGS += -DANDROID_LOLLIPOP
+LOCAL_CFLAGS += -Wno-error=reorder
+
+# Workaround for missing include
+LOCAL_CFLAGS += -include string.h
 
 LOCAL_SRC_FILES += ../../../../$(INVENSENSE_PATH)/SensorBase.cpp
 LOCAL_SRC_FILES += SamsungSensorBase.cpp
@@ -35,7 +41,6 @@ LOCAL_SRC_FILES += MPLSensor.cpp
 LOCAL_SRC_FILES += ../../../../$(INVENSENSE_PATH)/MPLSupport.cpp
 LOCAL_SRC_FILES += ../../../../$(INVENSENSE_PATH)/InputEventReader.cpp
 LOCAL_SRC_FILES += CompassSensor.HSCDTD008A.cpp
-LOCAL_SRC_FILES += PressureSensor.dummy.cpp
 
 LOCAL_C_INCLUDES += $(INVENSENSE_PATH)
 LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite
@@ -67,24 +72,39 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := sensors.universal3470
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
-LOCAL_MODULE_TAGS := optional
 
+LOCAL_SHARED_LIBRARIES += libmplmpu
 LOCAL_C_INCLUDES += $(INVENSENSE_PATH)
+LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite
+LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite/linux
+LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mpl
+LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/driver/include
+LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/driver/include/linux
 
-LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\"
-LOCAL_CFLAGS += -DANDROID_JELLYBEAN
+LOCAL_MODULE_TAGS := optional
+LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\" -Werror -Wall
+
+LOCAL_CFLAGS += -DANDROID_LOLLIPOP
+
 LOCAL_SRC_FILES := \
 	sensors.cpp \
+	HeartRateSensor.cpp \
 	LightSensor.cpp \
 	ProximitySensor.cpp
 
-LOCAL_SHARED_LIBRARIES := libinvensense_hal liblog libcutils libutils libdl
-
+LOCAL_SHARED_LIBRARIES := libinvensense_hal
+LOCAL_SHARED_LIBRARIES += libcutils
+LOCAL_SHARED_LIBRARIES += libutils
+LOCAL_SHARED_LIBRARIES += libdl
+LOCAL_SHARED_LIBRARIES += liblog
+LOCAL_SHARED_LIBRARIES += libmllite
+LOCAL_SHARED_LIBRARIES += libhardware_legacy
+$(info YD>>LOCAL_MODULE=$(LOCAL_MODULE), LOCAL_SRC_FILES=$(LOCAL_SRC_FILES), LOCAL_SHARED_LIBRARIES=$(LOCAL_SHARED_LIBRARIES))
 include $(BUILD_SHARED_LIBRARY)
 
 include $(CLEAR_VARS)
 LOCAL_MODULE := libmplmpu
-LOCAL_SRC_FILES := ../../../../$(INVENSENSE_PATH)/libmplmpu.so
+LOCAL_SRC_FILES := ../../../../$(PROPRIETARY_PATH)/lib/libmplmpu.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_OWNER := invensense
 LOCAL_MODULE_SUFFIX := .so
@@ -94,9 +114,10 @@ OVERRIDE_BUILT_MODULE_PATH := $(TARGET_OUT_INTERMEDIATE_LIBRARIES)
 LOCAL_STRIP_MODULE := true
 include $(BUILD_PREBUILT)
 
+# libmllite contains firmware with SHealth and stepdector support
 include $(CLEAR_VARS)
 LOCAL_MODULE := libmllite
-LOCAL_SRC_FILES := ../../../../$(INVENSENSE_PATH)/libmllite.so
+LOCAL_SRC_FILES := ../../../../$(PROPRIETARY_PATH)/lib/libmllite.so
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_OWNER := invensense
 LOCAL_MODULE_SUFFIX := .so

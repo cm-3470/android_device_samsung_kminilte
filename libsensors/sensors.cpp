@@ -1,5 +1,5 @@
 /*
- * Copyright 2013 The Android Open Source Project
+* Copyright (C) 2014 Invensense, Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,6 +16,7 @@
 
 #define FUNC_LOG LOGV("%s", __PRETTY_FUNCTION__)
 
+#include <hardware_legacy/power.h>
 #include <hardware/sensors.h>
 #include <fcntl.h>
 #include <errno.h>
@@ -25,6 +26,7 @@
 #include <pthread.h>
 #include <stdlib.h>
 
+#include <sys/queue.h>
 #include <linux/input.h>
 
 #include <utils/Atomic.h>
@@ -40,9 +42,9 @@
 /* The SENSORS Module */
 
 #ifdef ENABLE_DMP_SCREEN_AUTO_ROTATION
-#define GLOBAL_SENSORS (MPLSensor::NumSensors + 1)
+#define GLOBAL_SENSORS (NumSensors + 1)
 #else
-#define GLOBAL_SENSORS MPLSensor::NumSensors
+#define GLOBAL_SENSORS NumSensors
 #endif
 
 #ifdef ENABLE_HEARTRATE
@@ -51,20 +53,29 @@
 #define LOCAL_SENSORS (2)
 #endif
 
+struct handle_entry {
+    SIMPLEQ_ENTRY(handle_entry) entries;
+    int handle;
+};
+
+static SIMPLEQ_HEAD(simplehead, handle_entry) pending_flush_items_head;
+struct simplehead *headp;
+static pthread_mutex_t flush_handles_mutex = PTHREAD_MUTEX_INITIALIZER;
+
+static const char *smdWakelockStr = "significant motion";
+
 static struct sensor_t sSensorList[GLOBAL_SENSORS + LOCAL_SENSORS] = {
     {"CM36686 Light Sensor", "CAPELLA", 1, ID_L,
      SENSOR_TYPE_LIGHT, 6553.0f, 0.1f, 0.2f, 100000, 0, 0, 
-     SENSOR_STRING_TYPE_LIGHT, "", 0, SENSOR_FLAG_CONTINUOUS_MODE, {}},
+     SENSOR_STRING_TYPE_LIGHT, "", 0, SENSOR_FLAG_ON_CHANGE_MODE, {}},
      
     {"CM36686 Proximity Sensor", "CAPELLA", 1, ID_PX,
      SENSOR_TYPE_PROXIMITY, 5.0f, 5.0f, 1.3f, 100000, 0, 0,
-     SENSOR_STRING_TYPE_PROXIMITY, "", 0, SENSOR_FLAG_CONTINUOUS_MODE, {}},
+     SENSOR_STRING_TYPE_PROXIMITY, "", 0, SENSOR_FLAG_ON_CHANGE_MODE | SENSOR_FLAG_WAKE_UP, {}},
      
-#ifdef ENABLE_HEARTRATE
     {"ADPD142 Heart-Rate Sensor", "Analog Devices", 1, ID_HR,
      SENSOR_TYPE_HEART_RATE, 300.0f, 1.0f, 1.6f, 100000, 0, 0,
-     SENSOR_STRING_TYPE_HEART_RATE, "", 0, SENSOR_FLAG_CONTINUOUS_MODE, {}},
-#endif
+     SENSOR_STRING_TYPE_HEART_RATE, SENSOR_PERMISSION_BODY_SENSORS, 0, SENSOR_FLAG_ON_CHANGE_MODE, {}},
 };
 static int sensors = LOCAL_SENSORS;
 
@@ -108,7 +119,6 @@ struct sensors_poll_context_t {
     int pollEvents(sensors_event_t* data, int count);
     int query(int what, int *value);
     int batch(int handle, int flags, int64_t period_ns, int64_t timeout);
-
     // return true if the constructor is completed
     bool isValid() { return mInitialized; };
     int flush(int handle);
@@ -122,9 +132,7 @@ private:
         dmpPed,
         light,
         proximity,
-#ifdef ENABLE_HEARTRATE        
         heartrate,
-#endif
         numSensorDrivers,   // wake pipe goes here
         numFds,
     };
@@ -135,9 +143,8 @@ private:
     // return true if the constructor is completed
     bool mInitialized;
 
-    static const size_t wake = numSensorDrivers;
-    static const char WAKE_MESSAGE = 'W';
-    int mWritePipeFd;
+    /* Significant Motion wakelock support */
+    bool mSMDWakelockHeld;
 
     int handleToDriver(int handle) const {
         switch (handle) {
@@ -146,7 +153,6 @@ private:
             case ID_A:
             case ID_M:
             case ID_RM:
-            case ID_PS:
             case ID_O:
             case ID_RV:
             case ID_GRV:
@@ -156,17 +162,14 @@ private:
             case ID_P:
             case ID_SC:
             case ID_GMRV:
-            case ID_FC:
             case ID_SO:
                 return mpl;
             case ID_L:
                 return light;
             case ID_PX:
                 return proximity;
-#ifdef ENABLE_HEARTRATE
             case ID_HR:
                 return heartrate;
-#endif
         }
         return -EINVAL;
     }
@@ -174,17 +177,26 @@ private:
 
 /******************************************************************************/
 
-sensors_poll_context_t::sensors_poll_context_t()
-{
+sensors_poll_context_t::sensors_poll_context_t() {
     VFUNC_LOG;
     mCompassSensor = new CompassSensor();
     MPLSensor *mplSensor = new MPLSensor(mCompassSensor);
     mInitialized = false;
+
     // Must clean this up early or else the destructor will make a mess.
     memset(mSensor, 0, sizeof(mSensor));
 
-    // setup the callback object for handing mpl callbacks
-    setCallbackObject(mplSensor);
+    /* No significant motion events pending yet */
+    mSMDWakelockHeld = false;
+
+   /* For Vendor-defined Accel Calibration File Load
+    * Use the Following Constructor and Pass Your Load Cal File Function
+    * 
+    * MPLSensor *mplSensor = new MPLSensor(mCompassSensor, AccelLoadConfig);
+    */
+
+    // Initialize pending flush queue
+    SIMPLEQ_INIT(&pending_flush_items_head);
 
     // populate the sensor list
     sensors = LOCAL_SENSORS +
@@ -226,7 +238,6 @@ sensors_poll_context_t::sensors_poll_context_t()
     mPollFds[proximity].events = POLLIN;
     mPollFds[proximity].revents = 0;
 
-#ifdef ENABLE_HEARTRATE
     mSensor[heartrate] = new HeartRateSensor();
     mPollFds[heartrate].fd = mSensor[heartrate]->getFd();
     mPollFds[heartrate].events = POLLIN;
@@ -234,7 +245,6 @@ sensors_poll_context_t::sensors_poll_context_t()
 
     if (mPollFds[heartrate].fd < 0) 
         LOGI("sensors: heart-rate fd is invalid: %d", mPollFds[heartrate].fd);
-#endif
     
     if (mPollFds[light].fd < 0 || mPollFds[proximity].fd < 0) 
     {
@@ -243,18 +253,6 @@ sensors_poll_context_t::sensors_poll_context_t()
         delete mCompassSensor;
         return;
     }
-
-    /* Timer based sensor initialization */
-    int wakeFds[2];
-    int result = pipe(wakeFds);
-    LOGE_IF(result<0, "error creating wake pipe (%s)", strerror(errno));
-    fcntl(wakeFds[0], F_SETFL, O_NONBLOCK);
-    fcntl(wakeFds[1], F_SETFL, O_NONBLOCK);
-    mWritePipeFd = wakeFds[1];
-
-    mPollFds[wake].fd = wakeFds[0];
-    mPollFds[wake].events = POLLIN;
-    mPollFds[wake].revents = 0;
     mInitialized = true;
 }
 
@@ -267,7 +265,6 @@ sensors_poll_context_t::~sensors_poll_context_t() {
     for (int i = 0; i < numFds; i++) {
         close(mPollFds[i].fd);
     }
-    close(mWritePipeFd);
     mInitialized = false;
 }
 
@@ -275,15 +272,8 @@ int sensors_poll_context_t::activate(int handle, int enabled) {
     FUNC_LOG;
 
     int index = handleToDriver(handle);
-    
     if (index < 0) return index;
     int err =  mSensor[index]->enable(handle, enabled);
-    if (!err) {
-        const char wakeMessage(WAKE_MESSAGE);
-        int result = write(mWritePipeFd, &wakeMessage, 1);
-        LOGE_IF(result < 0, 
-                "error sending wake message (%s)", strerror(errno));
-    }
     return err;
 }
 
@@ -300,8 +290,30 @@ int sensors_poll_context_t::pollEvents(sensors_event_t *data, int count)
     VHANDLER_LOG;
 
     int nbEvents = 0;
-    int n = 0;
     int nb, polltime = -1;
+
+    if (mSMDWakelockHeld) {
+        mSMDWakelockHeld = false;
+        release_wake_lock(smdWakelockStr);
+    }
+
+    struct handle_entry *handle_element;
+    pthread_mutex_lock(&flush_handles_mutex);
+    if (!SIMPLEQ_EMPTY(&pending_flush_items_head)) {
+        sensors_event_t flushCompleteEvent;
+        flushCompleteEvent.type = SENSOR_TYPE_META_DATA;
+        flushCompleteEvent.sensor = 0;
+        handle_element = SIMPLEQ_FIRST(&pending_flush_items_head);
+        flushCompleteEvent.meta_data.sensor = handle_element->handle;
+        SIMPLEQ_REMOVE_HEAD(&pending_flush_items_head, entries);
+        free(handle_element);
+        memcpy(data, (void *) &flushCompleteEvent, sizeof(flushCompleteEvent));
+        LOGI_IF(1, "pollEvents() Returning fake flush event completion for handle %d",
+                flushCompleteEvent.meta_data.sensor);
+        pthread_mutex_unlock(&flush_handles_mutex);
+        return 1;
+    }
+    pthread_mutex_unlock(&flush_handles_mutex);
 
     polltime = ((MPLSensor*) mSensor[mpl])->getStepCountPollTime();
 
@@ -336,7 +348,7 @@ int sensors_poll_context_t::pollEvents(sensors_event_t *data, int count)
                     data += nb;
                 } else if (i == dmpPed) {
                     LOGI_IF(0, "HAL: dmpPed interrupt");
-                    nb = ((MPLSensor*) sensor)->readDmpPedometerEvents(data, count, ID_P, SENSOR_TYPE_STEP_DETECTOR, 0);
+                    nb = ((MPLSensor*) sensor)->readDmpPedometerEvents(data, count, ID_P, 0);
                     mPollFds[i].revents = 0;
                     count -= nb;
                     nbEvents += nb;
@@ -352,7 +364,6 @@ int sensors_poll_context_t::pollEvents(sensors_event_t *data, int count)
                     nbEvents += nb;
                     data += nb;
                 }
-                #if 1
                 if(nb == 0) {
                     nb = sensor->readEvents(data, count);
                     LOGI_IF(0, "sensors_mpl:readEvents() - "
@@ -366,18 +377,16 @@ int sensors_poll_context_t::pollEvents(sensors_event_t *data, int count)
                         data += nb;
                     }
                 }
-                #endif
             }
         }
 
         /* to see if any step counter events */
         if (((MPLSensor*) mSensor[mpl])->hasStepCountPendingEvents() == true) {
             nb = 0;
-            nb = ((MPLSensor*) mSensor[mpl])->readDmpPedometerEvents(data, count, ID_SC, SENSOR_TYPE_STEP_COUNTER, 0);
+            nb = ((MPLSensor*) mSensor[mpl])->readDmpPedometerEvents(data, count, ID_SC, 0);
             LOGI_IF(SensorBase::HANDLER_DATA, "sensors_mpl:readStepCount() - "
-                    "nb=%d, count=%d, nbEvents=%d, data->timestamp=%lld, "
-                    "data->data[0]=%f,",
-                    nb, count, nbEvents, data->timestamp, data->data[0]);
+                    "nb=%d, count=%d, nbEvents=%d, data->timestamp=%lld, ",
+                    nb, count, nbEvents, data->timestamp);
             if (nb > 0) {
                 count -= nb;
                 nbEvents += nb;
@@ -388,25 +397,15 @@ int sensors_poll_context_t::pollEvents(sensors_event_t *data, int count)
         /* to see if any step counter events */
         if(((MPLSensor*) mSensor[mpl])->hasStepCountPendingEvents() == true) {
             nb = 0;
-            nb = ((MPLSensor*) mSensor[mpl])->readDmpPedometerEvents(
-                            data, count, ID_SC, SENSOR_TYPE_STEP_COUNTER, 0);
+            nb = ((MPLSensor*) mSensor[mpl])->readDmpPedometerEvents(data, count, ID_SC, 0);
             LOGI_IF(SensorBase::HANDLER_DATA, "sensors_mpl:readStepCount() - "
-                    "nb=%d, count=%d, nbEvents=%d, data->timestamp=%lld, "
-                    "data->data[0]=%f,",
-                    nb, count, nbEvents, data->timestamp, data->data[0]);
+                    "nb=%d, count=%d, nbEvents=%d, data->timestamp=%lld, ",
+                    nb, count, nbEvents, data->timestamp);
             if (nb > 0) {
                 count -= nb;
                 nbEvents += nb;
                 data += nb;
             }
-        }
-
-        if (mPollFds[wake].revents & POLLIN) {
-            char msg;
-            int result = read(mPollFds[wake].fd, &msg, 1);
-            LOGE_IF(result < 0, 
-                    "error reading from wake pipe (%s)", strerror(errno));
-            mPollFds[numSensorDrivers].revents = 0;
         }
     }
     return nbEvents;
@@ -424,6 +423,20 @@ int sensors_poll_context_t::batch(int handle, int flags, int64_t period_ns, int6
     int index = handleToDriver(handle);
     if (index < 0) return index;
     return mSensor[index]->batch(handle, flags, period_ns, timeout);
+}
+
+void inv_pending_flush(int handle) {
+    struct handle_entry *the_entry;
+    pthread_mutex_lock(&flush_handles_mutex);
+    the_entry = (struct handle_entry*) malloc(sizeof(struct handle_entry));
+    if (the_entry != NULL) {
+        LOGI_IF(0, "Inserting %d into pending list", handle);
+        the_entry->handle = handle;
+        SIMPLEQ_INSERT_TAIL(&pending_flush_items_head, the_entry, entries);
+    } else {
+        LOGE("ERROR malloc'ing space for pending handler flush entry");
+    }
+    pthread_mutex_unlock(&flush_handles_mutex);
 }
 
 int sensors_poll_context_t::flush(int handle)
@@ -468,6 +481,13 @@ static int poll__poll(struct sensors_poll_device_t *dev,
     return ctx->pollEvents(data, count);
 }
 
+static int poll__query(struct sensors_poll_device_1 *dev,
+                      int what, int *value)
+{
+    sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
+    return ctx->query(what, value);
+}
+
 static int poll__batch(struct sensors_poll_device_1 *dev,
                       int handle, int flags, int64_t period_ns, int64_t timeout)
 {
@@ -479,8 +499,15 @@ static int poll__flush(struct sensors_poll_device_1 *dev,
                       int handle)
 {
     sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
-    return ctx->flush(handle);
+    int status = ctx->flush(handle);
+    if (handle == SENSORS_STEP_COUNTER_HANDLE) {
+        LOGI_IF(0, "creating flush completion event for handle %d", handle);
+        inv_pending_flush(handle);
+        return 0;
+    }
+    return status;
 }
+
 /******************************************************************************/
 
 /** Open a new instance of a sensor device using name */
@@ -499,16 +526,14 @@ static int open_sensors(const struct hw_module_t* module, const char* id,
     memset(&dev->device, 0, sizeof(sensors_poll_device_1));
 
     dev->device.common.tag = HARDWARE_DEVICE_TAG;
-    dev->device.common.version  = SENSORS_DEVICE_API_VERSION_1_0;
+    dev->device.common.version  = SENSORS_DEVICE_API_VERSION_1_3;
+    dev->device.flush           = poll__flush;
     dev->device.common.module   = const_cast<hw_module_t*>(module);
     dev->device.common.close    = poll__close;
     dev->device.activate        = poll__activate;
     dev->device.setDelay        = poll__setDelay;
     dev->device.poll            = poll__poll;
-
-    /* Batch processing */
     dev->device.batch           = poll__batch;
-    dev->device.flush           = poll__flush;
 
     *device = &dev->device.common;
     status = 0;
