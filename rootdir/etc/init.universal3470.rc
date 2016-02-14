@@ -521,3 +521,7 @@ on property:persist.sys.storage_preload=1
 on property:persist.sys.storage_preload=0
     start umount_service
 
+#service fingerprintd /system/bin/fingerprintd
+#    class late_start
+#    user system
+#    group system input
