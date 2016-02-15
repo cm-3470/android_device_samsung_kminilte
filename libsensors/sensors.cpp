@@ -47,11 +47,7 @@
 #define GLOBAL_SENSORS NumSensors
 #endif
 
-#ifdef ENABLE_HEARTRATE
 #define LOCAL_SENSORS (3)
-#else
-#define LOCAL_SENSORS (2)
-#endif
 
 struct handle_entry {
     SIMPLEQ_ENTRY(handle_entry) entries;

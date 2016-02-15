@@ -169,6 +169,8 @@ lib/libsecnativefeature.so
 # Sensors
 # GeomagneticSensor:
 lib/libacdapi_clb.so
+# Heart-Rate sensor
+lib/libHrmEol.so
 
 # Wifi
 bin/macloader
