@@ -7,7 +7,6 @@ lib/libexynosutils.so
 lib/libexynosfimc.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
-#lib/libMcClient.so
 
 # Bluetooth
 vendor/firmware/bcm4334.hcd
@@ -167,7 +166,7 @@ lib/libsec-ril.so
 lib/libsecnativefeature.so
 
 # Sensors
-# GeomagneticSensor:
+# Geomagnetic sensor
 lib/libacdapi_clb.so
 # Heart-Rate sensor
 lib/libHrmEol.so
