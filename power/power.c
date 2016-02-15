@@ -25,10 +25,9 @@
 #include <hardware/hardware.h>
 #include <hardware/power.h>
 
-#define TOUCHKEY_POWER "/sys/class/input/input0/enabled"
-#define TOUCHSCREEN_POWER "/sys/class/input/input1/enabled"
+#define TOUCHKEY_POWER "/sys/class/sec/sec_touchkey/input/enabled"
+#define TOUCHSCREEN_POWER "/sys/class/sec/tsp/input/enabled"
 #define BATT_LCD_POWER "/sys/class/power_supply/battery/lcd"
-
 
 static void sysfs_write(char *path, char *s) {
     char buf[80];
