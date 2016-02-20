@@ -27,3 +27,10 @@
 
 /sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/state -- u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/type -- u:object_r:sysfs_bluetooth_writable:s0
+
+# Fingerprint
+/system/bin/vcsFPService                                u:object_r:vcs_exec:s0
+/data/validity(/.*)?                                    u:object_r:vcs_data_file:s0
+/dev/validity(/.*)?                                     u:object_r:validity_device:s0
+/dev/vfsspi                                             u:object_r:vfsspi_device:s0
+

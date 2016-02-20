@@ -185,3 +185,11 @@ lib/lib_SamsungRec_V04003.so
 lib/lib_Samsung_AudioZoom_v100.so
 lib/lib_Samsung_Resampler.so
 lib/lib_Samsung_SB_AM_for_ICS_v04004.so
+
+# Fingerprint
+bin/vcsFPService
+lib/libfpasmtztransport.so
+lib/libvalAuth.so
+lib/libvcsfp.so
+lib/libvfmClient.so
+lib/libvfmtztransport.so
