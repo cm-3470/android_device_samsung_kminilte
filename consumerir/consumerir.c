@@ -29,12 +29,7 @@
 #define ARRAY_SIZE(a) (sizeof(a) / sizeof(a[0]))
 
 static const consumerir_freq_range_t consumerir_freqs[] = {
-    {.min = 30000, .max = 30000},
-    {.min = 33000, .max = 33000},
-    {.min = 36000, .max = 36000},
-    {.min = 38000, .max = 38000},
-    {.min = 40000, .max = 40000},
-    {.min = 56000, .max = 56000},
+    {.min = 16000, .max = 60000}
 };
 
 static bool
@@ -94,13 +89,10 @@ static int consumerir_transmit(struct consumerir_device *dev,
         goto error;
     }
 
-    /* calculate factor of conversion from microseconds to pulses */
-    float factor = 1000000 / carrier_freq;
-
     /* write out the timing pattern */
     for (i = 0; i < pattern_len; i++)
     {
-        if (! append_number(&buffer, &buffer_len, &buffer_size, (int) (pattern[i]/factor))) {
+        if (! append_number(&buffer, &buffer_len, &buffer_size, pattern[i])) {
             goto error;
         }
     }
