@@ -1,0 +1,97 @@
+From 4bbfeb2720a077399e9f83e8d7a35325419c43ef Mon Sep 17 00:00:00 2001
+From: tobigun <hennymcc@yahoo.de>
+Date: Sun, 21 Feb 2016 00:12:03 +0100
+Subject: [PATCH] ril: fix QUERY_AVAILABLE_NETWORKS and LAST_CALL_FAIL_CAUSE
+
+The returned data structs were not compatible with MM Ril.java.
+The wrong format of QUERY_AVAILABLE_NETWORKS caused a crash when a
+network lookup was done in the mobile settings (no results shown).
+
+The return type of RIL_REQUEST_GET_PREFERRED_NETWORK_TYPE
+(responseIntsGetPreferredNetworkType vs. responseInts in stock ROM)
+might also be wrong.
+
+Change-Id: I77d40df4a233311b0474ddcbe72fba90f7647baa
+---
+ ril/libril/ril.cpp        | 35 +++++++++++++++++++++++++++++++++++
+ ril/libril/ril_commands.h |  4 ++--
+ 2 files changed, 37 insertions(+), 2 deletions(-)
+
+diff --git a/ril/libril/ril.cpp b/ril/libril/ril.cpp
+index 49c1c35..a8d9a93 100644
+--- a/ril/libril/ril.cpp
++++ b/ril/libril/ril.cpp
+@@ -278,6 +278,7 @@ static void dispatchSimAuthentication(Parcel &p, RequestInfo *pRI);
+ static void dispatchDataProfile(Parcel &p, RequestInfo *pRI);
+ static void dispatchRadioCapability(Parcel &p, RequestInfo *pRI);
+ static int responseInts(Parcel &p, void *response, size_t responselen);
++static int responseFailCause(Parcel &p, void *response, size_t responselen);
+ static int responseIntsGetPreferredNetworkType(Parcel &p, void *response, size_t responselen);
+ static int responseStrings(Parcel &p, void *response, size_t responselen);
+ static int responseStringsNetworks(Parcel &p, void *response, size_t responselen);
+@@ -2239,6 +2240,40 @@ responseInts(Parcel &p, void *response, size_t responselen) {
+     return 0;
+ }
+ 
++// Response is an int or RIL_LastCallFailCauseInfo.
++// Currently, only Shamu plans to use RIL_LastCallFailCauseInfo.
++// TODO(yjl): Let all implementations use RIL_LastCallFailCauseInfo.
++static int responseFailCause(Parcel &p, void *response, size_t responselen) {
++    if (response == NULL && responselen != 0) {
++        RLOGE("invalid response: NULL");
++        return RIL_ERRNO_INVALID_RESPONSE;
++    }
++
++    if (responselen == sizeof(int)) {
++      startResponse;
++      int *p_int = (int *) response;
++      appendPrintBuf("%s%d,", printBuf, p_int[0]);
++      p.writeInt32(p_int[0]);
++      removeLastChar;
++      closeResponse;
++    } else if (responselen == sizeof(RIL_LastCallFailCauseInfo)) {
++      startResponse;
++      RIL_LastCallFailCauseInfo *p_fail_cause_info = (RIL_LastCallFailCauseInfo *) response;
++      appendPrintBuf("%s[cause_code=%d,vendor_cause=%s]", printBuf, p_fail_cause_info->cause_code,
++                     p_fail_cause_info->vendor_cause);
++      p.writeInt32(p_fail_cause_info->cause_code);
++      writeStringToParcel(p, p_fail_cause_info->vendor_cause);
++      removeLastChar;
++      closeResponse;
++    } else {
++      RLOGE("responseFailCause: invalid response length %d expected an int or "
++            "RIL_LastCallFailCauseInfo", (int)responselen);
++      return RIL_ERRNO_INVALID_RESPONSE;
++    }
++
++    return 0;
++}
++
+ static int
+ responseIntsGetPreferredNetworkType(Parcel &p, void *response, size_t responselen) {
+     int numInts;
+diff --git a/ril/libril/ril_commands.h b/ril/libril/ril_commands.h
+index 001b470..cc6e131 100644
+--- a/ril/libril/ril_commands.h
++++ b/ril/libril/ril_commands.h
+@@ -32,7 +32,7 @@
+     {RIL_REQUEST_SWITCH_WAITING_OR_HOLDING_AND_ACTIVE, dispatchVoid, responseVoid},
+     {RIL_REQUEST_CONFERENCE, dispatchVoid, responseVoid},
+     {RIL_REQUEST_UDUB, dispatchVoid, responseVoid},
+-    {RIL_REQUEST_LAST_CALL_FAIL_CAUSE, dispatchVoid, responseInts},
++    {RIL_REQUEST_LAST_CALL_FAIL_CAUSE, dispatchVoid, responseFailCause},
+     {RIL_REQUEST_SIGNAL_STRENGTH, dispatchVoid, responseRilSignalStrength},
+     {RIL_REQUEST_VOICE_REGISTRATION_STATE, dispatchVoid, responseStrings},
+     {RIL_REQUEST_DATA_REGISTRATION_STATE, dispatchVoid, responseStrings},
+@@ -62,7 +62,7 @@
+     {RIL_REQUEST_QUERY_NETWORK_SELECTION_MODE, dispatchVoid, responseInts},
+     {RIL_REQUEST_SET_NETWORK_SELECTION_AUTOMATIC, dispatchVoid, responseVoid},
+     {RIL_REQUEST_SET_NETWORK_SELECTION_MANUAL, dispatchString, responseVoid},
+-    {RIL_REQUEST_QUERY_AVAILABLE_NETWORKS , dispatchVoid, responseStringsNetworks},
++    {RIL_REQUEST_QUERY_AVAILABLE_NETWORKS , dispatchVoid, responseStrings},
+     {RIL_REQUEST_DTMF_START, dispatchString, responseVoid},
+     {RIL_REQUEST_DTMF_STOP, dispatchVoid, responseVoid},
+     {RIL_REQUEST_BASEBAND_VERSION, dispatchVoid, responseString},
+-- 
+1.9.1
+
