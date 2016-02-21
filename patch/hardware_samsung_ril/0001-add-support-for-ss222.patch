@@ -1,45 +1,48 @@
-From e2bfbdb94e30004169e9f2b12ed2e9323df15bd1 Mon Sep 17 00:00:00 2001
+From 76ff081cefcc057ea8c9ae2f174f23c2bf6fd247 Mon Sep 17 00:00:00 2001
 From: tobigun <hennymcc@yahoo.de>
-Date: Sun, 14 Feb 2016 13:03:14 +0100
-Subject: [PATCH] add support for ss222
+Date: Sun, 21 Feb 2016 21:58:12 +0100
+Subject: [PATCH] ril: add support for ss222 (G800F/Y/M)
 
-Change-Id: Ic4cc232d3c2f19bba845f5def9997c267cb4419e
+Change-Id: I818eb8169aa3f1e1a5a9ed47eb4e58b95dd23ea6
 ---
  ril/Android.mk                  |  2 +-
- ril/libril/Android.mk           |  3 +++
- ril/libril/ril.cpp              | 32 +++++++++++++++++++++++++-------
+ ril/libril/Android.mk           |  5 ++++-
+ ril/libril/ril.cpp              | 20 +++++++++++++++++++-
  ril/libsecril-client/Android.mk |  3 +++
- 4 files changed, 32 insertions(+), 8 deletions(-)
+ 4 files changed, 27 insertions(+), 3 deletions(-)
 
 diff --git a/ril/Android.mk b/ril/Android.mk
-index de33c11..e8e6a77 100644
+index 6ed67a3..6cab57c 100644
 --- a/ril/Android.mk
 +++ b/ril/Android.mk
 @@ -20,7 +20,7 @@ ifeq ($(BOARD_VENDOR),samsung)
  
  # libril
  ifeq ($(BOARD_PROVIDES_LIBRIL),true)
--ifneq ($(filter xmm6260 xmm6262 xmm6360 xmm7260 m7450 ss333,$(BOARD_MODEM_TYPE)),)
-+ifneq ($(filter xmm6260 xmm6262 xmm6360 xmm7260 m7450 ss222 ss333,$(BOARD_MODEM_TYPE)),)
+-ifneq ($(filter xmm6260 xmm6262 xmm6360 xmm7260 m7450 ss333 mdm9x35,$(BOARD_MODEM_TYPE)),)
++ifneq ($(filter xmm6260 xmm6262 xmm6360 xmm7260 m7450 ss222 ss333 mdm9x35,$(BOARD_MODEM_TYPE)),)
  include $(RIL_PATH)/libril/Android.mk
  endif
  endif
 diff --git a/ril/libril/Android.mk b/ril/libril/Android.mk
-index f3d5545..23dd1d8 100644
+index c31b382..d5b4c4e 100644
 --- a/ril/libril/Android.mk
 +++ b/ril/libril/Android.mk
-@@ -34,6 +34,9 @@ endif
+@@ -34,8 +34,11 @@ endif
  ifeq ($(BOARD_MODEM_TYPE),m7450)
  LOCAL_CFLAGS := -DMODEM_TYPE_M7450
  endif
-+ifeq ($(BOARD_MODEM_TYPE),ss222)
-+LOCAL_CFLAGS := -DMODEM_TYPE_SS222
+-ifneq ($(filter ss333 mdm9x35,$(BOARD_MODEM_TYPE)),)
++ifneq ($(filter ss222 ss333 mdm9x35,$(BOARD_MODEM_TYPE)),)
+ LOCAL_CFLAGS := -DSAMSUNG_NEXT_GEN_MODEM
++ifneq ($(BOARD_MODEM_TYPE),ss222)
++LOCAL_CFLAGS += -DVIDEO_CALL_NOT_SUPPORTED
 +endif
- ifeq ($(BOARD_MODEM_TYPE),ss333)
- LOCAL_CFLAGS := -DMODEM_TYPE_SS333
  endif
+ 
+ LOCAL_C_INCLUDES += $(TARGET_OUT_HEADER)/librilutils
 diff --git a/ril/libril/ril.cpp b/ril/libril/ril.cpp
-index beae829..49c1c35 100644
+index f1fecc8..c2b2060 100644
 --- a/ril/libril/ril.cpp
 +++ b/ril/libril/ril.cpp
 @@ -173,6 +173,8 @@ static pthread_t s_tid_dispatch;
@@ -51,70 +54,16 @@ index beae829..49c1c35 100644
  static int s_fdDebug = -1;
  static int s_fdDebug_socket2 = -1;
  
-@@ -789,7 +791,7 @@ dispatchDial (Parcel &p, RequestInfo *pRI) {
-     int32_t sizeOfDial;
-     int32_t t;
-     int32_t uusPresent;
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS333)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222) || defined(MODEM_TYPE_SS333)
-     char *csv;
- #endif
-     status_t status;
-@@ -806,7 +808,7 @@ dispatchDial (Parcel &p, RequestInfo *pRI) {
-         goto invalid;
-     }
- 
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS333)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222) || defined(MODEM_TYPE_SS333)
-     /* CallDetails.call_type */
-     status = p.readInt32(&t);
-     if (status != NO_ERROR) {
-@@ -837,7 +839,7 @@ dispatchDial (Parcel &p, RequestInfo *pRI) {
- 
-         if (uusPresent == 0) {
- #if defined(MODEM_TYPE_XMM6262) || defined(MODEM_TYPE_XMM7260) \
-- || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS333)
-+ || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222) || defined(MODEM_TYPE_SS333)
-             dial.uusInfo = NULL;
- #elif defined(MODEM_TYPE_XMM6260)
-             /* Samsung hack */
-@@ -2387,7 +2389,7 @@ static int responseCallList(Parcel &p, void *response, size_t responselen) {
-         p.writeInt32(p_cur->als);
+@@ -2390,7 +2392,7 @@ static int responseCallList(Parcel &p, void *response, size_t responselen) {
          p.writeInt32(p_cur->isVoice);
  
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS333)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222) || defined(MODEM_TYPE_SS333)
- #ifndef MODEM_TYPE_SS333
+ #if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(SAMSUNG_NEXT_GEN_MODEM)
+-#ifndef SAMSUNG_NEXT_GEN_MODEM
++#ifndef VIDEO_CALL_NOT_SUPPORTED
          p.writeInt32(p_cur->isVideo);
  #endif
-@@ -2426,7 +2428,7 @@ static int responseCallList(Parcel &p, void *response, size_t responselen) {
-             p_cur->als,
-             (p_cur->isVoice)?"voc":"nonvoc",
-             (p_cur->isVoicePrivacy)?"evp":"noevp");
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS333)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222) || defined(MODEM_TYPE_SS333)
-         appendPrintBuf("%s,%s,",
-             printBuf,
-             (p_cur->isVideo) ? "vid" : "novid");
-@@ -3030,7 +3032,7 @@ static int responseRilSignalStrength(Parcel &p,
-         p.writeInt32(p_cur->GW_SignalStrength.bitErrorRate);
  
- #if defined(MODEM_TYPE_XMM6262) || defined(MODEM_TYPE_XMM7260) \
-- || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS333)
-+ || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222) || defined(MODEM_TYPE_SS333)
-         cdmaDbm = p_cur->CDMA_SignalStrength.dbm & 0xFF;
-         if (cdmaDbm < 0) {
-             cdmaDbm = 99;
-@@ -3044,7 +3046,7 @@ static int responseRilSignalStrength(Parcel &p,
-         p.writeInt32(p_cur->CDMA_SignalStrength.ecio);
- 
- #if defined(MODEM_TYPE_XMM6262) || defined(MODEM_TYPE_XMM7260) \
-- || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS333)
-+ || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222) || defined(MODEM_TYPE_SS333)
-         evdoDbm = p_cur->EVDO_SignalStrength.dbm & 0xFF;
-         if (evdoDbm < 0) {
-             evdoDbm = 99;
-@@ -5043,6 +5045,14 @@ void RIL_onUnsolicitedResponse(int unsolResponse, const void *data,
+@@ -5045,6 +5047,14 @@ void RIL_onUnsolicitedResponse(int unsolResponse, const void *data,
                                              &TIMEVAL_WAKE_TIMEOUT);
      }
  
@@ -129,7 +78,7 @@ index beae829..49c1c35 100644
      // Normal exit
      return;
  
-@@ -5052,6 +5062,14 @@ error_exit:
+@@ -5054,6 +5064,14 @@ error_exit:
      }
  }
  
