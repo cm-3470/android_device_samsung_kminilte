@@ -9,8 +9,8 @@ lib/libexynosfimc.so
 lib/libexynosv4l2.so
 
 # Bluetooth
-vendor/firmware/bcm4334.hcd
-vendor/firmware/BT_FW_VER_BCM4334B0_002.001.013.1792.1803_K_Mini.hcd
+vendor/firmware/bcm4334_V1831.2468.hcd
+vendor/firmware/bcm4339_V1831.2468.hcd
 
 # Camera
 lib/hw/camera.universal3470.so
@@ -72,23 +72,24 @@ lib/libhwcutilsmodule.so
 lib/libvirtualdisplay.so
 
 # Keystore
-vendor/lib/hw/keystore.exynos3.so
+lib/hw/keystore.exynos3470.so
 
 # LPM
 bin/lpm
 # Needed by lpm
 lib/libmaet.so
 lib/libsxqk_skia.so
+media/lcd_density.txt
 media/wireless_left.spi
 media/wireless_right.spi
 media/battery_cover.spi
 media/battery_error.spi
 media/particle_intro.spi
 media/particle_loop.spi
-media/lcd_density.txt
 media/percentage.spi
 media/battery_temperature_error.spi
 media/battery_low.spi
+media/dock_error.spi
 media/wave_loop.spi
 media/incompatible_charger.spi
 media/battery_temperature_limit.spi
@@ -126,10 +127,12 @@ app/mcRegistry/ffffffff00000000000000000000000e.tlbin
 app/mcRegistry/ffffffff00000000000000000000000f.tlbin
 app/mcRegistry/ffffffff000000000000000000000012.tlbin
 app/mcRegistry/ffffffff000000000000000000000013.tlbin
+app/mcRegistry/ffffffff000000000000000000000017.tlbin
 app/mcRegistry/ffffffff000000000000000000000018.tlbin
 app/mcRegistry/ffffffffd00000000000000000000004.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
+app/mcRegistry/fffffffff0000000000000000000001e.tlbin
 lib/libgdmcprov.so
 lib/libMcClient.so
 lib/libMcRegistry.so
@@ -152,7 +155,6 @@ lib/omx/libOMX.Exynos.MPEG4.Encoder.so
 
 # Radio
 bin/at_distributor
-etc/plmn_delta.bin
 etc/plmn_se13.bin
 lib/libatparser.so
 lib/libfactoryutil.so
