@@ -1,162 +1,16 @@
-From 66bce496a7394ec83ff003109735e0b054f62c13 Mon Sep 17 00:00:00 2001
+From b0b5ea2152302532888642d5c8a7ff7a7a777ae7 Mon Sep 17 00:00:00 2001
 From: tobigun <hennymcc@yahoo.de>
-Date: Sun, 24 Jan 2016 15:47:12 +0100
-Subject: [PATCH] ril: add support for SS222 modem (G800F)
+Date: Sun, 14 Feb 2016 13:11:02 +0100
+Subject: [PATCH] ril: adjust ril commands to G800F
 
-Change-Id: I4ab1ad8c362bd27212d8de86b044b78e2ba681b2
+Change-Id: I9e2c040098e3c0ef2f414a6689be1207cac039fa
 ---
- ril/Android.mk                         |  2 +-
- ril/libril/Android.mk                  |  3 ++
- ril/libril/ril.cpp                     | 34 ++++++++++++++++-----
- ril/libril/ril_commands_vendor.h       | 24 ++++++++++-----
+ ril/libril/ril_commands_vendor.h       | 22 +++++++++-----
  ril/libril/ril_unsol_commands_vendor.h | 54 ++++++++++++++++++++++------------
- ril/libsecril-client/Android.mk        |  3 ++
- 6 files changed, 84 insertions(+), 36 deletions(-)
+ 2 files changed, 50 insertions(+), 26 deletions(-)
 
-diff --git a/ril/Android.mk b/ril/Android.mk
-index 8008ace..e691e5b 100644
---- a/ril/Android.mk
-+++ b/ril/Android.mk
-@@ -20,7 +20,7 @@ ifeq ($(BOARD_VENDOR),samsung)
- 
- # libril
- ifeq ($(BOARD_PROVIDES_LIBRIL),true)
--ifneq ($(filter xmm6260 xmm6262 xmm6360 xmm7260 m7450,$(BOARD_MODEM_TYPE)),)
-+ifneq ($(filter xmm6260 xmm6262 xmm6360 xmm7260 m7450 ss222,$(BOARD_MODEM_TYPE)),)
- include $(RIL_PATH)/libril/Android.mk
- endif
- endif
-diff --git a/ril/libril/Android.mk b/ril/libril/Android.mk
-index 3eaf2fe..5db1e1c 100644
---- a/ril/libril/Android.mk
-+++ b/ril/libril/Android.mk
-@@ -34,6 +34,9 @@ endif
- ifeq ($(BOARD_MODEM_TYPE),m7450)
- LOCAL_CFLAGS := -DMODEM_TYPE_M7450
- endif
-+ifeq ($(BOARD_MODEM_TYPE),ss222)
-+LOCAL_CFLAGS := -DMODEM_TYPE_SS222
-+endif
- 
- LOCAL_C_INCLUDES += $(TARGET_OUT_HEADER)/librilutils
- LOCAL_C_INCLUDES += external/nanopb-c
-diff --git a/ril/libril/ril.cpp b/ril/libril/ril.cpp
-index 8df3e51..5d61a91 100644
---- a/ril/libril/ril.cpp
-+++ b/ril/libril/ril.cpp
-@@ -173,6 +173,8 @@ static pthread_t s_tid_dispatch;
- static pthread_t s_tid_reader;
- static int s_started = 0;
- 
-+static int s_cpCrashed = 0;
-+
- static int s_fdDebug = -1;
- static int s_fdDebug_socket2 = -1;
- 
-@@ -789,7 +791,7 @@ dispatchDial (Parcel &p, RequestInfo *pRI) {
-     int32_t sizeOfDial;
-     int32_t t;
-     int32_t uusPresent;
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222)
-     char *csv;
- #endif
-     status_t status;
-@@ -806,7 +808,7 @@ dispatchDial (Parcel &p, RequestInfo *pRI) {
-         goto invalid;
-     }
- 
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222)
-     /* CallDetails.call_type */
-     status = p.readInt32(&t);
-     if (status != NO_ERROR) {
-@@ -836,7 +838,7 @@ dispatchDial (Parcel &p, RequestInfo *pRI) {
-         }
- 
-         if (uusPresent == 0) {
--#if defined(MODEM_TYPE_XMM6262) || defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450)
-+#if defined(MODEM_TYPE_XMM6262) || defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222)
-             dial.uusInfo = NULL;
- #elif defined(MODEM_TYPE_XMM6260)
-             /* Samsung hack */
-@@ -2386,7 +2388,7 @@ static int responseCallList(Parcel &p, void *response, size_t responselen) {
-         p.writeInt32(p_cur->als);
-         p.writeInt32(p_cur->isVoice);
- 
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222)
-         p.writeInt32(p_cur->isVideo);
- 
-         /* Pass CallDetails */
-@@ -2423,7 +2425,7 @@ static int responseCallList(Parcel &p, void *response, size_t responselen) {
-             p_cur->als,
-             (p_cur->isVoice)?"voc":"nonvoc",
-             (p_cur->isVoicePrivacy)?"evp":"noevp");
--#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450)
-+#if defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222)
-         appendPrintBuf("%s,%s,",
-             printBuf,
-             (p_cur->isVideo) ? "vid" : "novid");
-@@ -3015,7 +3017,7 @@ static int responseRilSignalStrength(Parcel &p,
-                 (gsmSignalStrength > 31 && p_cur->GW_SignalStrength.signalStrength != 99)) {
-             gsmSignalStrength = p_cur->CDMA_SignalStrength.dbm;
-         }
--#else
-+#else //defined(MODEM_TYPE_SS222)
-         if (gsmSignalStrength < 0) {
-             gsmSignalStrength = 99;
-         } else if (gsmSignalStrength > 31 && gsmSignalStrength != 99) {
-@@ -3026,7 +3028,7 @@ static int responseRilSignalStrength(Parcel &p,
- 
-         p.writeInt32(p_cur->GW_SignalStrength.bitErrorRate);
- 
--#if defined(MODEM_TYPE_XMM6262) || defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450)
-+#if defined(MODEM_TYPE_XMM6262) || defined(MODEM_TYPE_XMM7260) || defined(MODEM_TYPE_M7450) || defined(MODEM_TYPE_SS222)
-         cdmaDbm = p_cur->CDMA_SignalStrength.dbm & 0xFF;
-         if (cdmaDbm < 0) {
-             cdmaDbm = 99;
-@@ -3046,7 +3048,7 @@ static int responseRilSignalStrength(Parcel &p,
-         } else if (evdoDbm > 31 && evdoDbm != 99) {
-             evdoDbm = 31;
-         }
--#else
-+#else //defined(MODEM_TYPE_SS222)
-         evdoDbm = p_cur->EVDO_SignalStrength.dbm;
- #endif
-         p.writeInt32(evdoDbm);
-@@ -5038,6 +5040,14 @@ void RIL_onUnsolicitedResponse(int unsolResponse, const void *data,
-                                             &TIMEVAL_WAKE_TIMEOUT);
-     }
- 
-+    if (unsolResponse == RIL_UNSOL_AM) {
-+        // "start -a android.intent.action.MAIN -n com.sec.app.RilErrorNotifier/.PhoneCrashNotifier --es title cpcrash"
-+        if (strstr((const char*)data, "cpcrash")) {
-+            RLOGE("CP crash detected");
-+            s_cpCrashed = 1;
-+        }
-+    }
-+
-     // Normal exit
-     return;
- 
-@@ -5047,6 +5057,14 @@ error_exit:
-     }
- }
- 
-+extern "C"
-+int RIL_getCpCrashed()
-+{
-+    int result = s_cpCrashed;
-+    s_cpCrashed = 0;
-+    return result;
-+}
-+
- /** FIXME generalize this if you track UserCAllbackInfo, clear it
-     when the callback occurs
- */
 diff --git a/ril/libril/ril_commands_vendor.h b/ril/libril/ril_commands_vendor.h
-index 9121407..efb3ea8 100644
+index 9121407..fe2dcce 100644
 --- a/ril/libril/ril_commands_vendor.h
 +++ b/ril/libril/ril_commands_vendor.h
 @@ -26,12 +26,12 @@
@@ -202,17 +56,15 @@ index 9121407..efb3ea8 100644
      {RIL_REQUEST_OMADM_SETUP_SESSION, dispatchVoid, responseVoid},
      {RIL_REQUEST_OMADM_SERVER_START_SESSION, dispatchVoid, responseVoid},
      {RIL_REQUEST_OMADM_CLIENT_START_SESSION, dispatchVoid, responseVoid},
-@@ -66,4 +71,7 @@
-     {RIL_REQUEST_SET_SIM_POWER, dispatchVoid, responseVoid},
+@@ -67,3 +72,6 @@
      {RIL_REQUEST_SET_PREFERRED_NETWORK_LIST, dispatchVoid, responseVoid},
      {RIL_REQUEST_GET_PREFERRED_NETWORK_LIST, dispatchVoid, responseVoid},
--    {RIL_REQUEST_HANGUP_VT, dispatchVoid, responseVoid},
-+    {RIL_REQUEST_HANGUP_VT, dispatchVoid, responseVoid},
+     {RIL_REQUEST_HANGUP_VT, dispatchVoid, responseVoid},
 +    {RIL_REQUEST_HOLD, dispatchVoid, responseVoid},
 +    {RIL_REQUEST_SET_LTE_BAND_MODE, dispatchVoid, responseVoid},
 +    {RIL_REQUEST_QUERY_LOCK_NETWORKS, dispatchVoid, responseVoid},
 diff --git a/ril/libril/ril_unsol_commands_vendor.h b/ril/libril/ril_unsol_commands_vendor.h
-index 0a9b657..32cb089 100644
+index 0a9b657..af94ac3 100644
 --- a/ril/libril/ril_unsol_commands_vendor.h
 +++ b/ril/libril/ril_unsol_commands_vendor.h
 @@ -29,27 +29,43 @@
@@ -278,20 +130,6 @@ index 0a9b657..32cb089 100644
 +    {RIL_UNSOL_MIP_CONNECT_STATUS, responseInts, WAKE_PARTIAL},
 +    {RIL_UNSOL_STK_CALL_STATUS, responseInts, WAKE_PARTIAL},
 +    /*{RIL_UNSOL_CP_ASSERTED_OR_RESETTING, responseVoid, WAKE_PARTIAL},*/
-diff --git a/ril/libsecril-client/Android.mk b/ril/libsecril-client/Android.mk
-index df9ee57..11192ec 100755
---- a/ril/libsecril-client/Android.mk
-+++ b/ril/libsecril-client/Android.mk
-@@ -18,6 +18,9 @@ LOCAL_CFLAGS :=
- ifeq ($(TARGET_BOARD_PLATFORM),exynos4)
- LOCAL_CFLAGS += -DRIL_CALL_AUIO_PATH_EXTRAVOLUME
- endif
-+ifeq ($(TARGET_SOC),exynos3470)
-+LOCAL_CFLAGS += -DRIL_CALL_AUIO_PATH_EXTRAVOLUME
-+endif
- 
- LOCAL_MODULE:= libsecril-client
- LOCAL_PRELINK_MODULE := false
 -- 
 1.9.1
 

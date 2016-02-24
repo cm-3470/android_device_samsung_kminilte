@@ -30,16 +30,19 @@
 
 struct input_event;
 
-class LightSensor:public SamsungSensorBase {
-
-    virtual bool handleEvent(input_event const * event);
+class LightSensor: public SamsungSensorBase {
 public:
     LightSensor();
+    
+    virtual bool handleEvent(input_event const * event);
+    
 private:
     /* Ambient Light Sensor (ALS) channel data */
     int mALSData;
     /* White channel data */
     int mWhiteData;
+    /* last reported lux value (-1 if uninitialized)*/
+    int mLastLux;
 };
 
 /*****************************************************************************/

@@ -34,18 +34,21 @@
 
 struct input_event;
 
-class ProximitySensor:public SamsungSensorBase {
+class ProximitySensor: public SamsungSensorBase {
+public:
+    ProximitySensor();
+
+    virtual int setDelay(int32_t handle, int64_t ns);
+    virtual bool hasPendingEvents() const;
 
     virtual int handleEnable(int en);
     virtual bool handleEvent(input_event const * event);
 
     float indexToValue(size_t index) const;
-public:
-    ProximitySensor();
-    virtual int setDelay(int32_t handle, int64_t ns);
-    virtual bool hasPendingEvents() const;
+
 private:
     int mFar; // 0: close, 1: far
+    int mLastFar; // last reported mFar value, -1 if uninitialized
 };
 
 /*****************************************************************************/

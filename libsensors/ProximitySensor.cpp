@@ -34,8 +34,10 @@
  * alias name VCNL4040M3OE (Vishay).
  */
 
-ProximitySensor::ProximitySensor()
-    : SamsungSensorBase(NULL, "proximity_sensor")
+ProximitySensor::ProximitySensor() :
+    SamsungSensorBase(NULL, "proximity_sensor"),
+    mFar(0),
+    mLastFar(-1)
 {
     mPendingEvent.sensor = ID_PX;
     mPendingEvent.type = SENSOR_TYPE_PROXIMITY;
@@ -83,9 +85,12 @@ bool ProximitySensor::handleEvent(input_event const *event)
             mFar = event->value;
         }
     } else if (event->type == EV_SYN) {
-        mPendingEvent.distance = indexToValue(mFar);
-        LOGI_IF(PROXIMITY_EVENT_DEBUG, "proximity (dist: %d, %f)", mFar, mPendingEvent.distance);
-        return true;
+        if (mFar != mLastFar) {
+            mPendingEvent.distance = indexToValue(mFar);
+            mLastFar = mFar;
+            LOGI_IF(PROXIMITY_EVENT_DEBUG, "proximity (dist: %d, %f)", mFar, mPendingEvent.distance);
+            return true;
+        }
     }    
 
     // no event created

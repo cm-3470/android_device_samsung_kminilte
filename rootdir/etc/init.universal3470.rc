@@ -44,6 +44,10 @@ on init
     mkdir /mnt/shell/privatemode 0700 system system
     mkdir /storage/Private 0000 system system
 
+# Make param link
+	symlink /dev/block/mmcblk0p8 /dev/block/param
+
+
 on post-fs-data
     setprop vold.post_fs_data_done 1
 
@@ -52,7 +56,7 @@ on post-fs-data
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
 
     # Added for TZ Playready DRM Support
-	mkdir /efs/drm 0700 drm system
+	mkdir /efs/drm 0774 drm system
 	mkdir /efs/drm/playready 0775 drm system
 
 # Multimedia property for Smart View
@@ -74,6 +78,7 @@ on post-fs-data
     chown system radio /sys/class/camera/rear/rear_camfw_full
     chown system radio /sys/class/camera/rear/rear_camtype
     chown system radio /sys/class/camera/flash/rear_flash
+    chown media system /sys/class/camera/flash/rear_flash_ext
     chown system radio /sys/class/camera/front/front_camfw
     chown system radio /sys/class/camera/front/front_camtype
 
@@ -166,6 +171,13 @@ on boot
     chmod 0664 /sys/class/devfreq/exynos4270-busfreq-mif/max_freq
     chmod 0664 /sys/class/devfreq/exynos4270-busfreq-mif/min_freq
 
+    chown radio system /sys/module/mali/parameters/mali_freq_table
+    chown radio system /sys/module/mali/parameters/mali_max_freq
+    chown radio system /sys/module/mali/parameters/mali_min_freq
+    chmod 0664 /sys/module/mali/parameters/mali_freq_table
+    chmod 0664 /sys/module/mali/parameters/mali_max_freq
+    chmod 0664 /sys/module/mali/parameters/mali_min_freq
+
     # Thermistor
     chown radio system /sys/devices/platform/sec-thermistor/temp_adc
     chown radio system /sys/devices/platform/sec-thermistor/temperature
@@ -180,6 +192,7 @@ on boot
 
 on fs
     mount_all /fstab.universal3470
+    setprop ro.crypto.fuse_sdcard true
 
 #For Absolute Persistence Partition 
     mkdir /persdata 0755 system system 
@@ -241,6 +254,7 @@ on fs
 
 # IR_LED
     chown system radio /sys/class/sec/sec_ir/ir_send
+	chown system radio /sys/class/sec/sec_ir/ir_send_result
 
 # SVC LED
     chown system system /sys/class/sec/led/led_r
@@ -287,6 +301,11 @@ on fs
 # Permission for vibrator
     chown system system /sys/class/timed_output/vibrator/enable
 
+# SENSORS
+# Fingerprint_sensor
+    chown system radio /sys/class/fingerprint/fingerprint/type_check
+    chown system radio /sys/class/fingerprint/fingerprint/name
+    chown system radio /sys/class/fingerprint/fingerprint/vendor
 #sensor accelerometer
     chown system radio /sys/class/sensors/accelerometer_sensor/raw_data
     chown system radio /sys/class/sensors/accelerometer_sensor/reactive_alert
@@ -359,6 +378,10 @@ on fs
 #MPL
     chown system radio /sys/bus/iio/devices/iio:device0
     chmod 0660 /sys/bus/iio/devices/iio:device0
+
+# terminal mode
+    chmod 0660 /sys/class/android_usb/android0/terminal_version
+    chown system system /sys/class/android_usb/android0/terminal_version
 
 # Fingerprint
     mkdir /dev/validity 0770 system system
@@ -501,7 +524,7 @@ on property:ro.securestorage.support=true
     start secure_storage
 
 # SSWAP
-service swapon /sbin/sswap -s
+service swapon /sbin/sswap -s -f 1024
     class core
     user root
     group root
@@ -521,3 +544,7 @@ on property:persist.sys.storage_preload=1
 on property:persist.sys.storage_preload=0
     start umount_service
 
+#service fingerprintd /system/bin/fingerprintd
+#    class late_start
+#    user system
+#    group system input

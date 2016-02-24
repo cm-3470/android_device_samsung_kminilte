@@ -36,7 +36,8 @@
 LightSensor::LightSensor() : 
     SamsungSensorBase(NULL, "light_sensor"),
     mALSData(0),
-    mWhiteData(0)
+    mWhiteData(0),
+    mLastLux(-1)
 {
     mPendingEvent.sensor = ID_L;
     mPendingEvent.type = SENSOR_TYPE_LIGHT;
@@ -85,10 +86,15 @@ bool LightSensor::handleEvent(input_event const *event)
             LOGI_IF(LIGHT_EVENT_DEBUG, "light (misc: %d)", event->value);
         }
     } else if (event->type == EV_SYN) {
-        mPendingEvent.light = computeLux(mALSData, mWhiteData);
-        LOGI_IF(LIGHT_EVENT_DEBUG, "light (als: %d, white: %d, lux: %f)", 
-                mALSData, mWhiteData, mPendingEvent.light);
-        return true;
+        // round to full lux to better recognize changes
+        int lux = (int)computeLux(mALSData, mWhiteData);
+        if (lux != mLastLux) {
+            mPendingEvent.light = (float)lux;
+            mLastLux = lux;
+            LOGI_IF(LIGHT_EVENT_DEBUG, "light (als: %d, white: %d, lux: %f)", 
+                    mALSData, mWhiteData, mPendingEvent.light);
+            return true;
+        }
     }    
     
     // no event created

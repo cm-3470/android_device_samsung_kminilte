@@ -7,7 +7,6 @@ lib/libexynosutils.so
 lib/libexynosfimc.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
-#lib/libMcClient.so
 
 # Bluetooth
 vendor/firmware/bcm4334.hcd
@@ -18,10 +17,6 @@ lib/hw/camera.universal3470.so
 # Needed by "camera.universal3470.so"
 lib/libhwjpeg.so
 lib/libexynoscamera.so
-# Needed by libexynoscamera.so
-lib/libliveframework.so
-# Needed by "libliveframework.so"
-lib/libarcsoft_nighthawk.so
 
 # DRM
 etc/srm.bin
@@ -167,8 +162,10 @@ lib/libsec-ril.so
 lib/libsecnativefeature.so
 
 # Sensors
-# GeomagneticSensor:
+# Geomagnetic sensor
 lib/libacdapi_clb.so
+# Heart-Rate sensor
+lib/libHrmEol.so
 
 # Wifi
 bin/macloader
