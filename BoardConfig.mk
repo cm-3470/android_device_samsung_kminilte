@@ -73,10 +73,6 @@ TARGET_PROVIDES_LIBSENSORS := true
 # GUI
 BOARD_EGL_NEEDS_HANDLE_VALUE := true
 
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-   device/samsung/kminilte/sepolicy
-
 # Vendor Init
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_kminilte
