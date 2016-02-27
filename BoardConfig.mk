@@ -17,15 +17,6 @@
 # inherit from common smdk3470
 -include device/samsung/smdk3470-common/BoardConfigCommon.mk
 
-# Enable dex-preoptimization to speed up first boot sequence
-ifeq ($(HOST_OS),linux)
-  ifeq ($(TARGET_BUILD_VARIANT),userdebug)
-   ifeq ($(WITH_DEXPREOPT),)
-    WITH_DEXPREOPT := true
-   endif
-  endif
-endif
-
 # Assert
 TARGET_OTA_ASSERT_DEVICE := kminiltexx,kminiltedv,kminilteub,kminilte
 
