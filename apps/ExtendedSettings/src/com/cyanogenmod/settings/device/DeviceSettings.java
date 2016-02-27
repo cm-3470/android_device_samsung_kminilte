@@ -39,7 +39,7 @@ public class DeviceSettings extends Activity {
     /* Tab General */
     public static final String KEY_GSENSOR = "gsensor";
     public static final String KEY_FAST_CHARGE = "force_fast_charge";
-    public static final String KEY_OTG_CHARGE = "otg_charge";
+    public static final String KEY_OTG_POWER = "otg_power";
     public static final String KEY_A2DP_SINK = "a2dp_sink";
     
     /* Tab Performance */

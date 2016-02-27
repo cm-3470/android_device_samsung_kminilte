@@ -45,12 +45,6 @@
         <item>1 ora</item>
     </string-array>
 
-    <string-array name="otg_charge_entries">
-        <item>Nessuna alimentazione (Default)</item>
-        <item>Lenta (USB)</item>
-        <item>Veloce (Alimentatore)</item>
-    </string-array>
-
     <string-array name="bln_blink_interval_entries">
         <item>0.25 secondi</item>
         <item>0.5 secondi</item>

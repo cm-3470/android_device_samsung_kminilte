@@ -37,12 +37,12 @@
     <!-- USB-OTG -->
     <PreferenceCategory android:title="@string/category_otg_title" >
         <ListPreference
-            android:key="otg_charge"
-            android:title="@string/otg_charge_title"
-            android:summary="@string/otg_charge_summary"
-            android:entries="@array/otg_charge_entries"
-            android:entryValues="@array/otg_charge_entries_values"
-            android:defaultValue="none" />
+            android:key="otg_power"
+            android:title="@string/otg_power_title"
+            android:summary="@string/otg_power_summary"
+            android:entries="@array/otg_power_entries"
+            android:entryValues="@array/otg_power_entries_values"
+            android:defaultValue="BATTERY" />
     </PreferenceCategory>
 
 </PreferenceScreen>

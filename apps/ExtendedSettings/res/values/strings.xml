@@ -39,8 +39,8 @@
     <string name="force_fast_charge_summary">Detect USB-connected PC as USB Wall Charger, for faster charging mode</string>
 
     <string name="category_otg_title">USB-OTG</string>
-    <string name="otg_charge_title">USB-OTG Charge</string>
-    <string name="otg_charge_summary">Charge support in USB host mode.\nAttention: Make sure the connected power source (e.g. USB-Hub) can handle the power draw if charging is enabled to avoid damage.</string>
+    <string name="otg_power_title">USB-OTG Mode</string>
+    <string name="otg_power_summary">Select whether you prefer to enable USB OTG power (Powered) or keep the phone waterproof (Unpowered).\nIn unpowered mode an external power source and a Y-cable are needed to power OTG devices. Select "Unpowered + Charge" to additionally charge the phone from the external power source</string>
 
     <string name="category_bluetooth_title">Bluetooth</string>
     <string name="a2dp_sink_title">A2DP Sink</string>

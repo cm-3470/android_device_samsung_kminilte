@@ -38,8 +38,8 @@
     <string name="force_fast_charge_summary">Den über USB angeschlossenen PC als Aufladestecker erkennen, um schneller zu laden</string>
 
     <string name="category_otg_title">USB-OTG</string>
-    <string name="otg_charge_title">USB-OTG Laden</string>
-    <string name="otg_charge_summary">Laden im USB-Host Modus.\nAchtung: Um Schäden zu vermeiden, muss die Stromquelle (z.B. USB-Hub) hierzu geeignet sein.</string>
+    <string name="otg_power_title">USB-OTG Modus</string>
+    <string name="otg_power_summary">Hier kann die Spannungsversorgung für USB OTG aktiviert (Aktiv) oder deaktiviert werden (Passiv).\nIm passiven Modus ist das Telefon wasserfest aber es wird eine externe Spannungsquelle (über Y-Kabel) zum Betrieb von OTG Geräten benötigt. Im Modus "Passiv + Laden" kann zusätzlich das Telefon mit der externen Spannungsversorgung geladen werden.</string>
 
     <string name="category_bluetooth_title">Bluetooth</string>
     <string name="a2dp_sink_title">A2DP Sink</string>

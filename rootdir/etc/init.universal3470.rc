@@ -393,6 +393,10 @@ on fs
     mkdir /dev/validity 0770 system system
     mkdir /data/validity 0770 system system
 
+# OTG power mode
+    chmod 0660 /sys/class/sec/switch/otg_cable_type
+    chown system radio /sys/class/sec/switch/otg_cable_type
+
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /system/bin/vcsFPService
     class late_start

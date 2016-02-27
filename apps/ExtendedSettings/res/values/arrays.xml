@@ -98,15 +98,15 @@
         <item>5000</item>
     </string-array>
 
-    <string-array name="otg_charge_entries">
-        <item>No charging (Default)</item>
-        <item>Slow (USB)</item>
-        <item>Fast (Wallcharger)</item>
+    <string-array name="otg_power_entries">
+        <item>Powered (Not waterproof)</item>
+        <item>Unpowered (Default / Waterproof)</item>
+        <item>Unpowered + Charge (Waterproof)</item>
     </string-array>
 
-    <string-array name="otg_charge_entries_values" translatable="false">
-        <item>none</item>
-        <item>slow</item>
-        <item>fast</item>
+    <string-array name="otg_power_entries_values" translatable="false">
+        <item>OTG</item>
+        <item>BATTERY</item>
+        <item>USB</item>
     </string-array>
 </resources>

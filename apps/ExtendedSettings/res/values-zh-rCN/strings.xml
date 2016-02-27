@@ -39,8 +39,6 @@
     <string name="force_fast_charge_summary">若检测到USB线连接到电脑，充电会加快。（提醒：打开后无法使用大容量存储）</string>
 
     <string name="category_otg_title">USB-OTG</string>
-    <string name="otg_charge_title">USB-OTG 充电</string>
-    <string name="otg_charge_summary">充电支持USB主机模式.\n注意: 请确认连接的带电源线缆 (例如 USB-Hub) 可以调控功耗，以避免充电时的危险性</string>
 
     <string name="category_bluetooth_title">蓝牙</string>
     <string name="a2dp_sink_title">A2DP Sink</string>

@@ -39,8 +39,6 @@
     <string name="force_fast_charge_summary">Rileva i PC connessi alla porta USB come semplici caricatori USB, per un più rapido caricamento della batteria</string>
 
     <string name="category_otg_title">USB-OTG</string>
-    <string name="otg_charge_title">Ricarica USB-OTG</string>
-    <string name="otg_charge_summary">Supporto all\'alimentazione in modalità USB host.\nAttenzione: Se la ricarica è stata attivata, per evitare danni, assicuratevi che la sorgente di alimentazione (e.g. USB-Hub) supporti l\'assorbimento di corrente richiesto.</string>
 
     <string name="category_bluetooth_title">Bluetooth</string>
     <string name="a2dp_sink_title">A2DP Sink</string>
