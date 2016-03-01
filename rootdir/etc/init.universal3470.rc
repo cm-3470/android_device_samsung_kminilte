@@ -113,6 +113,9 @@ on boot
     chown radio system /dev/mobicore-user
     chown system system /dev/s5p-smem
 
+    # enable call recording
+    chmod 0660 /dev/snd/pcmC0D0c
+    
 # SSWAP
     write /proc/sys/vm/swappiness 130
 
