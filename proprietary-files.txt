@@ -1,10 +1,10 @@
 # General
-csc/sales_code.dat
 lib/libcsc.so
 # Needed by libcsc.so
 lib/libion_exynos.so
 lib/libexynosutils.so
 lib/libexynosfimc.so
+lib/libexynosscaler.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
 
