@@ -8,8 +8,8 @@ import android.preference.PreferenceManager;
 
 public class OTGCharge implements OnPreferenceChangeListener {
 
-    private static final String FILE = "/sys/class/sec/switch/otg_charger_type";
-    private static final String DEFAULT_OTG_CHARGE_MODE = "none";
+    private static final String FILE = "/sys/class/sec/switch/otg_cable_type";
+    private static final String DEFAULT_OTG_POWER_MODE = "BATTERY";
 
     public OTGCharge() {
     }
@@ -25,8 +25,8 @@ public class OTGCharge implements OnPreferenceChangeListener {
     public static void restore(Context context) {
         if (isSupported()) {
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context);
-            String mode = sharedPrefs.getString(DeviceSettings.KEY_OTG_CHARGE, DEFAULT_OTG_CHARGE_MODE);
-            if (!mode.equals(DEFAULT_OTG_CHARGE_MODE))
+            String mode = sharedPrefs.getString(DeviceSettings.KEY_OTG_POWER, DEFAULT_OTG_POWER_MODE);
+            if (!mode.equals(DEFAULT_OTG_POWER_MODE))
                 Utils.writeValue(FILE, mode);
         }
     }

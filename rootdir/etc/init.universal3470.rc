@@ -113,6 +113,9 @@ on boot
     chown radio system /dev/mobicore-user
     chown system system /dev/s5p-smem
 
+    # enable call recording
+    chmod 0660 /dev/snd/pcmC0D0c
+    
 # SSWAP
     write /proc/sys/vm/swappiness 130
 
@@ -284,11 +287,18 @@ on fs
     chown system radio /sys/class/sec/sec_key/wakeup_keys
     write /sys/class/sec/sec_key/wakeup_keys 116,172
 
+# Permission for meta event
+    chown system radio /sys/class/input/input0/enabled
+
 # Permission for touch
     chown system radio /sys/class/sec/tsp/cmd
-    chown system radio /sys/class/input/input1/enabled
+    chmod 0660 /sys/class/sec/tsp/input/enabled
+    chown system system /sys/class/sec/tsp/input/enabled
 
 # Permissions for touchkey
+    chmod 0660 /sys/class/sec_touchkey/input/enabled
+    chown system system /sys/class/sec/sec_touchkey/input/enabled
+
     chown system radio /sys/class/sec/sec_touchkey/touchkey_recent
     chown system radio /sys/class/sec/sec_touchkey/touchkey_back
     chown system radio /sys/class/sec/sec_touchkey/touchkey_threshold
@@ -296,7 +306,6 @@ on fs
     chown system radio /sys/class/sec/sec_touchkey/touchkey_raw_data0
     chown system radio /sys/class/sec/sec_touchkey/touchkey_raw_data1
     chown system radio /sys/class/sec/sec_touchkey/glove_mode
-    chown system radio /sys/class/input/input0/enabled
 
 # Permission for vibrator
     chown system system /sys/class/timed_output/vibrator/enable
@@ -385,6 +394,11 @@ on fs
 
 # Fingerprint
     mkdir /dev/validity 0770 system system
+    mkdir /data/validity 0770 system system
+
+# OTG power mode
+    chmod 0660 /sys/class/sec/switch/otg_cable_type
+    chown system radio /sys/class/sec/switch/otg_cable_type
 
 # SENSOR FRAMEWORK : starts fingerprintService
 service vcsFPService /system/bin/vcsFPService
@@ -544,7 +558,7 @@ on property:persist.sys.storage_preload=1
 on property:persist.sys.storage_preload=0
     start umount_service
 
-#service fingerprintd /system/bin/fingerprintd
-#    class late_start
-#    user system
-#    group system input
+service fingerprintd /system/bin/fingerprintd
+    class late_start
+    user system
+    group system input

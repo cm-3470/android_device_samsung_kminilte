@@ -30,7 +30,7 @@ import com.cyanogenmod.settings.device.R;
 public class GeneralFragmentActivity extends PreferenceFragment {
 
     private CheckBoxPreference mFastCharge;
-    private ListPreference mOTGCharge;
+    private ListPreference mOTGPower;
     private CheckBoxPreference mA2dpSinkStatus;
     private FileObserver mObserver;
 
@@ -76,9 +76,9 @@ public class GeneralFragmentActivity extends PreferenceFragment {
         };
         mObserver.startWatching();
 
-        mOTGCharge = (ListPreference) findPreference(DeviceSettings.KEY_OTG_CHARGE);
-        mOTGCharge.setEnabled(OTGCharge.isSupported());
-        mOTGCharge.setOnPreferenceChangeListener(new OTGCharge());
+        mOTGPower = (ListPreference) findPreference(DeviceSettings.KEY_OTG_POWER);
+        mOTGPower.setEnabled(OTGCharge.isSupported());
+        mOTGPower.setOnPreferenceChangeListener(new OTGCharge());
     }
 
     @Override

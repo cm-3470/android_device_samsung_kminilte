@@ -56,9 +56,9 @@
         <item>5 Sekunden</item>
     </string-array>
 
-    <string-array name="otg_charge_entries">
-        <item>Nicht laden (Default)</item>
-        <item>Langsam (USB)</item>
-        <item>Schnell (Ladegerät)</item>
+    <string-array name="otg_power_entries">
+        <item>Aktiv (Nicht wasserfest)</item>
+        <item>Passiv (Default / Wasserfest)</item>
+        <item>Passiv + Laden (Wasserfest)</item>
     </string-array>
 </resources>

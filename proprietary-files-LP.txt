@@ -7,7 +7,6 @@ lib/libexynosfimc.so
 lib/libexynosscaler.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
-#lib/libMcClient.so
 
 # Bluetooth
 vendor/firmware/bcm4334_V1831.2468.hcd
@@ -80,13 +79,13 @@ bin/lpm
 # Needed by lpm
 lib/libmaet.so
 lib/libsxqk_skia.so
+media/lcd_density.txt
 media/wireless_left.spi
 media/wireless_right.spi
 media/battery_cover.spi
 media/battery_error.spi
 media/particle_intro.spi
 media/particle_loop.spi
-media/lcd_density.txt
 media/percentage.spi
 media/battery_temperature_error.spi
 media/battery_low.spi
@@ -158,13 +157,10 @@ lib/libsec-ril.so
 lib/libsecnativefeature.so
 
 # Sensors
-lib/hw/sensors.universal3470.so
-lib/libinvensense_hal.so
-# Needed by "libinvensense_hal.so"
-lib/libmllite.so
-lib/libmplmpu.so
-# GeomagneticSensor:
+# Geomagnetic sensor
 lib/libacdapi_clb.so
+# Heart-Rate sensor
+lib/libHrmEol.so
 
 # Wifi
 bin/macloader
@@ -174,8 +170,6 @@ etc/wifi/bcmdhd_sta.bin_b2
 etc/wifi/nvram_net.txt
 
 # Audio
-# Note: "audio.primary.universal3470.so" renamed to "audio.vendor.universal3470.so"
-# as it will be loaded by a wrapper with the name "audio.primary.universal3470.so"
 lib/libaudio-ril.so
 lib/libsamsungRecord.so
 lib/libsamsungRecord_ns.so
@@ -186,3 +180,11 @@ lib/lib_SamsungRec_V04004.so
 lib/lib_Samsung_AudioZoom_v102.so
 lib/lib_Samsung_Resampler.so
 lib/lib_Samsung_SB_AM_for_ICS_v04004.so
+
+# Fingerprint
+bin/vcsFPService
+lib/libfpasmtztransport.so
+lib/libvalAuth.so
+lib/libvcsfp.so
+lib/libvfmClient.so
+lib/libvfmtztransport.so

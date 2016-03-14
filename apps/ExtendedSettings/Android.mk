@@ -23,6 +23,7 @@ LOCAL_SRC_FILES := $(call all-java-files-under, src)
 
 LOCAL_PACKAGE_NAME := AriesParts
 LOCAL_CERTIFICATE := platform
+LOCAL_PRIVILEGED_MODULE := true
 
 # Required so that symbols used by the jni library doesn't get stripped out
 LOCAL_PROGUARD_ENABLED := disabled

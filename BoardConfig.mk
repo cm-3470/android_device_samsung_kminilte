@@ -17,15 +17,6 @@
 # inherit from common smdk3470
 -include device/samsung/smdk3470-common/BoardConfigCommon.mk
 
-# Enable dex-preoptimization to speed up first boot sequence
-ifeq ($(HOST_OS),linux)
-  ifeq ($(TARGET_BUILD_VARIANT),userdebug)
-   ifeq ($(WITH_DEXPREOPT),)
-    WITH_DEXPREOPT := true
-   endif
-  endif
-endif
-
 # Assert
 TARGET_OTA_ASSERT_DEVICE := kminiltexx,kminiltedv,kminilteub,kminilte
 
@@ -70,10 +61,6 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/kminilte/bluetooth
 BOARD_NFC_CHIPSET := pn547
 BOARD_NFC_HAL_SUFFIX := universal3470
 
-# Recovery
-TARGET_RECOVERY_DEVICE_DIRS += device/samsung/kminilte
-TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470
-
 # PowerHAL
 TARGET_POWERHAL_VARIANT := exynos3
 
@@ -98,6 +85,11 @@ TARGET_LIBINIT_DEFINES_FILE := device/samsung/kminilte/init/init_kminilte.cpp
 # Audio
 TARGET_EXYNOS3_AUDIO_FROM_SOURCE := false
 
+# Recovery
+TARGET_RECOVERY_DEVICE_DIRS += device/samsung/kminilte
+TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470
+BOARD_HAS_LARGE_FILESYSTEM := true
+
 # TWRP
 DEVICE_RESOLUTION := 720x1280
 RECOVERY_SDCARD_ON_DATA := true
@@ -105,3 +97,5 @@ BOARD_HAS_NO_REAL_SDCARD := true
 TW_NO_SCREEN_BLANK := true
 TW_NO_REBOOT_BOOTLOADER := true
 TW_HAS_DOWNLOAD_MODE := true
+TW_INCLUDE_NTFS_3G := true
+TW_INCLUDE_CRYPTO := true
