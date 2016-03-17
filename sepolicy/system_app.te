@@ -1,2 +1,0 @@
-allow system_app system_data_file:dir { read getattr open };
-allow system_app system_data_file:file { write getattr setattr read lock open };

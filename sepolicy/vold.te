@@ -1,2 +1,0 @@
-allow vold vold_tmpfs:file create_file_perms;
-allow vold mmc_block_device:blk_file { read write open ioctl getattr };
