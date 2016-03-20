@@ -22,6 +22,102 @@
 
 ![Samsung Galaxy S5 mini](http://images.samsung.com/is/image/samsung/de_SM-G800FZBADBT_000246076_Front_blue?$DT-Gallery$ "Samsung Galaxy S5 mini")
 
+----------
+
+##How To Build CyanogenMod Android for Samsung Galaxy S5 mini (G800F/M/Y)
+
+CyanogenMod provides "How to build" instructions for some devices. Although this device is not officially supported, the build-steps are not that different between devices. Most of the information on this page also apply to this device: 
+http://wiki.cyanogenmod.org/w/Build_for_t0lte
+
+Requirements:
+
+- At least 8GB RAM (build will stop without a warning with 6GB)
+- 65GB (sources and build results) + 35GB (CCACHE)
+
+Perform the following steps from the above "How to build":
+1. Install the SDK
+2. Install the Build Packages
+3. Create the directories
+
+    $ mkdir -p ~/bin
+    $ mkdir -p ~/android/system
+
+  *Note:* you can replace the build root "~/android/system" with any directory you like. Let's assume it is "~/android/system" in the following steps.
+4. Install the repo command
+
+    $ curl https://storage.googleapis.com/git-repo-downloads/repo > ~/bin/repo
+    $ chmod a+x ~/bin/repo
+5. Put the ~/bin directory in your path of execution
+6. Initialize the CyanogenMod source repository
+
+    $ cd ~/android/system/
+    $ repo init -u https://github.com/CyanogenMod/android.git -b cm-13.0
+7. Download the source code
+
+    $ repo sync
+8. Patch sources
+8.1. Clone the local manifests with the following commands:
+	
+	$ cd ~/android/system/
+	$ git clone https://github.com/cm-3470/android_.repo_local_manifests -b cm-13.0 .repo/local_manifests
+
+However if you already obtained local manifests from a different device, just copy at least the following files into .repo/local_manifests :
+
+- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-13.0/kminilte.xml
+- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-13.0/common.xml
+
+8.2. Fetch device specific repos by synching all repos
+
+	$ repo sync
+8.2. Apply device specific patches (also repeat this step whenever the patches in the directory "patch" are modified):
+
+	$ cd device/samsung/smdk3470-common/patch
+	$ ./apply.sh
+9. Prepare the device-specific code
+  This step is device specific and hence different from the "How to build".
+  
+    $ source build/envsetup.sh
+    $ lunch cm_kminilte-userdebug
+
+  These commands only have a temporary effect, you will have to perform these commands again,   when you use a new terminal window.
+10. Turn on caching to speed up build
+  Only if you want to rebuilt CM multiple times you also should enable CCACHE
+11. Start the build
+
+    $ croot
+    $ mka bacon
+
+###Build-results:
+
+The build-process takes a lot of time - the initial build can take about 10h. If CCACHE is enabled, the next builds only take 3-4 hours.
+Note that especially the linking process (ld) needs a huge amount of memory. The building process stops without a warning if only 6GB are present. In this case you can try to build with only one process (mka bacon -j1).
+
+When the build-process finished the following files will be available:
+
+	CyanogenMod image: out/target/product/kminilte/cm-13.0-<date>-UNOFFICIAL-<device>.zip
+	recovery: out/target/product/kminilte/recovery.img
+
+###Rebuild:
+
+If you want to rebuild the ROM, perform the following steps:
+
+	$ repo sync
+	$ mka clean
+	$ mka bacon
+
+"repo sync" might fail due to local source code modifications. In this case temporarily revert the changes and reapply them after the update:
+
+	$ repo sync (-> fails due to local modifications, failing subprojects are listed in log-output)
+  
+For each failing subproject, revert the changes (e.g. with git reset --hard ...)
+
+	$ croot
+	$ repo sync
+
+Now reapply the patches (see section about device/samsung/kminilte/patch/apply.sh)
+
+----------
+
 ## Copyright
 
 ```
