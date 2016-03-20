@@ -99,16 +99,18 @@ Perform the following steps from the above "How to build":
 	```
 
 9. Prepare the device-specific code
-  This step is device specific and hence different from the "How to build".
+
+	This step is device specific and hence different from the "How to build".
 	  
 	```sh
 	$ source build/envsetup.sh
 	$ lunch cm_kminilte-userdebug
 	```
 	
-	  These commands only have a temporary effect, you will have to perform these commands again,   when you use a new terminal window.
+	These commands only have a temporary effect, you will have to perform these commands again,   when you use a new terminal window.
 
 10. Turn on caching to speed up build
+
 	Only if you want to rebuilt CM multiple times you also should enable CCACHE
 
 11. Start the build
