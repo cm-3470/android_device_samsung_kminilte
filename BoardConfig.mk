@@ -45,10 +45,6 @@ TARGET_SPECIFIC_HEADER_PATH += device/samsung/kminilte/include
 TARGET_KERNEL_CONFIG := xyref5260_evt0_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/kminilte
 
-# Sound
-# Lollipop Audio HAL is incompatible with Android M (see http://review.cyanogenmod.org/#/c/121831/)
-TARGET_TINY_ALSA_IGNORE_SILENCE_SIZE := true
-
 # CMHW
 BOARD_HARDWARE_CLASS := device/samsung/kminilte/cmhw
 
@@ -77,9 +73,6 @@ BOARD_EGL_NEEDS_HANDLE_VALUE := true
 TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_kminilte
 TARGET_LIBINIT_DEFINES_FILE := device/samsung/kminilte/init/init_kminilte.cpp
-
-# Audio
-TARGET_EXYNOS3_AUDIO_FROM_SOURCE := false
 
 # Recovery
 TARGET_RECOVERY_DEVICE_DIRS += device/samsung/kminilte
