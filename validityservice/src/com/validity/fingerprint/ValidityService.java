@@ -39,8 +39,8 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
     public static final String SOCKET_NAME = "validityservice";
     public static final String SOCKET_NAME_CB = "validityservice_callback";
     private LocalServerSocket mServerSocket = null;
-    private LocalServerSocket mServerSocket_cb = null;
-    private LocalSocket mSocket_cb = null;
+    private LocalServerSocket mServerSocketCB = null;
+    private LocalSocket mSocketCB = null;
 
     public static final int CALL_BASE = 0;
 
@@ -58,13 +58,13 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
     public static final int CB_ACQUIRED = 4;
     public static final int CB_AUTHENTICATED = 5;
 
-    private boolean mIs_identify = false;
-    private int mLast_enroll_fingerindex = 0;
+    private boolean mIsIdentify = false;
+    private int mLastEnrollFingerindex = 0;
     private IdentifyResult mIdresult = null;
-    private boolean mEnroll_bad = false;
-    private int mEnroll_repeat_count = 0;
-    private int mActive_gid = 0;
-    private boolean mIs_need_Identify = false;
+    private boolean mEnrollBad = false;
+    private int mEnrollRepeatCount = 0;
+    private int mActiveGid = 0;
+    private boolean mIsNeedIdentify = false;
     private int mIdentifyImage = 0;
 
     Fingerprint fp = new Fingerprint(this, this);
@@ -104,7 +104,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
         VLog.v("onCreate");
         try {
             mServerSocket = new LocalServerSocket(SOCKET_NAME);
-            mServerSocket_cb = new LocalServerSocket(SOCKET_NAME_CB);
+            mServerSocketCB = new LocalServerSocket(SOCKET_NAME_CB);
         } catch (IOException e) {
             VLog.v("in onCreate, making server socket: " + e);
             return;
@@ -135,9 +135,9 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                 while (true) {
                     try {
                         VLog.v("Waiting for connection...");
-                        mSocket_cb = mServerSocket_cb.accept();
-                        VLog.v(".....Got socket: " + mSocket_cb);
-                        if (mSocket_cb == null) {
+                        mSocketCB = mServerSocketCB.accept();
+                        VLog.v(".....Got socket: " + mSocketCB);
+                        if (mSocketCB == null) {
                             return;
                         }
                     } catch (IOException e) {
@@ -181,9 +181,9 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                             case CALL_ENROLL:
                                 userId = "User_" + data[1];
                                 fingerIndex = data[2];
-                                mLast_enroll_fingerindex = fingerIndex;
-                                mEnroll_bad = false;
-                                mEnroll_repeat_count = 8;
+                                mLastEnrollFingerindex = fingerIndex;
+                                mEnrollBad = false;
+                                mEnrollRepeatCount = 8;
                                 fp.verifyPassword(userId, pwdhash);
                                 ret = fp.enroll(userId, "", fingerIndex, Fingerprint.VCS_ENROLL_MODE_DEFAULT);
                                 break;
@@ -201,10 +201,10 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                                 break;
                             case CALL_IDENTIFY:
                                 userId = "User_" + data[1];
-                                mIs_identify = true;
+                                mIsIdentify = true;
                                 fp.setSecurityLevel(VcsEvents.VCS_SECURITY_LEVEL_HIGH);
                                 mIdresult = null;
-                                mActive_gid = data[1];
+                                mActiveGid = data[1];
                                 ret = fp.identify(userId);
                                 break;
                             case CALL_GET_ENROLLED_FINGER_LIST:
@@ -269,28 +269,28 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
         VLog.v("identify onEvent: receive event :" + event.eventId);
         OutputStreamWriter osr = null;
         try {
-            OutputStream os = mSocket_cb.getOutputStream();
+            OutputStream os = mSocketCB.getOutputStream();
             osr = new OutputStreamWriter(os);
             String str = null;
             switch (event.eventId) {
                 case VcsEvents.VCS_EVT_EIV_FINGERPRINT_CAPTURE_REDUNDANT:
                      str = CB_ACQUIRED + ":" + 1;
-                     mEnroll_bad = true;
+                     mEnrollBad = true;
                      break;
                 case VcsEvents.VCS_EVT_ENROLL_CAPTURE_STATUS:
                      EnrollCaptureStatus data_status = (EnrollCaptureStatus)event.eventData;
-                     if (mEnroll_bad) mEnroll_bad = false;
-                     else mEnroll_repeat_count = mEnroll_repeat_count - 1;
-                     if (mEnroll_repeat_count != 0) {
-                         str = CB_ENROLL + ":" + mLast_enroll_fingerindex + ":" + mEnroll_repeat_count;
+                     if (mEnrollBad) mEnrollBad = false;
+                     else mEnrollRepeatCount = mEnrollRepeatCount - 1;
+                     if (mEnrollRepeatCount != 0) {
+                         str = CB_ENROLL + ":" + mLastEnrollFingerindex + ":" + mEnrollRepeatCount;
                      }
                      break;
                 case VcsEvents.VCS_EVT_EIV_FINGERPRINT_CAPTURED_BAD:
                      str = CB_ACQUIRED + ":" + convertImageQuality((int)event.eventData);
-                     mEnroll_bad = true;
+                     mEnrollBad = true;
                      break;
                 case VcsEvents.VCS_EVT_ENROLL_SUCCESS:
-                     str = CB_ENROLL + ":" + mLast_enroll_fingerindex + ":" + 0;
+                     str = CB_ENROLL + ":" + mLastEnrollFingerindex + ":" + 0;
                      fp.setPassword("User_0", pwdhash);
                      break;
                 case VcsEvents.VCS_EVT_ENROLL_FAILED:
@@ -307,17 +307,17 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                      break;
                 case VcsEvents.VCS_EVT_VERIFY_SUCCESS:
                 case VcsEvents.VCS_EVT_IDENTIFY_SUCCESS:
-                     mIs_identify = false;
+                     mIsIdentify = false;
                      str = CB_AUTHENTICATED + ":" + getIdentifyFid();
                      break;
                 case VcsEvents.VCS_EVT_SENSOR_REMOVED:
-                     mIs_identify = false;
+                     mIsIdentify = false;
                      str = CB_ERROR + ":" + 1; //FINGERPRINT_ERROR_HW_UNAVAILABLE
                      VLog.e("identify onEvent: identify error, result=" + (int)event.eventData);
                      break;
                 case VcsEvents.VCS_EVT_VERIFY_FAILED:
                 case VcsEvents.VCS_EVT_IDENTIFY_FAILED:
-                     mIs_identify = false;
+                     mIsIdentify = false;
                      VLog.e("identify onEvent: identify error, result=" + (int)event.eventData);
                      switch ((int)event.eventData) {
                          case VcsEvents.VCS_RESULT_BAD_QUALITY_IMAGE:
@@ -325,8 +325,8 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
                          case VcsEvents.VCS_RESULT_USER_DOESNT_EXIST:
                               fp.setSecurityLevel(VcsEvents.VCS_SECURITY_LEVEL_HIGH);
                               mIdresult = null;
-                              mIs_identify = true;
-                              fp.identify("User_" + mActive_gid);
+                              mIsIdentify = true;
+                              fp.identify("User_" + mActiveGid);
                               if (str == null) {
                                   str = CB_ACQUIRED + ":" + 1; //  FINGERPRINT_ACQUIRED_PARTIAL
                               }
@@ -348,7 +348,7 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
             VLog.e("in onEvent: " + e.getMessage());
             try {
                 osr.close();
-                mSocket_cb.close();
+                mSocketCB.close();
             } catch (IOException es) {
                 VLog.e("Cannot close socket: " + es.getMessage());
             }
@@ -358,18 +358,18 @@ public class ValidityService extends Service implements FingerprintCore.EventLis
 
     /** Our Keyguard will not call identify when turn on screen, so we need call it. */
     public void onScreenOn() {
-        if (mIs_need_Identify) {
-            mIs_need_Identify = false;
+        if (mIsNeedIdentify) {
+            mIsNeedIdentify = false;
             fp.setSecurityLevel(VcsEvents.VCS_SECURITY_LEVEL_HIGH);
             mIdresult = null;
-            mIs_identify = true;
-            fp.identify("User_" + mActive_gid);
+            mIsIdentify = true;
+            fp.identify("User_" + mActiveGid);
         }
     }
 
     public void onScreenOff() {
-        if (mIs_identify) {
-            mIs_need_Identify = true;
+        if (mIsIdentify) {
+            mIsNeedIdentify = true;
         }
     }
 
