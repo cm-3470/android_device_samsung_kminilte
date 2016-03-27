@@ -1,0 +1,15 @@
+allow system_server efs_file:file { read open write };
+allow system_server efs_file:dir search;
+
+# Label the .gps.interface.pipe.to_jni pipe with gps_data_file.
+type_transition system_server system_data_file:fifo_file gps_data_file ".gps.interface.pipe.to_jni";
+allow system_server gps_data_file:fifo_file create_file_perms;
+allow system_server gps_data_file:dir rw_dir_perms;
+
+allow system_server uhid_device:file { read write open ioctl };
+allow system_server uhid_device:chr_file { read write open ioctl };
+
+allow system_server wifi_efs_file:file { read open };
+allow system_server self:capability sys_module;
+allow system_server wifi_efs_file:dir search;
+allow system_server kernel:process setsched;

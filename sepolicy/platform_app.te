@@ -1,0 +1,2 @@
+allow platform_app unlabeled:file r_file_perms;
+allow platform_app unlabeled:dir r_dir_perms; 

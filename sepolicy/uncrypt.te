@@ -1,0 +1,2 @@
+allow uncrypt mmc_block_device:blk_file w_file_perms;
+allow uncrypt mmc_block_device:dir r_dir_perms;

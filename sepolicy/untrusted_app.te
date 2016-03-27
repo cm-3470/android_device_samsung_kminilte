@@ -1,0 +1,4 @@
+allow untrusted_app init:dir r_dir_perms;
+allow untrusted_app kernel:dir r_dir_perms;
+allow untrusted_app unlabeled:dir r_dir_perms;
+allow untrusted_app unlabeled:file { read getattr open execute };

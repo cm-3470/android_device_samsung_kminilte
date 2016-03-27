@@ -1,0 +1,6 @@
+#### wifiloader
+#
+type wifiloader, domain;
+type wifiloader_exec, exec_type, file_type;
+
+allow wifiloader proc:file r_file_perms;

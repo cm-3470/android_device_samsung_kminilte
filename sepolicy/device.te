@@ -1,0 +1,11 @@
+# /dev/s5p-smem
+type secmem_device, dev_type;
+
+# /dev/block/mmcblk0p[0-9]
+type mmc_block_device, dev_type;
+
+# /dev/umts_boot*, /dev/ehci_power
+type mif_device, dev_type;
+
+# /dev/rfkill
+type rfkill_device, dev_type;

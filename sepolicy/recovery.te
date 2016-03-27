@@ -1,0 +1,66 @@
+recovery_only(`
+  permissive recovery;
+
+  allow recovery system_radio_prop:property_service set;
+  allow recovery vold_prop:property_service set;
+  allow recovery vold_prop:property_service set;
+
+  allow recovery mmc_block_device:dir r_dir_perms;
+  allow recovery mmc_block_device:blk_file rw_file_perms;
+  allow recovery dm_device:chr_file rw_file_perms;
+  allow recovery mtp_device:chr_file rw_file_perms;
+  allow recovery properties_device:file { rw_file_perms link unlink };
+
+  allow recovery device:dir create_dir_perms;
+  allow recovery device:file create_file_perms;
+
+  allow recovery init:dir r_dir_perms;
+  allow recovery init:file r_file_perms;
+  allow recovery healthd:dir r_dir_perms;
+  allow recovery healthd:file r_file_perms;
+  allow recovery kernel:dir r_dir_perms;
+  allow recovery kernel:file r_file_perms;
+  allow recovery su:dir r_dir_perms;
+  allow recovery su:file r_file_perms;
+  allow recovery ueventd:dir r_dir_perms;
+  allow recovery ueventd:file r_file_perms;
+
+  allow recovery tmpfs:chr_file rw_file_perms;
+  allow recovery rootfs:lnk_file create_file_perms;
+  allow recovery rootfs:fifo_file create_file_perms;
+
+  ### Allow setenforce Permissive
+  allow recovery selinuxfs:file rw_file_perms;
+
+  ### /usbstorage
+  allow recovery vfat:dir create_dir_perms;
+  allow recovery vfat:file create_file_perms;
+
+  ### /efs
+  allow recovery efs_file:dir create_dir_perms;
+  allow recovery efs_file:file create_file_perms;
+  allow recovery app_efs_file:file create_file_perms;
+  allow recovery baro_delta_factoryapp_efs_file:file create_file_perms;
+  allow recovery bin_nv_data_efs_file:file create_file_perms;
+  allow recovery bluetooth_efs_file:file create_file_perms;
+  allow recovery factorymode_factoryapp_efs_file:file create_file_perms;
+  allow recovery imei_efs_file:file create_file_perms;
+  allow recovery radio_factoryapp_efs_file:file create_file_perms;
+  allow recovery sensor_efs_file:file create_file_perms;
+  allow recovery wifi_efs_file:file create_file_perms;
+
+  ### /cache
+  allow recovery cache_file:file { create_file_perms relabelfrom relabelto };
+  allow recovery cache_file:lnk_file create_file_perms;
+  allow recovery cache_file:dir { create_dir_perms mounton };
+
+  ### /data
+  allow recovery system_data_file:file { create_file_perms relabelfrom relabelto };
+  allow recovery system_data_file:lnk_file create_file_perms;
+  allow recovery system_data_file:dir { create_dir_perms mounton };
+
+  ### /sdcard
+  allow recovery media_rw_data_file:file { create_file_perms relabelfrom relabelto };
+  allow recovery media_rw_data_file:lnk_file create_file_perms;
+  allow recovery media_rw_data_file:dir { create_dir_perms mounton };
+')

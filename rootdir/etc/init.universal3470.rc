@@ -405,13 +405,7 @@ service vcsFPService /system/bin/vcsFPService
     class late_start
     user system
     group system
-
-# deferred initcall
-service sec-sh /system/bin/sh /system/etc/init.sec.boot.sh
-    class main
-    user root
-    oneshot
-
+    
 # service for TZPR provisioning version check app
 service scranton_RD /system/bin/scranton_RD
      class main
@@ -446,6 +440,7 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system inet net_raw
     ioprio be 0
+    seclabel u:r:gpsd:s0
 # on userdebug and eng builds, enable kgdb on the serial console
 on property:ro.debuggable=1
     write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
@@ -456,7 +451,7 @@ service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
     class main
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw log shell
-    seclabel u:r:cbd:s0
+    seclabel u:r:cpboot-daemon:s0
 
 # CS service
 service cs_service /system/bin/cs

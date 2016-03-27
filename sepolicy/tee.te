@@ -1,0 +1,4 @@
+allow tee property_socket:sock_file write;
+unix_socket_connect(tee, property, init)
+allow tee system_prop:property_service set;
+allow tee apk_data_file:dir rw_dir_perms;
