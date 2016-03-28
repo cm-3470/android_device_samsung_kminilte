@@ -106,9 +106,6 @@ lib/hw/nfc_nci.universal3470.so
 etc/sec_s3fwrn5_rfreg.bin
 vendor/firmware/sec_s3fwrn5_firmware.bin
 
-# Boot script (handles deferred kernels init-calls, e.g. for Wifi driver startup)
-etc/init.sec.boot.sh
-
 # MobiCore
 bin/mcDriverDaemon
 app/FFFFFFFF000000000000000000000001.drbin
