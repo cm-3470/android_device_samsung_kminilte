@@ -53,7 +53,7 @@ lib/libExynosIPService.so
 #lib/libcsc.so
 
 # HWC
-vendor/lib/hw/hwcomposer.exynos3.so
+lib/hw/hwcomposer.exynos3.so
 lib/hw/gralloc.exynos3.so
 # Needed by hwcomposer.exynos3.so
 lib/libdisplay.so
@@ -138,20 +138,14 @@ lib/libMcClient.so
 lib/libMcRegistry.so
 
 # OMX
-etc/ExynosOMXReg.conf
-lib/libExynosOMX263d.so
-lib/libExynosOMX264d.so
-lib/libExynosOMXCmn.so
 lib/libExynosOMX_Core.so
-lib/libExynosOMXCore.so
-lib/libExynosOMXMp4vd.so
 lib/libExynosOMX_Resourcemanager.so
-lib/libExynosOMXVc1d.so
 lib/libstagefrighthw.so
 lib/omx/libOMX.Exynos.AVC.Decoder.so
 lib/omx/libOMX.Exynos.AVC.Encoder.so
 lib/omx/libOMX.Exynos.MPEG4.Decoder.so
 lib/omx/libOMX.Exynos.MPEG4.Encoder.so
+lib/omx/libOMX.Exynos.WMV.Decoder.so
 
 # Radio
 bin/at_distributor
