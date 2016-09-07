@@ -98,9 +98,6 @@
          format is UMTS|LTE|... -->
     <string translatable="false" name="config_radio_access_family">LTE | GSM | WCDMA</string>
     
-    <!-- Boolean to enable STK functionality on Samsung phones -->
-    <bool name="config_samsung_stk">true</bool>
-
     <!-- If this is true, the screen will come on when you unplug usb/power/whatever. -->
     <bool name="config_unplugTurnsOnScreen">true</bool>
 
