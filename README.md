@@ -62,7 +62,7 @@ Perform the following steps from the above "How to build":
 
 	```sh
 	$ cd ~/android/system/
-	$ repo init -u https://github.com/CyanogenMod/android.git -b cm-14.0
+	$ repo init -u https://github.com/CyanogenMod/android.git -b cm-13.0
 	```
 
 7. Download the source code
@@ -77,13 +77,13 @@ Perform the following steps from the above "How to build":
 	
 	```sh
 	$ cd ~/android/system/
-	$ git clone https://github.com/cm-3470/android_.repo_local_manifests -b cm-14.0 .repo/local_manifests
+	$ git clone https://github.com/cm-3470/android_.repo_local_manifests -b cm-13.0 .repo/local_manifests
 	```
 	
 	However if you already obtained local manifests from a different device, just copy at least the following files into .repo/local_manifests :
 	
-	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.0/kminilte.xml
-	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.0/common.xml
+	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-13.0/kminilte.xml
+	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-13.0/common.xml
 	
 	8.2. Fetch device specific repos by synching all repos
 		
@@ -109,23 +109,11 @@ Perform the following steps from the above "How to build":
 	
 	These commands only have a temporary effect, you will have to perform these commands again,   when you use a new terminal window.
 
-10. (optional) Turn on caching to speed up build
+10. Turn on caching to speed up build
 
-	Only if you want to rebuilt CM multiple times you also should enable CCACHE.
-	E.g. by adding the following lines to your $HOME/.bashrc:
-	```
-	export USE_CCACHE=1
-	export ANDROID_CCACHE_DIR="/mnt/ccache" # Replace with your ccache dir
-	export ANDROID_CCACHE_SIZE="50G" # Replace with your ccache size
-	```
+	Only if you want to rebuilt CM multiple times you also should enable CCACHE
 
-10. (optional) Setup the Java VM heap size for the Jack server:
-	Java uses a default max. heap size of 1/4 of the installed RAM. Jack needs a minimum of 4 GB to work properly with Android N, so if your build environment has <= 16 GB RAM you should add the following line to your $HOME/.bashrc:
-	```
-	export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
-	```
-
-12. Start the build
+11. Start the build
 	
 	```sh
 	$ croot
@@ -139,7 +127,7 @@ Note that especially the linking process (ld) needs a huge amount of memory. The
 
 When the build-process finished the following files will be available:
 
-	CyanogenMod image: out/target/product/kminilte/cm-14.0-<date>-UNOFFICIAL-<device>.zip
+	CyanogenMod image: out/target/product/kminilte/cm-13.0-<date>-UNOFFICIAL-<device>.zip
 	recovery: out/target/product/kminilte/recovery.img
 
 ###Rebuild:
