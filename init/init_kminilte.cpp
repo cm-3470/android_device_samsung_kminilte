@@ -36,31 +36,29 @@
 
 void vendor_load_properties()
 {
-    char platform[PROP_VALUE_MAX];
-    char bootloader[PROP_VALUE_MAX];
-    char device[PROP_VALUE_MAX];
-    char devicename[PROP_VALUE_MAX];
-    int rc;
+    std::string platform;
+    std::string bootloader;
+    std::string device;
 
-    rc = property_get("ro.board.platform", platform);
-    if (!rc || strncmp(platform, ANDROID_TARGET, PROP_VALUE_MAX))
+    platform = property_get("ro.board.platform");
+    if (platform != ANDROID_TARGET)
         return;
 
-    property_get("ro.bootloader", bootloader);
+    bootloader = property_get("ro.bootloader");
 
-    if (strstr(bootloader, "G800F")) {
+    if (bootloader == "G800F") {
         /* kminiltexx */
         property_set("ro.build.fingerprint", "samsung/kminiltexx/kminilte:5.1.1/LMY47X/G800FXXU1BOL4:user/release-keys");
         property_set("ro.build.description", "kminiltexx-user 5.1.1 LMY47X G800FXXU1BOL4 release-keys");
         property_set("ro.product.model", "SM-G800F");
         property_set("ro.product.device", "kminiltexx");
-    } else if (strstr(bootloader, "G800Y")) {
+    } else if (bootloader == "G800Y") {
         /* kminiltedv */
         property_set("ro.build.fingerprint", "samsung/kminiltedv/kminilte:4.4.2/KOT49H/G800YDVU1ANG4:user/release-keys");
         property_set("ro.build.description", "kminiltedv-user 4.4.2 KOT49H G800YDVU1ANG4 release-keys");
         property_set("ro.product.model", "SM-G800Y");
         property_set("ro.product.device", "kminiltedv");
-    } else if (strstr(bootloader, "G800M")) {
+    } else if (bootloader == "G800M") {
         /* kminilteub */
         property_set("ro.build.fingerprint", "samsung/kminilteub/kminilte:4.4.2/KOT49H/G800MUBU1ANH3:user/release-keys");
         property_set("ro.build.description", "kminilteub-user 4.4.2 KOT49H G800MUBU1ANH3 release-keys");
@@ -68,6 +66,6 @@ void vendor_load_properties()
         property_set("ro.product.device", "kminilteub");
     }
     
-    property_get("ro.product.device", device);
-    ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader, device);
+    device = property_get("ro.product.device");
+    ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
 }
