@@ -120,7 +120,7 @@ Perform the following steps from the above "How to build":
 	```
 
 10. (optional) Setup the Java VM heap size for the Jack server:
-	Java uses a default max. heap size of 1/4 of the installed RAM. Jack needs a minimum of 4 GB to work properly with Android N, so if your build environment has <= 16 GB RAM you should add the following line to your $HOME/.bashrc:
+	Java uses a default max. heap size of 1/4 of the installed RAM. Jack needs a minimum of 4 GB to work properly with Android N, so if your build environment has < 16 GB RAM you should add the following line to your $HOME/.bashrc:
 	```
 	export ANDROID_JACK_VM_ARGS="-Dfile.encoding=UTF-8 -XX:+TieredCompilation -Xmx4096m"
 	```
