@@ -46,7 +46,7 @@ TARGET_KERNEL_CONFIG := xyref5260_evt0_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/kminilte
 
 # CMHW
-BOARD_HARDWARE_CLASS := device/samsung/kminilte/cmhw
+#BOARD_HARDWARE_CLASS := device/samsung/kminilte/cmhw
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/kminilte/bluetooth
