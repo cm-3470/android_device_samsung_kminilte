@@ -81,7 +81,7 @@ CompassSensor::~CompassSensor()
 
 int CompassSensor::enable(int32_t handle, int en)
 {
-    LOGI_IF(COMPASS_EVENT_DEBUG, "enable compass: %ld", en);
+    LOGI_IF(COMPASS_EVENT_DEBUG, "enable compass: %ld", (long)en);
     
     if (handle == ID_RM)
         mRaw = true;
@@ -105,6 +105,7 @@ int CompassSensor::enable(int32_t handle, int en)
 int CompassSensor::getEnable(int32_t handle)
 {
     VFUNC_LOG;
+    UNUSED(handle);
     return mEnabled;
 }
 
@@ -115,13 +116,14 @@ int CompassSensor::getEnable(int32_t handle)
 int64_t CompassSensor::getDelay(int32_t handle)
 {
     VFUNC_LOG;
+    UNUSED(handle);
     return mDelay;
 }
 
 int CompassSensor::setDelay(int32_t handle, int64_t ns)
 {
     // TODO: does Magnetic_Set_Delay() expect ms?
-    LOGI_IF(COMPASS_EVENT_DEBUG, "Set delay: %ld", ns);    
+    LOGI_IF(COMPASS_EVENT_DEBUG, "Set delay: %ld", (long)ns);
     Magnetic_Set_Delay(ns/1000000);
     return SamsungSensorBase::setDelay(handle, ns);
 }
@@ -188,7 +190,7 @@ int CompassSensor::readSample(long *data, int64_t *timestamp)
         for(int i=0; i<3; i++) {
             data[i] = (long)(mPendingEvent.magnetic.v[i] * 65536.0);
         }
-        LOGI_IF(COMPASS_EVENT_DEBUG, "readSample: (%d/%d/%d)",
+        LOGI_IF(COMPASS_EVENT_DEBUG, "readSample: (%ld/%ld/%ld)",
             data[0], data[1], data[2]);
         return 1;
     }

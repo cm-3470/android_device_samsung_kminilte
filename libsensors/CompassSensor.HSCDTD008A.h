@@ -66,7 +66,7 @@ public:
     void fillList(struct sensor_t *list);
     void getOrientationMatrix(signed char *orient);
     int getAccuracy();
-    virtual void getCompassBias(long *bias) {return;};
+    virtual void getCompassBias(long *bias) { UNUSED(bias); return; };
 
     // if 3rd-party provides calibrated compass data, just return 1
     int providesCalibration() { return 1; }

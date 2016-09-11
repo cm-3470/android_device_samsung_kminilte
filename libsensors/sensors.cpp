@@ -81,28 +81,29 @@ static int open_sensors(const struct hw_module_t* module, const char* id,
 static int sensors__get_sensors_list(struct sensors_module_t* module,
                                      struct sensor_t const** list)
 {
+    UNUSED(module);
     *list = sSensorList;
     return sensors;
 }
 
 static struct hw_module_methods_t sensors_module_methods = {
-        open: open_sensors
+        .open = open_sensors
 };
 
 struct sensors_module_t HAL_MODULE_INFO_SYM = {
-    common: {
-        tag: HARDWARE_MODULE_TAG,
-        version_major: 1,
-        version_minor: 0,
-        id: SENSORS_HARDWARE_MODULE_ID,
-        name: "Samsung Sensor module",
-        author: "Samsung Inc",
-        methods: &sensors_module_methods,
-        dso: NULL,
-        reserved: {0}
+    .common = {
+        .tag = HARDWARE_MODULE_TAG,
+        .version_major = 1,
+        .version_minor = 0,
+        .id = SENSORS_HARDWARE_MODULE_ID,
+        .name = "Samsung Sensor module",
+        .author = "Samsung Inc",
+        .methods = &sensors_module_methods,
+        .dso = NULL,
+        .reserved = {0}
     },
-    get_sensors_list: sensors__get_sensors_list,
-    set_operation_mode: NULL
+    .get_sensors_list = sensors__get_sensors_list,
+    .set_operation_mode = NULL
 };
 
 struct sensors_poll_context_t {
@@ -477,12 +478,14 @@ static int poll__poll(struct sensors_poll_device_t *dev,
     return ctx->pollEvents(data, count);
 }
 
+/* UNUSED
 static int poll__query(struct sensors_poll_device_1 *dev,
                       int what, int *value)
 {
     sensors_poll_context_t *ctx = (sensors_poll_context_t *)dev;
     return ctx->query(what, value);
 }
+*/
 
 static int poll__batch(struct sensors_poll_device_1 *dev,
                       int handle, int flags, int64_t period_ns, int64_t timeout)
@@ -510,6 +513,7 @@ static int poll__flush(struct sensors_poll_device_1 *dev,
 static int open_sensors(const struct hw_module_t* module, const char* id,
                         struct hw_device_t** device)
 {
+    UNUSED(id);
     FUNC_LOG;
     int status = -EINVAL;
     sensors_poll_context_t *dev = new sensors_poll_context_t();

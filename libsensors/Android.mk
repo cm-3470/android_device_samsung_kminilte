@@ -31,6 +31,10 @@ LOCAL_MODULE_OWNER := invensense
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\" -Werror -Wall
 LOCAL_CFLAGS += -DANDROID_LOLLIPOP
 LOCAL_CFLAGS += -Wno-error=reorder
+LOCAL_CFLAGS += -Wno-error=unused-parameter
+LOCAL_CFLAGS += -Wno-error=unused-variable
+# for _GYRO_TC_H_ vs _GYRO_TC_H
+LOCAL_CFLAGS += -Wno-error=header-guard
 
 # Workaround for missing include
 LOCAL_CFLAGS += -include string.h

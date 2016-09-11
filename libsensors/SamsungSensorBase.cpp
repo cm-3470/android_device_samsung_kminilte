@@ -47,10 +47,12 @@ char *SamsungSensorBase::makeSysfsName(const char *input_name,
 }
 
 bool SamsungSensorBase::handleEvent(input_event const * event) {
+    UNUSED(event);
     return true;
 }
 
 int SamsungSensorBase::handleEnable(int en) {
+    UNUSED(en);
     return 0;
 }
 
@@ -96,6 +98,8 @@ SamsungSensorBase::~SamsungSensorBase() {
 
 int SamsungSensorBase::enable(int32_t handle, int en)
 {
+    UNUSED(handle);
+
     int err = 0;
     pthread_mutex_lock(&mLock);
     if (en != mEnabled) {
@@ -119,6 +123,8 @@ cleanup:
 
 int SamsungSensorBase::setDelay(int32_t handle, int64_t ns)
 {
+    UNUSED(handle);
+
     int fd;
     int result = 0;
     char buf[21];

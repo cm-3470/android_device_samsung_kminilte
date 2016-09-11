@@ -25,8 +25,9 @@
 
 #include "sensors.h"
 #include "SensorBase.h"
-#include "SamsungSensorBase.h"
 #include "InputEventReader.h"
+
+#define UNUSED(expr) (void)(expr)
 
 /*****************************************************************************/
 

@@ -45,6 +45,8 @@ ProximitySensor::ProximitySensor() :
 
 int ProximitySensor::setDelay(int32_t handle, int64_t ns)
 {
+    UNUSED(handle);
+    UNUSED(ns);
     return -1;
 }
 

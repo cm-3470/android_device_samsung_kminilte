@@ -110,6 +110,8 @@ bool HeartRateSensor::pulseDetect(int *chanSums, int *chanData)
      * The hrEol lib setups the kernel to always use submode S_SAMP_XY_AB.
      */
     
+    UNUSED(chanSums);
+
     bool hasEvent = false;
     
     int sumChansDetect = 0;
