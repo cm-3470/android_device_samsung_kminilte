@@ -9,7 +9,7 @@ recovery_only(`
   allow recovery mmc_block_device:blk_file rw_file_perms;
   allow recovery dm_device:chr_file rw_file_perms;
   allow recovery mtp_device:chr_file rw_file_perms;
-  allow recovery properties_device:file { rw_file_perms link unlink };
+  #allow recovery properties_device:file { rw_file_perms link unlink };
 
   allow recovery device:dir create_dir_perms;
   allow recovery device:file create_file_perms;
@@ -55,12 +55,12 @@ recovery_only(`
   allow recovery cache_file:dir { create_dir_perms mounton };
 
   ### /data
-  allow recovery system_data_file:file { create_file_perms relabelfrom relabelto };
+  #allow recovery system_data_file:file { create_file_perms relabelfrom relabelto };
   allow recovery system_data_file:lnk_file create_file_perms;
-  allow recovery system_data_file:dir { create_dir_perms mounton };
+  #allow recovery system_data_file:dir { create_dir_perms mounton };
 
   ### /sdcard
-  allow recovery media_rw_data_file:file { create_file_perms relabelfrom relabelto };
+  #allow recovery media_rw_data_file:file { create_file_perms relabelfrom relabelto };
   allow recovery media_rw_data_file:lnk_file create_file_perms;
-  allow recovery media_rw_data_file:dir { create_dir_perms mounton };
+  #allow recovery media_rw_data_file:dir { create_dir_perms mounton };
 ')

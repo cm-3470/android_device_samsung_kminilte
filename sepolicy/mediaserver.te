@@ -7,4 +7,4 @@ allow mediaserver system_prop:property_service set;
 # Playback DRM protected content
 allow mediaserver secmem_device:chr_file rw_file_perms;
 r_dir_file(mediaserver, efs_file)
-allow mediaserver system_file:file execmod;
+#allow mediaserver system_file:file execmod;
