@@ -6,7 +6,6 @@ on early-init
 
 on init
     # Support legacy paths
-    symlink /sdcard /mnt/sdcard
     symlink /sdcard /storage/sdcard0
 
     mkdir /efs 0771 radio system
