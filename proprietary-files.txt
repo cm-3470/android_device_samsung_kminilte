@@ -171,11 +171,9 @@ etc/wifi/nvram_net.txt
 lib/libaudio-ril.so
 lib/libsamsungRecord.so
 lib/libsamsungRecord_ns.so
-lib/libsamsungRecord_zoom.so
 lib/libsamsungSoundbooster.so
 lib/lib_DNSe_NRSS_ver226.so
 lib/lib_SamsungRec_V04004.so
-lib/lib_Samsung_AudioZoom_v102.so
 lib/lib_Samsung_Resampler.so
 lib/lib_Samsung_SB_AM_for_ICS_v04004.so
 
