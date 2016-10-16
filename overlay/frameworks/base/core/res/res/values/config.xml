@@ -285,4 +285,8 @@
         <item>0</item>  <!-- 10000-30000 -->
         <item>0</item>  <!-- 30000+ -->
     </integer-array>    
+
+    <!-- Enable blur support -->
+    <bool name="config_ui_blur_enabled">true</bool>
+
 </resources>

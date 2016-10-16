@@ -52,6 +52,9 @@ lib/libMali.so
 lib/libExynosIPService.so
 #lib/libcsc.so
 
+# Blur
+vendor/lib/libuiblur.so
+
 # HWC
 lib/hw/hwcomposer.exynos3.so
 lib/hw/gralloc.exynos3.so
