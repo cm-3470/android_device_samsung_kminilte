@@ -62,7 +62,7 @@ Perform the following steps from the above "How to build":
 
 	```sh
 	$ cd ~/android/system/
-	$ repo init -u https://github.com/CyanogenMod/android.git -b cm-14.0
+	$ repo init -u https://github.com/CyanogenMod/android.git -b cm-14.1
 	```
 
 7. Download the source code
@@ -77,13 +77,13 @@ Perform the following steps from the above "How to build":
 	
 	```sh
 	$ cd ~/android/system/
-	$ git clone https://github.com/cm-3470/android_.repo_local_manifests -b cm-14.0 .repo/local_manifests
+	$ git clone https://github.com/cm-3470/android_.repo_local_manifests -b cm-14.1 .repo/local_manifests
 	```
 	
 	However if you already obtained local manifests from a different device, just copy at least the following files into .repo/local_manifests :
 	
-	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.0/kminilte.xml
-	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.0/common.xml
+	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.1/kminilte.xml
+	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.1/common.xml
 	
 	8.2. Fetch device specific repos by synching all repos
 		
@@ -139,7 +139,7 @@ Note that especially the linking process (ld) needs a huge amount of memory. The
 
 When the build-process finished the following files will be available:
 
-	CyanogenMod image: out/target/product/kminilte/cm-14.0-<date>-UNOFFICIAL-<device>.zip
+	CyanogenMod image: out/target/product/kminilte/cm-14.1-<date>-UNOFFICIAL-<device>.zip
 	recovery: out/target/product/kminilte/recovery.img
 
 ###Rebuild:
