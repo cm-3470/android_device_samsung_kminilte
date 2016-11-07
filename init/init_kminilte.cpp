@@ -36,29 +36,24 @@
 
 void vendor_load_properties()
 {
-    std::string platform;
-    std::string bootloader;
-    std::string device;
-
-    platform = property_get("ro.board.platform");
+    std::string platform = property_get("ro.board.platform");
     if (platform != ANDROID_TARGET)
         return;
 
-    bootloader = property_get("ro.bootloader");
-
-    if (bootloader == "G800F") {
+    std::string bootloader = property_get("ro.bootloader");
+    if (bootloader.find("G800F") == 0) {
         /* kminiltexx */
         property_set("ro.build.fingerprint", "samsung/kminiltexx/kminilte:5.1.1/LMY47X/G800FXXU1BOL4:user/release-keys");
         property_set("ro.build.description", "kminiltexx-user 5.1.1 LMY47X G800FXXU1BOL4 release-keys");
         property_set("ro.product.model", "SM-G800F");
         property_set("ro.product.device", "kminiltexx");
-    } else if (bootloader == "G800Y") {
+    } else if (bootloader.find("G800Y") == 0) {
         /* kminiltedv */
         property_set("ro.build.fingerprint", "samsung/kminiltedv/kminilte:4.4.2/KOT49H/G800YDVU1ANG4:user/release-keys");
         property_set("ro.build.description", "kminiltedv-user 4.4.2 KOT49H G800YDVU1ANG4 release-keys");
         property_set("ro.product.model", "SM-G800Y");
         property_set("ro.product.device", "kminiltedv");
-    } else if (bootloader == "G800M") {
+    } else if (bootloader.find("G800M") == 0) {
         /* kminilteub */
         property_set("ro.build.fingerprint", "samsung/kminilteub/kminilte:4.4.2/KOT49H/G800MUBU1ANH3:user/release-keys");
         property_set("ro.build.description", "kminilteub-user 4.4.2 KOT49H G800MUBU1ANH3 release-keys");
@@ -66,6 +61,6 @@ void vendor_load_properties()
         property_set("ro.product.device", "kminilteub");
     }
     
-    device = property_get("ro.product.device");
-    ERROR("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
+    std::string device = property_get("ro.product.device");
+    INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
 }
