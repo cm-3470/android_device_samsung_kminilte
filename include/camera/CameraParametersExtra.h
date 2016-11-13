@@ -20,11 +20,11 @@
 #define UNUSED(x) (void)(x)
 
 #define CAMERA_PARAMETERS_EXTRA_C \
-const char CameraParameters::ISO_AUTO[] = "iso-auto";\
-const char CameraParameters::ISO_100[] = "iso-100";\
-const char CameraParameters::ISO_200[] = "iso-200";\
-const char CameraParameters::ISO_400[] = "iso-400";\
-const char CameraParameters::ISO_800[] = "iso-800";\
+const char CameraParameters::ISO_AUTO[] = "auto";\
+const char CameraParameters::ISO_100[] = "100";\
+const char CameraParameters::ISO_200[] = "200";\
+const char CameraParameters::ISO_400[] = "400";\
+const char CameraParameters::ISO_800[] = "800";\
 const char CameraParameters::EFFECT_CARTOONIZE[] = "cartoonize";\
 const char CameraParameters::EFFECT_POINT_RED_YELLOW[] = "point-red-yellow";\
 const char CameraParameters::EFFECT_POINT_GREEN[] = "point-green";\
@@ -32,7 +32,7 @@ const char CameraParameters::EFFECT_POINT_BLUE[] = "point-blue";\
 const char CameraParameters::EFFECT_VINTAGE_COLD[] = "vintage-cold";\
 const char CameraParameters::EFFECT_VINTAGE_WARM[] = "vintage-warm";\
 const char CameraParameters::EFFECT_WASHED[] = "washed";\
-const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "yuv420sp";\
+const char CameraParameters::PIXEL_FORMAT_YUV420SP_NV21[] = "nv21";\
 int CameraParameters::getInt64(const char *key) const { UNUSED(key); return -1; }
 
 #define CAMERA_PARAMETERS_EXTRA_H \
