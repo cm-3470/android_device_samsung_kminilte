@@ -24,10 +24,10 @@
 
 ----------
 
-##How To Build CyanogenMod Android for Samsung Galaxy S5 mini (G800F/M/Y)
+##How To Build LineageOS Android for Samsung Galaxy S5 mini (G800F/M/Y)
 
-CyanogenMod provides "How to build" instructions for some devices. Although this device is not officially supported, the build-steps are not that different between devices. Most of the information on this page also apply to this device: 
-http://wiki.cyanogenmod.org/w/Build_for_t0lte
+LineageOS provides "How to build" instructions for some devices. Although this device is not officially supported, the build-steps are not that different between devices. Most of the information on this page also apply to this device: 
+http://wiki.lineageos.org/w/Build_for_t0lte
 
 Requirements:
 
@@ -58,11 +58,11 @@ Perform the following steps from the above "How to build":
 
 5. Put the ~/bin directory in your path of execution
 
-6. Initialize the CyanogenMod source repository
+6. Initialize the LineageOS source repository
 
 	```sh
 	$ cd ~/android/system/
-	$ repo init -u https://github.com/CyanogenMod/android.git -b cm-13.0
+	$ repo init -u https://github.com/LineageOS/android.git -b cm-13.0
 	```
 
 7. Download the source code
@@ -104,14 +104,14 @@ Perform the following steps from the above "How to build":
 	  
 	```sh
 	$ source build/envsetup.sh
-	$ lunch cm_kminilte-userdebug
+	$ lunch lineage_kminilte-userdebug
 	```
 	
 	These commands only have a temporary effect, you will have to perform these commands again,   when you use a new terminal window.
 
 10. Turn on caching to speed up build
 
-	Only if you want to rebuilt CM multiple times you also should enable CCACHE
+	Only if you want to rebuilt LineageOS multiple times you also should enable CCACHE
 
 11. Start the build
 	
@@ -127,7 +127,7 @@ Note that especially the linking process (ld) needs a huge amount of memory. The
 
 When the build-process finished the following files will be available:
 
-	CyanogenMod image: out/target/product/kminilte/cm-13.0-<date>-UNOFFICIAL-<device>.zip
+	LineageOS image: out/target/product/kminilte/cm-13.0-<date>-UNOFFICIAL-<device>.zip
 	recovery: out/target/product/kminilte/recovery.img
 
 ###Rebuild:
@@ -161,7 +161,7 @@ Now reapply the patches (see section about device/samsung/kminilte/patch/apply.s
 
 ```
 #
-# Copyright (C) 2014 The CyanogenMod Project
+# Copyright (C) 2017 The LineageOS Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
 # you may not use this file except in compliance with the License.
