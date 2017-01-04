@@ -24,9 +24,9 @@
 
 ----------
 
-##How To Build LineageOS Android for Samsung Galaxy S5 mini (G800F/M/Y)
+##How To Build
 
-LineageOS provides "How to build" instructions for some devices. Although this device is not officially supported, the build-steps are not that different between devices. Most of the information on this page also apply to this device: 
+Although this device is not officially supported, the build-steps are not that different between devices. Most of the information on this "How to build" page also apply to this device: 
 http://wiki.lineageos.org/w/Build_for_t0lte
 
 Requirements:
@@ -153,7 +153,7 @@ $ croot
 $ repo sync
 ```
 
-Now reapply the patches (see section about device/samsung/kminilte/patch/apply.sh)
+Now reapply the patches (see section about device/samsung/smdk3470-common/patch/apply.sh)
 
 ----------
 
