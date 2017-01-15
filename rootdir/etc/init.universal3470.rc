@@ -4,6 +4,9 @@ import init.wifi.rc
 on early-init
     mkdir /efs 0771 radio system
 
+    mount debugfs debugfs /sys/kernel/debug
+    chmod 0755 /sys/kernel/debug
+
 on init
     # Support legacy paths
     symlink /sdcard /storage/sdcard0
@@ -67,11 +70,18 @@ on post-fs-data
     mkdir /data/nfc/param 0700 nfc nfc
 
 #Private Mode
+    mkdir /mnt/shell/privatemode 0700 system system
+    mkdir /storage/Private 0000 system system
     mkdir /data/privatemode 0770 system system
     chown system system /data/privatemode
     restorecon /data/privatemode
 
+    # Permission for flashlight control for HAL3.3
+    chmod 0660 /sys/class/camera/flash/rear_torch_flash
+    chown media system /sys/class/camera/flash/rear_torch_flash
+
     # Permissions Camera
+    mkdir /data/camera 0770 media system
     chown system radio /sys/class/camera/rear/rear_calcheck
     chown system radio /sys/class/camera/rear/rear_camfw
     chown system radio /sys/class/camera/rear/rear_camfw_full
@@ -81,15 +91,19 @@ on post-fs-data
     chown system radio /sys/class/camera/front/front_camfw
     chown system radio /sys/class/camera/front/front_camtype
 
+    # mobicore
+    mkdir /data/app/mcRegistry 0775 system system
+    mkdir /data/app/mcRegistry/TbStorage 0700 system system
+    mkdir /efs/TEE  0770 radio system
+
 on early-boot
     # Remove symlinks to avoid issues with migrate after nandroid restores
     # Will be recreated at end of boot
     rm /data/data/com.android.providers.telephony/databases/telephony.db
     rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
 
-on boot
-    mount debugfs /sys/kernel/debug /sys/kernel/debug
 
+on boot
     # Set up kernel tracing, but disable it by default
     chmod 0222 /sys/kernel/debug/tracing/trace_marker
     write /sys/kernel/debug/tracing/tracing_on 0
@@ -117,6 +131,9 @@ on boot
     chown system system /dev/mobicore
     chown radio system /dev/mobicore-user
     chown system system /dev/s5p-smem
+    chmod 0660 /dev/t-base-tui
+    chown system system /dev/t-base-tui
+    export MC_AUTH_TOKEN_PATH /efs
 
     # enable call recording
     chmod 0660 /dev/snd/pcmC0D0c
@@ -410,6 +427,13 @@ service vcsFPService /system/bin/vcsFPService
     class late_start
     user system
     group system
+
+service prepare_param /system/bin/prepare_param.sh /dev/block/platform/dw_mmc.0/by-name/PARAM
+    class core
+    user root
+    group root
+    seclabel u:r:prepare_param:s0
+    oneshot
     
 # service for TZPR provisioning version check app
 service scranton_RD /system/bin/scranton_RD
@@ -435,13 +459,6 @@ service mobicore /system/bin/mcDriverDaemon -r /system/app/FFFFFFFF0000000000000
     user system
     group system
 
-service prepare_param /system/bin/prepare_param.sh /dev/block/platform/dw_mmc.0/by-name/PARAM
-	class main
-	user root
-	group root
-	seclabel u:r:prepare_param:s0
-	oneshot
-
 # Set watchdog timer to 20 seconds and pet it every 10 seconds to get a 10 second margin
 # service watchdogd /sbin/watchdogd 10 10
 #    class core
@@ -450,9 +467,10 @@ service prepare_param /system/bin/prepare_param.sh /dev/block/platform/dw_mmc.0/
 service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     class main
     user gps
-    group system inet net_raw
+    group system wakelock inet net_raw
     ioprio be 0
     seclabel u:r:gpsd:s0
+
 # on userdebug and eng builds, enable kgdb on the serial console
 on property:ro.debuggable=1
     write /sys/module/kgdboc/parameters/kgdboc ttyFIQ1
@@ -465,6 +483,10 @@ service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
     group radio cache inet misc audio sdcard_r sdcard_rw log shell
     seclabel u:r:cpboot-daemon:s0
 
+on property:persist.sys.cpboot=disable
+    stop ril-daemon
+    stop cpboot-daemon
+
 # CS service
 service cs_service /system/bin/cs
     class main
@@ -476,9 +498,11 @@ service cs_service /system/bin/cs
 service_redefine ril-daemon /system/bin/rild
     class main
     socket rild stream 660 root radio
+    socket sap_uim_socket1 stream 660 bluetooth bluetooth
     socket rild-debug stream 660 radio system
+    socket rild-cas stream 660  casdrm mmb
     user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log
+    group radio cache inet misc audio sdcard_r sdcard_rw log vpn system
     onrestart restart cpboot-daemon
 
 # AT Distributor for factory test
@@ -489,6 +513,7 @@ service_redefine ril-daemon /system/bin/rild
 
 on property:sys.mobicoredaemon.enable=true
     start cs_service
+    write /proc/iccc_ready 1
 
 #Private Mode
 service privatemode /system/bin/sdcard /data/privatemode /mnt/shell/privatemode 1000 1000
@@ -524,9 +549,14 @@ on property:ro.bootmode=charger
     mount ext4 /dev/block/mmcblk0p18 /system wait ro
 
 on property:ro.bootmode=charger
+	wait /dev/block/platform/dw_mmc.0/by-name/EFS
+    check_fs /dev/block/platform/dw_mmc.0/by-name/EFS ext4
+    mount ext4 /dev/block/platform/dw_mmc.0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
+
+on property:ro.bootmode=charger
     class_start sec-charger
 
-service playlpm /system/bin/lpm
+service lpm /system/bin/lpm
     class sec-charger
     critical
 
