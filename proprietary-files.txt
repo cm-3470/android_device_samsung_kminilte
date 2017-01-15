@@ -135,7 +135,6 @@ app/mcRegistry/ffffffffd00000000000000000000004.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000a.tlbin
 app/mcRegistry/ffffffffd0000000000000000000000e.tlbin
 app/mcRegistry/fffffffff0000000000000000000001e.tlbin
-lib/libgdmcprov.so
 lib/libMcClient.so
 lib/libMcRegistry.so
 
@@ -145,13 +144,16 @@ lib/libExynosOMX_Resourcemanager.so
 lib/libstagefrighthw.so
 lib/omx/libOMX.Exynos.AVC.Decoder.so
 lib/omx/libOMX.Exynos.AVC.Encoder.so
+lib/omx/libOMX.Exynos.MP3.Decoder.so
 lib/omx/libOMX.Exynos.MPEG4.Decoder.so
 lib/omx/libOMX.Exynos.MPEG4.Encoder.so
 lib/omx/libOMX.Exynos.WMV.Decoder.so
 
 # Radio
 bin/at_distributor
+lib/libgdmcprov.so
 etc/plmn_se13.bin
+etc/plmn_delta.bin
 lib/libatparser.so
 lib/libfactoryutil.so
 lib/libomission_avoidance.so
@@ -174,6 +176,7 @@ etc/wifi/nvram_net.txt
 
 # Audio
 lib/libaudio-ril.so
+lib/libsecaudioinfo.so
 lib/libsamsungRecord.so
 lib/libsamsungRecord_ns.so
 lib/libsamsungSoundbooster.so
