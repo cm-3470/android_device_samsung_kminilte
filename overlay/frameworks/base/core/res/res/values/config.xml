@@ -283,7 +283,7 @@
         <item>0</item>  <!-- 30000+ -->
     </integer-array>    
 
-    <!-- Enable blur support -->
-    <bool name="config_ui_blur_enabled">true</bool>
+    <!-- Support in Surfaceflinger for blur layers. -->
+    <bool name="config_uiBlurEnabled">true</bool>
 
 </resources>
