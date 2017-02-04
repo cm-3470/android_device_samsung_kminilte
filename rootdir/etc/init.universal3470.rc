@@ -544,21 +544,19 @@ service TvoutService_C /system/bin/bintvoutservice
      group graphics
 on property:ro.tvout.enable=false
     stop TvoutService_C
-# LPM
-on property:ro.bootmode=charger
-    mount ext4 /dev/block/mmcblk0p18 /system wait ro
 
-on property:ro.bootmode=charger
+# LPM
+on charger
+    mount ext4 /dev/block/mmcblk0p18 /system wait ro
 	wait /dev/block/platform/dw_mmc.0/by-name/EFS
     check_fs /dev/block/platform/dw_mmc.0/by-name/EFS ext4
     mount ext4 /dev/block/platform/dw_mmc.0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
-
-on property:ro.bootmode=charger
     class_start sec-charger
 
 service lpm /system/bin/lpm
     class sec-charger
     critical
+    seclabel u:r:healthd:s0
 
 # Secure Storage startup
 service secure_storage /system/bin/secure_storage_daemon
