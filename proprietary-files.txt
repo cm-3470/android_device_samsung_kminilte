@@ -9,7 +9,7 @@ lib/libexynosscaler.so
 lib/libexynosv4l2.so
 
 # Bluetooth
-vendor/firmware/bcm4334_V1831.2468.hcd
+vendor/firmware/bcm4334_V1837.2645.hcd
 vendor/firmware/bcm4339_V1831.2468.hcd
 
 # Camera
