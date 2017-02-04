@@ -43,20 +43,20 @@ void vendor_load_properties()
     std::string bootloader = property_get("ro.bootloader");
     if (bootloader.find("G800F") == 0) {
         /* kminiltexx */
-        property_set("ro.build.fingerprint", "samsung/kminiltexx/kminilte:5.1.1/LMY47X/G800FXXU1BOL4:user/release-keys");
-        property_set("ro.build.description", "kminiltexx-user 5.1.1 LMY47X G800FXXU1BOL4 release-keys");
+        property_set("ro.build.fingerprint", "samsung/kminiltexx/kminilte:6.0.1/MMB29K/G800FXXU1CPK5:user/release-keys");
+        property_set("ro.build.description", "kminiltexx-user 6.0.1 MMB29K G800FXXU1CPK5 release-keys");
         property_set("ro.product.model", "SM-G800F");
         property_set("ro.product.device", "kminiltexx");
     } else if (bootloader.find("G800Y") == 0) {
         /* kminiltedv */
-        property_set("ro.build.fingerprint", "samsung/kminiltedv/kminilte:4.4.2/KOT49H/G800YDVU1ANG4:user/release-keys");
-        property_set("ro.build.description", "kminiltedv-user 4.4.2 KOT49H G800YDVU1ANG4 release-keys");
+        property_set("ro.build.fingerprint", "samsung/kminiltedv/kminilte:5.1.1/LMY49J/G800YUIS1BPL1:user/release-keys");
+        property_set("ro.build.description", "kminiltedv-user 5.1.1 LMY49J G800YUIS1BPL1 release-keys");
         property_set("ro.product.model", "SM-G800Y");
         property_set("ro.product.device", "kminiltedv");
     } else if (bootloader.find("G800M") == 0) {
         /* kminilteub */
-        property_set("ro.build.fingerprint", "samsung/kminilteub/kminilte:4.4.2/KOT49H/G800MUBU1ANH3:user/release-keys");
-        property_set("ro.build.description", "kminilteub-user 4.4.2 KOT49H G800MUBU1ANH3 release-keys");
+        property_set("ro.build.fingerprint", "samsung/kminilteub/kminilte:6.0.1/MMB29K/G800MUBU1CPL1:user/release-keys");
+        property_set("ro.build.description", "kminilteub-user 6.0.1 MMB29K G800MUBU1CPL1 release-keys");
         property_set("ro.product.model", "SM-G800M");
         property_set("ro.product.device", "kminilteub");
     }
