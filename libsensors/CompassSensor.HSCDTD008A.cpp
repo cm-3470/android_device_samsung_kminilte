@@ -83,8 +83,17 @@ int CompassSensor::enable(int32_t handle, int en)
 {
     LOGI_IF(COMPASS_EVENT_DEBUG, "enable compass: %ld", (long)en);
     
-    if (handle == ID_RM)
+    switch (handle) {
+    case ID_M:
+        mRaw = false;
+        break;
+    case ID_RM:
         mRaw = true;
+        break;
+    default:
+        LOGI("Compass: invalid handle: %d", handle);
+        return -EINVAL;
+    }
     
     if (en) {
         if (!Magnetic_Enable)
