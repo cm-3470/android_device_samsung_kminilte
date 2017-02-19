@@ -357,6 +357,7 @@ protected:
     int mDmpStepCountEnabled;
 
     uint32_t mEnabled;
+    uint32_t mEnabledCached;
     uint32_t mBatchEnabled;
     android::Vector<int> mFlushSensorEnabledVector;
     uint32_t mOldBatchEnabledMask;
@@ -370,6 +371,8 @@ protected:
     int64_t mBatchDelays[NumSensors];
     int64_t mBatchTimeouts[NumSensors];
     hfunc_t mHandlers[NumSensors];
+    int64_t mEnabledTime[NumSensors];
+    int64_t mLastTimestamp[NumSensors];
     short mCachedGyroData[3];
     long mCachedAccelData[3];
     long mCachedCompassData[3];
@@ -537,8 +540,9 @@ protected:
     char mLeftOverBuffer[1024];
     bool mInitial6QuatValueAvailable;
     long mInitial6QuatValue[4];
-    bool mFlushBatchSet;
+    int mFlushBatchSet;
     uint32_t mSkipReadEvents;
+    uint32_t mSkipExecuteOnData;
     bool mDataMarkerDetected;
     bool mEmptyDataMarkerDetected;
     int mDmpState;
