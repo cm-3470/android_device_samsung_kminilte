@@ -98,17 +98,16 @@ on post-fs-data
 
     # Remove symlinks to avoid issues with migrate after nandroid restores
     # Will be recreated at end of boot
-    # Normal path
-    rm /data/data/com.android.providers.telephony/databases
-    rm /data/data/com.android.providers.telephony/shared_prefs
+    rm -r -d /data/data/com.android.providers.telephony/databases
+    rm -r -d /data/data/com.android.providers.telephony/shared_prefs
 
-    # COMPAT: Handle upgrade from previous implementation of this idea. If the
-    # above could not be unlinked then we have the old symlinked files
-    # scenario. Clean that up.
-    rm /data/data/com.android.providers.telephony/databases/telephony.db
-    rm /data/data/com.android.providers.telephony/shared_prefs/preferred-apn.xml
-    rmdir /data/data/com.android.providers.telephony/databases
-    rmdir /data/data/com.android.providers.telephony/shared_prefs
+    # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
+    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
+    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
+
+    # Start services that need symlinked com.android.providers.telephony directories
+    start cpboot-daemon
+    start ril-daemon
 
 on property:sys.boot_completed=1
     # Configure the CPU governor
@@ -138,10 +137,6 @@ on property:sys.boot_completed=1
     chmod 664 /sys/devices/system/cpu/cpu1/online
     chmod 664 /sys/devices/system/cpu/cpu2/online
     chmod 664 /sys/devices/system/cpu/cpu3/online
-
-    # Symlink directories to access telephony.db and preferred-apn.xml required by cbd
-    symlink /data/user_de/0/com.android.providers.telephony/databases /data/data/com.android.providers.telephony/databases
-    symlink /data/user_de/0/com.android.providers.telephony/shared_prefs /data/data/com.android.providers.telephony/shared_prefs
 
 on boot
     # Set up kernel tracing, but disable it by default
@@ -514,6 +509,7 @@ service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
     class main
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw log shell
+    disabled
     seclabel u:r:cpboot-daemon:s0
 
 on property:persist.sys.cpboot=disable
@@ -536,6 +532,7 @@ service_redefine ril-daemon /system/bin/rild
     socket rild-cas stream 660  casdrm mmb
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw log vpn system
+    disabled
     onrestart restart cpboot-daemon
 
 # AT Distributor for factory test
