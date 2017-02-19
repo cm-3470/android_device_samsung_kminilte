@@ -66,12 +66,14 @@ static void LoadLibrary() {
 
 CompassSensor::CompassSensor() :
     SamsungSensorBase(NULL, "magnetic_sensor"),
-    mAccuracy(0)
+    mAccuracy(0),
+    mSelectMask(SENSOR_NONE)
 {
     VFUNC_LOG;
     LoadLibrary();
     Magnetic_Initialize();
     memset(&mCachedCompassData, 0, sizeof(mCachedCompassData));   
+    memset(&mLastCompassData, 0, sizeof(mLastCompassData));   
 }
 
 CompassSensor::~CompassSensor()
@@ -81,30 +83,32 @@ CompassSensor::~CompassSensor()
 
 int CompassSensor::enable(int32_t handle, int en)
 {
-    LOGI_IF(COMPASS_EVENT_DEBUG, "enable compass: %ld", (long)en);
+    LOGI_IF(COMPASS_EVENT_DEBUG, "enable compass: %ld handle: %d", (long)en, handle);
     
-    switch (handle) {
-    case ID_M:
-        mRaw = false;
-        break;
-    case ID_RM:
-        mRaw = true;
-        break;
-    default:
+    if (handle != ID_M && handle != ID_RM) {
         LOGI("Compass: invalid handle: %d", handle);
         return -EINVAL;
     }
-    
+
     if (en) {
-        if (!Magnetic_Enable)
-            return -1;
-        Magnetic_Enable();
+        mSelectMask |= (handle == ID_M ? SENSOR_M : SENSOR_RM);
+        if (mSelectMask != SENSOR_M_RM) {
+            if (!Magnetic_Enable)
+                return -1;
+            Magnetic_Enable();
+            return SamsungSensorBase::enable(handle, 1);
+        } 
     } else {
-        if (!Magnetic_Disable)
-            return -1;
-        Magnetic_Disable();
+        mSelectMask &= ~(handle == ID_M ? SENSOR_M : SENSOR_RM);
+        if (mSelectMask == SENSOR_NONE) {
+            if (!Magnetic_Disable)
+                return -1;
+            Magnetic_Disable();
+            return SamsungSensorBase::enable(handle, 0);
+        }
     }
-    return SamsungSensorBase::enable(handle, en);
+
+    return 0;
 }
 
 /**
@@ -154,27 +158,27 @@ bool CompassSensor::handleEvent(input_event const *event)
         sensors_vec_t out;        
         if (Magnetic_Calibrate(&mCachedCompassData, &out)) {
             LOGI_IF(COMPASS_EVENT_DEBUG, "Magnetic_Calibrate (raw:%d): (%d/%d/%d) -> (%f/%f/%f %d)\n",
-                mRaw, mCachedCompassData.x, mCachedCompassData.y, mCachedCompassData.z,
+                mSelectMask, mCachedCompassData.x, mCachedCompassData.y, mCachedCompassData.z,
                 out.x, out.y, out.z, out.status);
             
             mAccuracy = out.status;
             
-            if (mRaw) {
-                mPendingEvent.uncalibrated_magnetic.x_uncalib = (float)mCachedCompassData.x;
-                mPendingEvent.uncalibrated_magnetic.y_uncalib = (float)mCachedCompassData.y;
-                mPendingEvent.uncalibrated_magnetic.z_uncalib = (float)mCachedCompassData.z;
-                mPendingEvent.uncalibrated_magnetic.x_bias = (float)mCachedCompassData.x - out.x;
-                mPendingEvent.uncalibrated_magnetic.y_bias = (float)mCachedCompassData.y - out.y;
-                mPendingEvent.uncalibrated_magnetic.z_bias = (float)mCachedCompassData.z - out.z;
-            } else {
-                mPendingEvent.magnetic.x = out.x;
-                mPendingEvent.magnetic.y = out.y;
-                mPendingEvent.magnetic.z = out.z;
-                mPendingEvent.magnetic.status = out.status;
-            }
-            mHasPendingEvent = true;
+            mLastCompassData.uncalibrated_magnetic.x_uncalib = (float)mCachedCompassData.x;
+            mLastCompassData.uncalibrated_magnetic.y_uncalib = (float)mCachedCompassData.y;
+            mLastCompassData.uncalibrated_magnetic.z_uncalib = (float)mCachedCompassData.z;
+            mLastCompassData.uncalibrated_magnetic.x_bias = (float)mCachedCompassData.x - out.x;
+            mLastCompassData.uncalibrated_magnetic.y_bias = (float)mCachedCompassData.y - out.y;
+            mLastCompassData.uncalibrated_magnetic.z_bias = (float)mCachedCompassData.z - out.z;
+            mLastCompassData.magnetic.x = out.x;
+            mLastCompassData.magnetic.y = out.y;
+            mLastCompassData.magnetic.z = out.z;
+            mLastCompassData.magnetic.status = out.status;
+            mLastCompassData.timestamp = timevalToNano(event->time);
+            mLastCompassData.validMask = SENSOR_M_RM;
+
+            mPendingEvent.magnetic = mLastCompassData.magnetic;
+            return true;
         }        
-        return false;
     }    
     
     // no event created
@@ -191,19 +195,25 @@ bool CompassSensor::handleEvent(input_event const *event)
 int CompassSensor::readSample(long *data, int64_t *timestamp)
 {
     VFUNC_LOG;
-    sensors_event_t event;
     
-    int res = readEvents(&event, 1);
-    if (res > 0) {
-        *timestamp = mPendingEvent.timestamp;
-        for(int i=0; i<3; i++) {
-            data[i] = (long)(mPendingEvent.magnetic.v[i] * 65536.0);
+    if ((mLastCompassData.validMask & SENSOR_M) == 0) {
+        sensors_event_t event;
+        int res = readEvents(&event, 1);
+        if (res <= 0) {
+            return res;
         }
-        LOGI_IF(COMPASS_EVENT_DEBUG, "readSample: (%ld/%ld/%ld)",
-            data[0], data[1], data[2]);
-        return 1;
     }
-    return res;
+
+    pthread_mutex_lock(&mLock);
+    *timestamp = mLastCompassData.timestamp;
+    for(int i=0; i<3; i++) {
+        data[i] = (long)(mLastCompassData.magnetic.v[i] * 65536.0);
+    }
+    mLastCompassData.validMask &= ~SENSOR_M;
+    pthread_mutex_unlock(&mLock);
+
+    LOGI_IF(COMPASS_EVENT_DEBUG, "readSample: (%ld/%ld/%ld)", data[0], data[1], data[2]);
+    return 1;
 }
 
 /**
@@ -216,18 +226,24 @@ int CompassSensor::readRawSample(float *data, int64_t *timestamp)
 {
     VFUNC_LOG;
 
-    sensors_event_t event;
-    
-    int res = readEvents(&event, 1);
-    if (res > 0) {
-        *timestamp = mPendingEvent.timestamp;
-        for(int i=0; i<3; i++) {
-            data[i] = mPendingEvent.uncalibrated_magnetic.uncalib[i];
+    if ((mLastCompassData.validMask & SENSOR_RM) == 0) {
+        sensors_event_t event;
+        int res = readEvents(&event, 1);
+        if (res <= 0) {
+            return res;
         }
-        LOGI_IF(COMPASS_EVENT_DEBUG, "readSample (raw): (%f/%f/%f)", data[0], data[1], data[2]);
-        return 1;
     }
-    return res;
+    
+    pthread_mutex_lock(&mLock);
+    *timestamp = mLastCompassData.timestamp;
+    for(int i=0; i<3; i++) {
+        data[i] = mLastCompassData.uncalibrated_magnetic.uncalib[i];
+    }
+    mLastCompassData.validMask &= ~SENSOR_RM;
+    pthread_mutex_unlock(&mLock);
+
+    LOGI_IF(COMPASS_EVENT_DEBUG, "readSample (raw): (%f/%f/%f)", data[0], data[1], data[2]);
+    return 1;
 }
 
 void CompassSensor::fillList(struct sensor_t *list)

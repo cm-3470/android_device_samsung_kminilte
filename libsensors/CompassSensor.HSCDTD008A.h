@@ -25,6 +25,13 @@
 #include "sensors_local.h"
 #include "SamsungSensorBase.h"
 
+enum sensor_mask_t {
+    SENSOR_NONE = 0,
+    SENSOR_M    = 1,
+    SENSOR_RM   = 2,
+    SENSOR_M_RM = 3, // M + RM enabled
+};
+
 /*
  * Sensor implementation for ALPS HSCDTD008A
  */
@@ -33,6 +40,17 @@ struct sensor_data_t {
     int x;
     int y;
     int z;
+};
+
+struct compass_data_t {
+    /* time is in nanosecond */
+    int64_t timestamp;
+    /* mask determines which sensor data is valid: SENSOR_M->magnetic, SENSOR_RM->uncalibrated_magnetic */
+    int validMask;
+    /* calibrated data */
+    sensors_vec_t magnetic;
+    /* raw data */
+    uncalibrated_event_t uncalibrated_magnetic;
 };
 
 /*****************************************************************************/
@@ -83,8 +101,9 @@ public:
     
 private:
     int mAccuracy;
-    bool mRaw;
+    int mSelectMask;
     sensor_data_t mCachedCompassData;
+    compass_data_t mLastCompassData;
 };
 
 /*****************************************************************************/
