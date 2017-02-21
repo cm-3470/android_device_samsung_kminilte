@@ -80,6 +80,7 @@ TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # TWRP
+RECOVERY_VARIANT := twrp
 DEVICE_RESOLUTION := 720x1280
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
