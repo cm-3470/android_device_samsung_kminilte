@@ -1,0 +1,2 @@
+allow mediadrmserver cpk_efs_file:file { getattr open read };
+allow mediadrmserver secmem_device:chr_file { ioctl open read write };

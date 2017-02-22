@@ -1,0 +1,1 @@
+allow radio unlabeled:file { getattr open read };

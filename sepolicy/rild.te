@@ -33,3 +33,6 @@ allow rild storage_file:dir { r_dir_perms };
 allow rild storage_file:lnk_file { r_file_perms };
 allow rild mnt_user_file:dir { r_dir_perms };
 allow rild mnt_user_file:lnk_file { r_file_perms };
+
+allow rild audioserver:dir search;
+allow rild audioserver:file { getattr open read };

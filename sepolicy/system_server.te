@@ -13,3 +13,5 @@ allow system_server wifi_efs_file:file { read open };
 allow system_server self:capability sys_module;
 allow system_server wifi_efs_file:dir search;
 allow system_server kernel:process setsched;
+
+allow system_server app_efs_file:dir search;

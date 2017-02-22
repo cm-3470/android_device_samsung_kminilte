@@ -1,5 +1,5 @@
 recovery_only(`
-  permissive recovery;
+  #permissive recovery;
 
   allow recovery system_radio_prop:property_service set;
   allow recovery vold_prop:property_service set;
@@ -20,8 +20,8 @@ recovery_only(`
   allow recovery healthd:file r_file_perms;
   allow recovery kernel:dir r_dir_perms;
   allow recovery kernel:file r_file_perms;
-  allow recovery su:dir r_dir_perms;
-  allow recovery su:file r_file_perms;
+  #allow recovery su:dir r_dir_perms;
+  #allow recovery su:file r_file_perms;
   allow recovery ueventd:dir r_dir_perms;
   allow recovery ueventd:file r_file_perms;
 
@@ -61,6 +61,6 @@ recovery_only(`
 
   ### /sdcard
   #allow recovery media_rw_data_file:file { create_file_perms relabelfrom relabelto };
-  allow recovery media_rw_data_file:lnk_file create_file_perms;
   #allow recovery media_rw_data_file:dir { create_dir_perms mounton };
+  allow recovery media_rw_data_file:lnk_file create_file_perms;
 ')

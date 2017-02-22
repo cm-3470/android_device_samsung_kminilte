@@ -17,3 +17,6 @@ allow init gpsd:process { noatsecure };
 allow init mediaserver:process { noatsecure };
 
 allow init debugfs:dir mounton;
+
+allow init debugfs:file write;
+allow init sysfs:lnk_file setattr;
