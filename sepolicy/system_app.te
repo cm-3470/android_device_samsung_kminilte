@@ -4,3 +4,6 @@ allow system_app unlabeled:file { read getattr open write };
 allow system_app unlabeled:dir { getattr search };
 allow system_app app_data_file:dir r_dir_perms;
 allow system_app fingerprintd:binder call;
+
+# Neverallowed policy
+#allow system_app netd_service:service_manager find;
