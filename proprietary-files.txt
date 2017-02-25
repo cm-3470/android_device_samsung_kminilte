@@ -180,6 +180,8 @@ lib/libsecnativefeature.so
 # Sensors
 # Geomagnetic sensor
 lib/libacdapi_clb.so
+etc/alp_cal.dat
+etc/param.dat
 # Heart-Rate sensor
 lib/libHrmEol.so
 
