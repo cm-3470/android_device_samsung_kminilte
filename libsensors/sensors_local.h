@@ -15,5 +15,7 @@ enum {
 #define EVENT_TYPE_REL_MAGV_X           REL_X
 #define EVENT_TYPE_REL_MAGV_Y           REL_Y
 #define EVENT_TYPE_REL_MAGV_Z           REL_Z
+#define EVENT_TYPE_MAG_TIME_HI          REL_DIAL
+#define EVENT_TYPE_MAG_TIME_LO          REL_MISC
 
 #endif  // SENSORS_LOCAL_H

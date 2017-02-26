@@ -165,8 +165,9 @@ int SamsungSensorBase::readEvents(sensors_event_t* data, int count)
     
     mInputReader.fill(data_fd);
     while (count && mInputReader.readEvent(&event)) {
+        mPendingEvent.timestamp = 0;
         if (mEnabled && handleEvent(event)) {
-            mPendingEvent.timestamp = timevalToNano(event->time);
+            mPendingEvent.timestamp = (mPendingEvent.timestamp ? mPendingEvent.timestamp : getTimestamp());
             *data++ = mPendingEvent;
             count--;
             numEventReceived++;

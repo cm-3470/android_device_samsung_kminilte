@@ -25,6 +25,8 @@
 #include "sensors_local.h"
 #include "SamsungSensorBase.h"
 
+#define TIME_HI_SHIFT 32
+
 enum sensor_mask_t {
     SENSOR_NONE = 0,
     SENSOR_M    = 1,
@@ -40,6 +42,8 @@ struct sensor_data_t {
     int x;
     int y;
     int z;
+    uint32_t time_hi;
+    uint32_t time_lo;
 };
 
 struct compass_data_t {
