@@ -31,6 +31,7 @@
         <value>400000</value>
     </array>
     <item name="cpu.idle">2.7</item>
+    <item name="wakeup.power">0.15</item>
     <array name="cpu.active">
         <value>134</value>
         <value>97</value>
@@ -53,3 +54,4 @@
         <value>2</value>
     </array>
 </device>
+
