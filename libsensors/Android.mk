@@ -17,40 +17,55 @@ ifeq ($(TARGET_PROVIDES_LIBSENSORS),true)
 
 LOCAL_PATH := $(call my-dir)
 
-INVENSENSE_PATH := hardware/invensense/6515/libsensors_iio
+INVENSENSE_PATH := hardware/invensense/6515
+INVENSENSE_IIO_PATH := hardware/invensense/6515/libsensors_iio
 PROPRIETARY_PATH := vendor/samsung/$(TARGET_DEVICE)/proprietary
 
 # InvenSense fragment of the HAL
 include $(CLEAR_VARS)
 
-#LOCAL_CLANG_CFLAGS += $(my_ignored_clang_warnings)
 LOCAL_MODULE := libinvensense_hal
 LOCAL_MODULE_TAGS := optional
 LOCAL_MODULE_OWNER := invensense
 
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\" -Werror -Wall
+
+#
+# Invensense uses the OS version to determine whether to include batch support,
+# but implemented it in a way that requires modifying the code each time we move
+# to a newer OS version.  I will fix this problem in a subsequent change, but for now,
+# hardcode to saying we're ANDROID_L so we can isolate this checkin to being
+# only changes coming from Invensense.
+#
+# Setting ANDROID_L to true is perfectly safe even on ANDROID_M because the code
+# just requires "ANDROID_L or newer"
+#
+VERSION_L :=true
+
+ifeq ($(VERSION_KK),true)
+LOCAL_CFLAGS += -DANDROID_KITKAT
+else
 LOCAL_CFLAGS += -DANDROID_LOLLIPOP
+endif
+
 LOCAL_CFLAGS += -Wno-error=reorder
 LOCAL_CFLAGS += -Wno-error=unused-parameter
 LOCAL_CFLAGS += -Wno-error=unused-variable
 # for _GYRO_TC_H_ vs _GYRO_TC_H
 LOCAL_CFLAGS += -Wno-error=header-guard
 
-# Workaround for missing include
-LOCAL_CFLAGS += -include string.h
-
-LOCAL_SRC_FILES += ../../../../$(INVENSENSE_PATH)/SensorBase.cpp
+LOCAL_SRC_FILES += ../../../../$(INVENSENSE_IIO_PATH)/SensorBase.cpp
 LOCAL_SRC_FILES += SamsungSensorBase.cpp
 LOCAL_SRC_FILES += MPLSensor.cpp
-LOCAL_SRC_FILES += ../../../../$(INVENSENSE_PATH)/MPLSupport.cpp
-LOCAL_SRC_FILES += ../../../../$(INVENSENSE_PATH)/InputEventReader.cpp
+LOCAL_SRC_FILES += ../../../../$(INVENSENSE_IIO_PATH)/MPLSupport.cpp
+LOCAL_SRC_FILES += ../../../../$(INVENSENSE_IIO_PATH)/InputEventReader.cpp
 LOCAL_SRC_FILES += CompassSensor.HSCDTD008A.cpp
 
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite/linux
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/driver/include
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/driver/include/linux
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/mllite
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/mllite/linux
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/driver/include
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/driver/include/linux
 
 LOCAL_SHARED_LIBRARIES := liblog
 LOCAL_SHARED_LIBRARIES += libcutils
@@ -60,11 +75,11 @@ LOCAL_SHARED_LIBRARIES += libmllite
 
 # Additions for SysPed
 LOCAL_SHARED_LIBRARIES += libmplmpu
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mpl
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/mpl
 LOCAL_CPPFLAGS += -DLINUX=1
 
 LOCAL_SHARED_LIBRARIES += libmllite
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/mllite
 LOCAL_CPPFLAGS += -DLINUX=1
 
 include $(BUILD_SHARED_LIBRARY)
@@ -78,17 +93,22 @@ LOCAL_MODULE := sensors.universal3470
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 
 LOCAL_SHARED_LIBRARIES += libmplmpu
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mllite/linux
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/mpl
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/driver/include
-LOCAL_C_INCLUDES += $(INVENSENSE_PATH)/software/core/driver/include/linux
+
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/mllite
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/mllite/linux
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/mpl
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/driver/include
+LOCAL_C_INCLUDES += $(INVENSENSE_IIO_PATH)/software/core/driver/include/linux
 
 LOCAL_MODULE_TAGS := optional
 LOCAL_CFLAGS := -DLOG_TAG=\"Sensors\" -Werror -Wall
 
+ifeq ($(VERSION_KK),true)
+LOCAL_CFLAGS += -DANDROID_KITKAT
+else
 LOCAL_CFLAGS += -DANDROID_LOLLIPOP
+endif
 
 LOCAL_SRC_FILES := \
 	sensors.cpp \
