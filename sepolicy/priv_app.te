@@ -1,4 +1,4 @@
-allow priv_app unlabeled:dir getattr;
+allow priv_app unlabeled:dir { getattr search };
 allow priv_app unlabeled:file { execute getattr open read };
 allow priv_app device:dir { open read };
 

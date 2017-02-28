@@ -3,6 +3,8 @@ allow mediaserver sysfs_wake_lock:file { open read write };
 allow mediaserver system_data_file:dir { add_name write };
 allow mediaserver system_server:unix_stream_socket { read write setopt };
 allow mediaserver system_prop:property_service set;
+allow mediaserver camera_data_file:dir rw_dir_perms;
+allow mediaserver camera_data_file:file create_file_perms;
 
 allow mediaserver sysfs:file write;
 

@@ -46,17 +46,19 @@
 # data files
 #
 
+/data/camera(/.*)?           u:object_r:camera_data_file:s0
 /data/nfc(/.*)?              u:object_r:nfc_data_file:s0
 /data/.wifiver.info          u:object_r:wifi_data_file:s0
 /data/misc/radio(/.*)?       u:object_r:radio_data_file:s0
 /data/system/gps(/.*)?       u:object_r:gps_data_file:s0
 /efs/wifi/.mac.info          u:object_r:wifi_data_file:s0
-/data/validity(/.*)?                                    u:object_r:vcs_data_file:s0
+/data/validity(/.*)?         u:object_r:vcs_data_file:s0
 
 ####################################
 # sysfs files
 #
 
+/sys/class/sec/switch/otg_cable_type -- u:object_r:sysfs_writable:s0
 /sys/class/power_supply/battery/music -- u:object_r:sysfs_writable:s0
 /sys/class/devfreq/exynos4270-busfreq-mif(/.*)? -- u:object_r:sysfs_writable:s0
 /sys/class/lcd(/.*)?         -- u:object_r:sysfs_writable:s0
