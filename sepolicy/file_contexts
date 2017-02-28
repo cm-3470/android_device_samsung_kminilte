@@ -64,7 +64,6 @@
 #
 
 /sys/class/graphics/fb[0-9](/.*)?                            -- u:object_r:sysfs_graphics:s0
-/sys/class/sec/switch/otg_cable_type                         -- u:object_r:sysfs_otg_writable:s0
 /sys/class/power_supply/battery/music                        -- u:object_r:sysfs_writable:s0
 /sys/class/devfreq/exynos4270-busfreq-mif(/.*)?              -- u:object_r:sysfs_writable:s0
 /sys/class/lcd(/.*)?                                         -- u:object_r:sysfs_writable:s0
@@ -73,7 +72,7 @@
 /sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/type  -- u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/platform/s5p-ehci/ehci_power                       u:object_r:sysfs_usb_power_writable:s0
 /sys/devices/virtual/misc/multipdp(/.*)                         u:object_r:sysfs_multipdp_writable:s0
-/sys/module/lpm_levels/parameters/secdebug                      u:object_r:sysfs_ss_writable:s0
+/sys/devices/virtual/sec/switch/otg_cable_type                  u:object_r:sysfs_otg_writable:s0
 
 ####################################
 # deamons
@@ -83,4 +82,3 @@
 /system/bin/macloader         u:object_r:macloader_exec:s0
 /system/bin/wifiloader        u:object_r:wifiloader_exec:s0
 /system/bin/gpsd           -- u:object_r:gpsd_exec:s0
-/system/bin/lpm               u:object_r:lpm_exec:s0

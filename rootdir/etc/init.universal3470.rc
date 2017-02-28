@@ -578,20 +578,6 @@ service TvoutService_C /system/bin/bintvoutservice
 on property:ro.tvout.enable=false
     stop TvoutService_C
 
-# LPM
-#on charger
-#    mount ext4 /dev/block/mmcblk0p18 /system wait ro
-#	wait /dev/block/platform/dw_mmc.0/by-name/EFS
-#    check_fs /dev/block/platform/dw_mmc.0/by-name/EFS ext4
-#    mount ext4 /dev/block/platform/dw_mmc.0/by-name/EFS /efs nosuid nodev noatime noauto_da_alloc,discard,journal_async_commit
-#    class_start sec-charger
-
-#service lpm /system/bin/lpm
-#    class sec-charger
-#    critical
-#    group root system wakelock
-#    seclabel u:r:lpm:s0
-
 service charger /charger
     class charger
     seclabel u:r:healthd:s0
