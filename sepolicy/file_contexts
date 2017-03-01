@@ -75,3 +75,5 @@
 /system/bin/macloader              u:object_r:macloader_exec:s0
 /system/bin/wifiloader              u:object_r:wifiloader_exec:s0
 /system/bin/gpsd             -- u:object_r:gpsd_exec:s0
+/system/bin/lpm              u:object_r:lpm_exec:s0
+
