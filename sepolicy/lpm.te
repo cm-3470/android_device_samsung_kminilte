@@ -1,0 +1,72 @@
+#
+# LPM (Low Power Mode)
+#
+# While power-off, phone device can be charged by external chargers. (TA, USB, etc...) . This power-off charging mode is LPM.
+# In this case, phone has some features as below :.
+# - Keep the low power mode and get charged.
+# - React just by some specific actions: charger connecting/disconnecting, power/home key press, power-off alarm (only in specific Chinese models)
+# - When charger/key event occur, the LCD turns on and shows current battery level using animation.
+# - The LCD turns off by timeout
+# - When long power key pressed, phone goes power-on. (normal booting)
+# Contact: minho4.kim, bohwa.chung, sk322.lee
+#
+
+############ aosp and sec_common #############
+########## type and macro.
+type lpm, domain;
+type lpm_exec, exec_type, file_type;
+
+init_daemon_domain(lpm)
+
+#typeattribute lpm trusteddomain;
+#typeattribute lpm system_domain;
+
+########## self and domain_type
+allow lpm self:netlink_kobject_uevent_socket { create setopt bind read };
+allow lpm self:capability { net_admin sys_tty_config sys_boot dac_override };
+
+########## fs_type
+allow lpm proc_sysrq:file rw_file_perms;
+allow lpm sysfs:file rw_file_perms;
+#allow lpm sysfs_graphics:file rw_file_perms;
+#allow lpm sysfs_ss_writable:file rw_file_perms;
+#allow lpm sysfs_sec:file rw_file_perms;
+
+
+########## dev_type
+#allow lpm ashmem_device:chr_file execute;
+#allow lpm graphics_device:chr_file rw_file_perms;
+#allow lpm graphics_device:dir rw_dir_perms;
+allow lpm input_device:chr_file rw_file_perms;
+allow lpm input_device:dir rw_dir_perms;
+allow lpm input_device:file rw_file_perms;
+allow lpm tty_device:chr_file rw_file_perms;
+
+
+########## file_type
+# for /efs/Battery
+allow lpm efs_file:file create_file_perms;
+#allow lpm efs_type:dir r_dir_perms;
+#allow lpm efs_type:file r_file_perms;
+allow lpm platform_app_data_file:dir r_dir_perms;
+allow lpm platform_app_data_file:file r_file_perms;
+
+########## etc_type
+########## known issue.
+
+#for param block
+allow lpm block_device:dir r_dir_perms;
+#allow lpm emmcblk_device:blk_file rw_file_perms;
+#allow lpm paramblk_device:blk_file rw_file_perms;
+
+############ avc_log #############
+# avc:  denied  { search } for  pid=213 comm="lpm" name="/" dev="mmcblk0p13" ino=2 scontext=u:r:lpm:s0 tcontext=u:object_r:efs_file:s0 tclass=dir permissive=0
+# avc:  denied  { dac_override } for  pid=213 comm="lpm" capability=1  scontext=u:r:lpm:s0 tcontext=u:r:lpm:s0 tclass=capability permissive=0
+# avc:  denied  { write } for  pid=244 comm="lpm" name="sysrq-trifger" dev="proc" ino=4026534222 scontexp=u:r:lpm:s0 4context=u:object_b:proc[sysrq:s0 tclass=file permissive=1
+# avc:  denied  { read } fnr  pid=244 comm="lpm" name="mm#blk0p12" dev="tmpfs" ino=7250 scoftext=u:r:,pm:s0 tcontext=u:objeCt_r:emmcblk_device:s0 tclass=blk_file permissive=1
+# avc:  denied  { write } fo2  pid=244 comm9"lpm" name "mmcblk0p12" dev="tmpfs" ino=7250 scontext=u:r:lpm:s0 tcontext=u:object_r:emmCblk_device:s0 tcLass=blk_file permissive=1
+# /efs/Battery/batt_capacity_max avc:  denied  { read write } for  pid=213 comm="lpm" name="batt_capacity_max" dev="mmcblk0p13" ino=73 scontext=u:r:lpm:s0 tcontext=u:object_r:efs_file:s0 tclass=file permissive=1
+# avc:  denied  { search } for  pid=282 comm="lpm" name="com.android.systemui" dev="mmcblk0p27" ino=393411 scontext=u:r:lpm:s0 tcontext=u:object_r:platform_app_data_file:s0 tclass=dir permissive=1
+# item=0 name="/data/data/com.android.systemui/shared_prefs/com.android.systemui.power_overheat_shutdown.xml" nametype=UNKNOWN
+# avc:  denied  { write } for  pid=2754 comm="lpm" name="tty0" dev="tmpfs" ino=2939 scontext=u:r:lpm:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
+
