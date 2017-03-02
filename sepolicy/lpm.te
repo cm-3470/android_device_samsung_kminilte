@@ -18,9 +18,6 @@ type lpm_exec, exec_type, file_type;
 
 init_daemon_domain(lpm)
 
-#typeattribute lpm trusteddomain;
-#typeattribute lpm system_domain;
-
 ########## self and domain_type
 allow lpm self:netlink_kobject_uevent_socket { create setopt bind read };
 allow lpm self:capability { net_admin sys_tty_config sys_boot dac_override };
@@ -28,15 +25,15 @@ allow lpm self:capability { net_admin sys_tty_config sys_boot dac_override };
 ########## fs_type
 allow lpm proc_sysrq:file rw_file_perms;
 allow lpm sysfs:file rw_file_perms;
-#allow lpm sysfs_graphics:file rw_file_perms;
-#allow lpm sysfs_ss_writable:file rw_file_perms;
-#allow lpm sysfs_sec:file rw_file_perms;
+allow lpm sysfs_graphics:file rw_file_perms;
+allow lpm sysfs_ss_writable:file rw_file_perms;
+allow lpm sysfs_writable:file rw_file_perms;
 
 
 ########## dev_type
-#allow lpm ashmem_device:chr_file execute;
-#allow lpm graphics_device:chr_file rw_file_perms;
-#allow lpm graphics_device:dir rw_dir_perms;
+allow lpm ashmem_device:chr_file execute;
+allow lpm graphics_device:chr_file rw_file_perms;
+allow lpm graphics_device:dir rw_dir_perms;
 allow lpm input_device:chr_file rw_file_perms;
 allow lpm input_device:dir rw_dir_perms;
 allow lpm input_device:file rw_file_perms;
@@ -46,8 +43,8 @@ allow lpm tty_device:chr_file rw_file_perms;
 ########## file_type
 # for /efs/Battery
 allow lpm efs_file:file create_file_perms;
-#allow lpm efs_type:dir r_dir_perms;
-#allow lpm efs_type:file r_file_perms;
+allow lpm battery_efs_type:dir r_dir_perms;
+allow lpm battery_efs_type:file r_file_perms;
 allow lpm platform_app_data_file:dir r_dir_perms;
 allow lpm platform_app_data_file:file r_file_perms;
 
@@ -56,7 +53,8 @@ allow lpm platform_app_data_file:file r_file_perms;
 
 #for param block
 allow lpm block_device:dir r_dir_perms;
-#allow lpm emmcblk_device:blk_file rw_file_perms;
+allow lpm mmc_block_device:blk_file rw_file_perms;
+# don't know how to define paramblk_device
 #allow lpm paramblk_device:blk_file rw_file_perms;
 
 ############ avc_log #############
@@ -69,4 +67,3 @@ allow lpm block_device:dir r_dir_perms;
 # avc:  denied  { search } for  pid=282 comm="lpm" name="com.android.systemui" dev="mmcblk0p27" ino=393411 scontext=u:r:lpm:s0 tcontext=u:object_r:platform_app_data_file:s0 tclass=dir permissive=1
 # item=0 name="/data/data/com.android.systemui/shared_prefs/com.android.systemui.power_overheat_shutdown.xml" nametype=UNKNOWN
 # avc:  denied  { write } for  pid=2754 comm="lpm" name="tty0" dev="tmpfs" ino=2939 scontext=u:r:lpm:s0 tcontext=u:object_r:tty_device:s0 tclass=chr_file permissive=1
-

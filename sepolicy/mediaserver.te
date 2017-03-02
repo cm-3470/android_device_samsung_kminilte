@@ -5,6 +5,7 @@ allow mediaserver system_server:unix_stream_socket { read write setopt };
 allow mediaserver system_prop:property_service set;
 allow mediaserver camera_data_file:dir rw_dir_perms;
 allow mediaserver camera_data_file:file create_file_perms;
+allow mediaserver secmem_device:chr_file rw_file_perms;
 
 allow mediaserver sysfs:file write;
 

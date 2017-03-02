@@ -2,6 +2,7 @@ domain_trans(init, rootfs, cpboot-daemon)
 domain_trans(init, gpsd_exec, gpsd)
 domain_trans(init, macloader_exec, macloader)
 domain_trans(init, wifiloader_exec, wifiloader)
+domain_trans(init, lpm_exec, lpm)
 
 # /dev/block/mmcblk0p[0-9]
 allow init mmc_block_device:blk_file rw_file_perms;
@@ -20,3 +21,7 @@ allow init debugfs:dir mounton;
 
 allow init debugfs:file write;
 allow init sysfs:lnk_file setattr;
+
+# not transited process, lpm
+# to be reviewed
+#allow init ashmem_device:chr_file execute;

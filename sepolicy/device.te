@@ -9,3 +9,6 @@ type mif_device, dev_type;
 
 # /dev/rfkill
 type rfkill_device, dev_type;
+
+# referenced by lpm.te but don't know what is used for
+#type paramblk_device, dev_type;

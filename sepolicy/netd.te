@@ -1,1 +1,2 @@
 allow netd self:capability sys_module;
+allow netd unlabeled:file read;

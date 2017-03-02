@@ -1,5 +1,6 @@
 ### efs types
 type app_efs_file, file_type;
+type battery_efs_type, file_type;
 type baro_delta_factoryapp_efs_file, file_type;
 type bin_nv_data_efs_file, file_type;
 # widewine, drm
@@ -15,5 +16,7 @@ type wifi_efs_file, file_type;
 ### sysfs types
 type sysfs_multipdp_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_usb_power_writable, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_graphics, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_ss_writable, sysfs_type, fs_type, mlstrustedobject;
 
 allow sysfs_type tmpfs:filesystem associate;

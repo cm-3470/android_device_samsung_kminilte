@@ -33,17 +33,18 @@
 /efs/FactoryApp/hist_nv      u:object_r:radio_factoryapp_efs_file:s0
 /efs/FactoryApp/test_nv      u:object_r:radio_factoryapp_efs_file:s0
 /efs/bluetooth(/.*)?         u:object_r:bluetooth_efs_file:s0
+/efs/Battery(/.*)?           u:object_r:battery_efs_type:s0
 /efs/calibration_data        u:object_r:sensor_efs_file:s0
 /efs/grip_cal_data           u:object_r:sensor_efs_file:s0
 /efs/gyro_cal_data           u:object_r:sensor_efs_file:s0
 /efs/h2k\.dat                u:object_r:cpk_efs_file:s0
 /efs/redata\.bin             u:object_r:cpk_efs_file:s0
 /efs/imei(/.*)?              u:object_r:imei_efs_file:s0
-/efs/nv_data\.bin(.*)         u:object_r:bin_nv_data_efs_file:s0
+/efs/nv_data\.bin(.*)        u:object_r:bin_nv_data_efs_file:s0
 /efs/prov(/.*)?              u:object_r:prov_efs_file:s0
 /efs/prov_data(/.*)?         u:object_r:prov_efs_file:s0
 /efs/wifi(/.*)?              u:object_r:wifi_efs_file:s0
-/efs/wv\.keys                 u:object_r:cpk_efs_file:s0
+/efs/wv\.keys                u:object_r:cpk_efs_file:s0
 /efs/drm(/.*)?               u:object_r:drm_efs_file:s0
 
 ####################################
@@ -62,22 +63,24 @@
 # sysfs files
 #
 
-/sys/class/sec/switch/otg_cable_type -- u:object_r:sysfs_writable:s0
-/sys/class/power_supply/battery/music -- u:object_r:sysfs_writable:s0
-/sys/class/devfreq/exynos4270-busfreq-mif(/.*)? -- u:object_r:sysfs_writable:s0
-/sys/class/lcd(/.*)?         -- u:object_r:sysfs_writable:s0
+/sys/class/graphics/fb[0-9](/.*)?                            -- u:object_r:sysfs_graphics:s0
+/sys/class/sec/switch/otg_cable_type                         -- u:object_r:sysfs_writable:s0
+/sys/class/power_supply/battery/music                        -- u:object_r:sysfs_writable:s0
+/sys/class/devfreq/exynos4270-busfreq-mif(/.*)?              -- u:object_r:sysfs_writable:s0
+/sys/class/lcd(/.*)?                                         -- u:object_r:sysfs_writable:s0
+/sys/class/sec(/.*)?                                         -- u:object_r:sysfs_writable:s0
 /sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/state -- u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/type -- u:object_r:sysfs_bluetooth_writable:s0
-/sys/devices/platform/s5p-ehci/ehci_power        u:object_r:sysfs_usb_power_writable:s0
-/sys/devices/virtual/misc/multipdp(/.*)     u:object_r:sysfs_multipdp_writable:s0
+/sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/type  -- u:object_r:sysfs_bluetooth_writable:s0
+/sys/devices/platform/s5p-ehci/ehci_power                       u:object_r:sysfs_usb_power_writable:s0
+/sys/devices/virtual/misc/multipdp(/.*)                         u:object_r:sysfs_multipdp_writable:s0
+/sys/module/lpm_levels/parameters/secdebug                      u:object_r:sysfs_ss_writable:s0
 
 ####################################
 # deamons
 #
-/system/bin/mcDriverDaemon   -- u:object_r:tee_exec:s0
+/system/bin/mcDriverDaemon -- u:object_r:tee_exec:s0
 /system/bin/vcsFPService      u:object_r:vcs_exec:s0
-/system/bin/macloader              u:object_r:macloader_exec:s0
-/system/bin/wifiloader              u:object_r:wifiloader_exec:s0
-/system/bin/gpsd             -- u:object_r:gpsd_exec:s0
-/system/bin/lpm              u:object_r:lpm_exec:s0
-
+/system/bin/macloader         u:object_r:macloader_exec:s0
+/system/bin/wifiloader        u:object_r:wifiloader_exec:s0
+/system/bin/gpsd           -- u:object_r:gpsd_exec:s0
+/system/bin/lpm               u:object_r:lpm_exec:s0
