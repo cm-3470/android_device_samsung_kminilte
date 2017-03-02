@@ -16,6 +16,7 @@ type wifi_efs_file, file_type;
 ### sysfs types
 type sysfs_multipdp_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_usb_power_writable, fs_type, sysfs_type, mlstrustedobject;
+type sysfs_otg_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_graphics, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_ss_writable, sysfs_type, fs_type, mlstrustedobject;
 

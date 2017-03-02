@@ -64,7 +64,7 @@
 #
 
 /sys/class/graphics/fb[0-9](/.*)?                            -- u:object_r:sysfs_graphics:s0
-/sys/class/sec/switch/otg_cable_type                         -- u:object_r:sysfs_writable:s0
+/sys/class/sec/switch/otg_cable_type                         -- u:object_r:sysfs_otg_writable:s0
 /sys/class/power_supply/battery/music                        -- u:object_r:sysfs_writable:s0
 /sys/class/devfreq/exynos4270-busfreq-mif(/.*)?              -- u:object_r:sysfs_writable:s0
 /sys/class/lcd(/.*)?                                         -- u:object_r:sysfs_writable:s0
