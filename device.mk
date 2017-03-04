@@ -39,10 +39,10 @@ PRODUCT_PACKAGES += \
     ueventd.universal3470.rc
 
 #ADB
-ADDITIONAL_DEFAULT_PROPERTIES += \
-    ro.adb.secure=0 \
-    ro.secure=0 \
-    ro.debuggable=1
+#ADDITIONAL_DEFAULT_PROPERTIES += \
+#    ro.adb.secure=0 \
+#    ro.secure=0 \
+#    ro.debuggable=1
 
 # Audio
 PRODUCT_COPY_FILES += \
