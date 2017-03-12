@@ -527,16 +527,14 @@ service cs_service /system/bin/cs
     group system
     disabled
 
-# RIL
-service ril-daemon /system/bin/rild
-    class main
-    socket rild stream 660 root radio
-    socket sap_uim_socket1 stream 660 bluetooth bluetooth
-    socket rild-debug stream 660 radio system
-    socket rild-cas stream 660  casdrm mmb
-    user root
-    group radio cache inet misc audio sdcard_r sdcard_rw log vpn system
-    onrestart restart cpboot-daemon
+# RIL (use settings from /system/etc/rild.rc instead)
+#service ril-daemon /system/bin/rild
+#    class main
+#    socket rild stream 660 root radio
+#    socket sap_uim_socket1 stream 660 bluetooth bluetooth
+#    socket rild-debug stream 660 radio system
+#    user root
+#    group radio cache inet misc audio log readproc wakelock
 
 # AT Distributor for factory test
 #service at_distributor /system/bin/at_distributor
