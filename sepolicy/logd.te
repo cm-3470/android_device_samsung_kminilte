@@ -1,0 +1,4 @@
+# logd should be safe to have DAC (Discretionary Access Control) permissions
+# avc: denied { dac_override } for pid=1950 comm="logd" capability=1 scontext=u:r:logd:s0 tcontext=u:r:logd:s0 tclass=capability permissive=0
+# avc: denied { dac_read_search } for pid=1950 comm="logd" capability=2 scontext=u:r:logd:s0 tcontext=u:r:logd:s0 tclass=capability permissive=0
+allow logd self:capability { dac_override dac_read_search };

@@ -1,0 +1,2 @@
+#avc: denied { sys_nice } for pid=2326 comm="main" capability=23 scontext=u:r:zygote:s0 tcontext=u:r:zygote:s0 tclass=capability permissive=0
+allow zygote self:capability sys_nice;

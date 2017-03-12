@@ -1,1 +1,6 @@
 dontaudit domain rootfs:chr_file { read write };
+
+# Keeping the logs clean by surpressing any debugfs denials
+dontaudit domain debugfs:dir r_dir_perms;
+dontaudit domain debugfs:file rw_file_perms;
+dontaudit domain self:process ptrace;
