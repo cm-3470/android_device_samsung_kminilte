@@ -28,7 +28,7 @@
 ##How To Build
 
 Although this device is not officially supported, the build-steps are not that different between devices. Most of the information on this "How to build" page also apply to this device: 
-http://wiki.lineageos.org/w/Build_for_t0lte
+https://wiki.lineageos.org/devices/herolte/build
 
 Requirements:
 
