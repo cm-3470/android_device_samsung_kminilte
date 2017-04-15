@@ -25,7 +25,7 @@
 
 ----------
 
-##How To Build
+## How To Build
 
 Although this device is not officially supported, the build-steps are not that different between devices. Most of the information on this "How to build" page also apply to this device: 
 https://wiki.lineageos.org/devices/herolte/build
@@ -133,7 +133,7 @@ Perform the following steps from the above "How to build":
 	$ mka bacon
 	```
 
-###Build-results:
+### Build-results:
 
 The build-process takes a lot of time - the initial build can take about 10h. If CCACHE is enabled, the next builds only take 3-4 hours.
 Note that especially the linking process (ld) needs a huge amount of memory. The building process stops without a warning if only 6GB are present. In this case you can try to build with only one process (mka bacon -j1).
@@ -143,7 +143,7 @@ When the build-process finished the following files will be available:
 	LineageOS image: out/target/product/kminilte/cm-14.1-<date>-UNOFFICIAL-<device>.zip
 	recovery: out/target/product/kminilte/recovery.img
 
-###Rebuild:
+### Rebuild:
 
 If you want to rebuild the ROM, perform the following steps:
 
