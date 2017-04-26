@@ -7,5 +7,9 @@ allow system_app fingerprintd:binder call;
 allow system_app secmem_device:chr_file create_file_perms;
 allow system_app sysfs_otg_writable:file rw_file_perms;
 
+# attempt to fix the below neverallowed policy
+allow system_app { service_manager_type -netd_service }:service_manager find;
+
 # Neverallowed policy
+#allow system_app netd:binder call;
 #allow system_app netd_service:service_manager find;

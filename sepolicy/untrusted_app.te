@@ -8,3 +8,6 @@ allow untrusted_app fuseblk:file { getattr read };
 allow untrusted_app efs_file:dir { getattr search };
 allow untrusted_app rootfs:dir read;
 allow untrusted_app tombstone_data_file:dir search;
+
+allow untrusted_app debuggerd_exec:file { open read };
+allow untrusted_app sysfs:dir { open read };
