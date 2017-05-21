@@ -22,12 +22,8 @@ etc/srm.bin
 lib/libdrmdecrypt.so
 lib/libhdcp2.so
 lib/libstagefright_hdcp.so
-vendor/lib/libwvm.so
-vendor/lib/libwvdrm_L3.so
 # Needed by libwvm.so
-vendor/lib/libWVStreamControlAPI_L3.so
 vendor/lib/mediadrm/libwvdrmengine.so
-vendor/lib/drm/libdrmwvmplugin.so
 vendor/lib/liboemcrypto.so
 
 # GPS
