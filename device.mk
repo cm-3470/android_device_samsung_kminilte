@@ -124,7 +124,11 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
-    
+
+# Doze
+PRODUCT_PACKAGES += \
+    SamsungDoze
+
 # Wifi
 PRODUCT_PACKAGES += \
     wifiloader
