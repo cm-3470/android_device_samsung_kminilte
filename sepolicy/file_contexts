@@ -32,6 +32,20 @@
 /efs/FactoryApp/fdata        u:object_r:radio_factoryapp_efs_file:s0
 /efs/FactoryApp/hist_nv      u:object_r:radio_factoryapp_efs_file:s0
 /efs/FactoryApp/test_nv      u:object_r:radio_factoryapp_efs_file:s0
+/efs/bluetooth(/.*)?         u:object_r:bluetooth_efs_file:s0
+/efs/Battery(/.*)?           u:object_r:battery_efs_type:s0
+/efs/calibration_data        u:object_r:sensor_efs_file:s0
+/efs/grip_cal_data           u:object_r:sensor_efs_file:s0
+/efs/gyro_cal_data           u:object_r:sensor_efs_file:s0
+/efs/h2k\.dat                u:object_r:cpk_efs_file:s0
+/efs/redata\.bin             u:object_r:cpk_efs_file:s0
+/efs/imei(/.*)?              u:object_r:imei_efs_file:s0
+/efs/nv_data\.bin(.*)        u:object_r:bin_nv_data_efs_file:s0
+/efs/prov(/.*)?              u:object_r:prov_efs_file:s0
+/efs/prov_data(/.*)?         u:object_r:prov_efs_file:s0
+/efs/wifi(/.*)?              u:object_r:wifi_efs_file:s0
+/efs/wv\.keys                u:object_r:cpk_efs_file:s0
+/efs/drm(/.*)?               u:object_r:drm_efs_file:s0
 
 ####################################
 # data files
@@ -42,6 +56,7 @@
 /data/.wifiver.info          u:object_r:wifi_data_file:s0
 /data/misc/radio(/.*)?       u:object_r:radio_data_file:s0
 /data/system/gps(/.*)?       u:object_r:gps_data_file:s0
+/efs/wifi/.mac.info          u:object_r:wifi_data_file:s0
 /data/validity(/.*)?         u:object_r:vcs_data_file:s0
 
 ####################################
