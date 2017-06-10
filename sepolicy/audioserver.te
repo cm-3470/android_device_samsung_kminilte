@@ -1,6 +1,7 @@
 allow audioserver audio_prop:property_service set;
 allow audioserver rild:unix_stream_socket connectto;
 allow audioserver efs_file:dir search;
-allow audioserver efs_file:file { getattr open read };
+allow audioserver imei_efs_file:dir search;
+allow audioserver imei_efs_file:file { getattr open read };
 allow audioserver property_socket:sock_file write;
 allow audioserver init:unix_stream_socket connectto;

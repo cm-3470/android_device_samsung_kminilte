@@ -1,6 +1,7 @@
 # Allow additiional efs access
-allow rild efs_file:file { create_file_perms r_file_perms };
-allow rild efs_file:dir r_dir_perms;
+allow rild bin_nv_data_efs_file:file create_file_perms;
+allow rild imei_efs_file:dir r_dir_perms;
+allow rild imei_efs_file:file r_file_perms;
 allow rild app_efs_file:dir r_dir_perms;
 allow rild app_efs_file:file r_file_perms;
 allow rild efs_file:dir r_dir_perms;

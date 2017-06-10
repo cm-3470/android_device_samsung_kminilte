@@ -35,7 +35,7 @@ allow cpboot-daemon efs_file:file r_file_perms;
 allow cpboot-daemon cbd_log_data:file rw_file_perms;
 
 # /efs/nv_data.bin
-allow cpboot-daemon efs_file:file rw_file_perms;
+allow cpboot-daemon bin_nv_data_efs_file:file rw_file_perms;
 allow cpboot-daemon tee_device:chr_file rw_file_perms;
 allow cpboot-daemon radio_prop:property_service set;
 
