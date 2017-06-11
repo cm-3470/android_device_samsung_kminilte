@@ -63,6 +63,11 @@ TARGET_POWERHAL_VARIANT := exynos3
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# Charger
+RED_LED_PATH := "/sys/class/leds/led_r/brightness"
+GREEN_LED_PATH := "/sys/class/leds/led_g/brightness"
+BLUE_LED_PATH := "/sys/class/leds/led_b/brightness"
+
 # Sensors
 TARGET_PROVIDES_LIBSENSORS := true
 
