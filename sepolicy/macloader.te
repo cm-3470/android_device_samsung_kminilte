@@ -30,4 +30,7 @@ allow macloader efs_file:dir r_dir_perms;
 allow macloader wifi_efs_file:dir rw_dir_perms;
 allow macloader wifi_efs_file:file rw_file_perms;
 
+# .wifiver.info
+allow macloader system_data_file:file r_file_perms;
+
 allow macloader shell_exec:file getattr;
