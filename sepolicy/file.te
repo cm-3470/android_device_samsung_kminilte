@@ -3,6 +3,7 @@ type app_efs_file, file_type;
 type battery_efs_type, file_type;
 type baro_delta_factoryapp_efs_file, file_type;
 type bin_nv_data_efs_file, file_type;
+type cbd_log_data, file_type;
 # widewine, drm
 type cpk_efs_file, file_type;
 type drm_efs_file, file_type;

@@ -41,6 +41,8 @@
 /efs/redata\.bin             u:object_r:cpk_efs_file:s0
 /efs/imei(/.*)?              u:object_r:imei_efs_file:s0
 /efs/nv_data\.bin(.*)        u:object_r:bin_nv_data_efs_file:s0
+/efs/nv_fsm_data\.bin        u:object_r:bin_nv_data_efs_file:s0
+/efs/nv\.log                 u:object_r:cbd_log_data:s0
 /efs/prov(/.*)?              u:object_r:prov_efs_file:s0
 /efs/prov_data(/.*)?         u:object_r:prov_efs_file:s0
 /efs/wifi(/.*)?              u:object_r:wifi_efs_file:s0
