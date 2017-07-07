@@ -1,3 +1,0 @@
-# com.android.nfc W/com.android.nfc: type=1400 audit(0.0:280): avc: denied { search } for name="PrebuiltGmsCore" dev="mmcblk0p18" ino=16400 scontext=u:r:nfc:s0 tcontext=u:object_r:unlabeled:s0 tclass=dir permissive=0
-allow nfc unlabeled:dir search;
-allow nfc unlabeled:file { getattr open read };

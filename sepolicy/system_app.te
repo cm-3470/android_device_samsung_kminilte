@@ -1,11 +1,11 @@
 allow system_app system_data_file:dir { read getattr open };
 allow system_app system_data_file:file { getattr read lock open };
-allow system_app unlabeled:file { read getattr open write };
-allow system_app unlabeled:dir { getattr search };
 allow system_app app_data_file:dir r_dir_perms;
 allow system_app fingerprintd:binder call;
 allow system_app secmem_device:chr_file create_file_perms;
 allow system_app sysfs_otg_writable:file rw_file_perms;
+
+allow system_app radio_data_file:dir getattr;
 
 # attempt to fix the below neverallowed policy
 allow system_app { service_manager_type -netd_service }:service_manager find;

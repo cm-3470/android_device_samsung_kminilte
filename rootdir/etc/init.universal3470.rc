@@ -110,6 +110,8 @@ on post-fs-data
     rmdir /data/data/com.android.providers.telephony/databases
     rmdir /data/data/com.android.providers.telephony/shared_prefs
 
+    restorecon -R /efs
+
 on property:sys.boot_completed=1
     # Configure the CPU governor
     write /sys/devices/system/cpu/cpu1/online 1

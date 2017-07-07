@@ -1,6 +1,0 @@
-allow sdcardd unlabeled:dir { getattr open read write search add_name };
-allow sdcardd unlabeled:file { getattr open read write };
-
-# the following two are neverallowed, maybe this whole file shouldn't exist
-#allow sdcardd unlabeled:dir create;
-#allow sdcardd unlabeled:file create;

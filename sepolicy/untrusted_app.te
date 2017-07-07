@@ -1,8 +1,5 @@
 allow untrusted_app init:dir r_dir_perms;
 allow untrusted_app kernel:dir r_dir_perms;
-allow untrusted_app unlabeled:dir r_dir_perms;
-allow untrusted_app unlabeled:file { read getattr open execute };
-allow untrusted_app unlabeled:lnk_file read;
 allow untrusted_app fuseblk:dir search;
 allow untrusted_app fuseblk:file { getattr read };
 allow untrusted_app efs_file:dir { getattr search };
@@ -12,3 +9,6 @@ allow untrusted_app tombstone_data_file:dir search;
 
 allow untrusted_app debuggerd_exec:file { open read };
 allow untrusted_app sysfs:dir { open read };
+
+allow untrusted_app proc_iomem:file getattr;
+allow untrusted_app proc_sysrq:file getattr;

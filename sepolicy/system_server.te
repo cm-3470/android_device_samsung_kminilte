@@ -16,4 +16,4 @@ allow system_server kernel:process setsched;
 
 allow system_server app_efs_file:dir search;
 
-allow system_server unlabeled:file unlink;
+allow system_server user_profile_data_file:dir { open read };

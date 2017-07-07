@@ -1,2 +1,1 @@
-allow netd self:capability sys_module;
-allow netd unlabeled:file { read open getattr lock };
+allow netd self:capability { fsetid sys_module };

@@ -1,1 +1,0 @@
-allow dex2oat unlabeled:file { getattr open };
