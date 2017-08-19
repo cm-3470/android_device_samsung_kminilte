@@ -75,7 +75,6 @@ TARGET_PROVIDES_LIBSENSORS := true
 BOARD_EGL_NEEDS_HANDLE_VALUE := true
 
 # Vendor Init
-TARGET_UNIFIED_DEVICE := true
 TARGET_INIT_VENDOR_LIB := libinit_kminilte
 TARGET_LIBINIT_DEFINES_FILE := device/samsung/kminilte/init/init_kminilte.cpp
 
