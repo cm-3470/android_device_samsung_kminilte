@@ -17,6 +17,8 @@
 # inherit from common smdk3470
 -include device/samsung/smdk3470-common/BoardConfigCommon.mk
 
+DEVICE_PATH := device/samsung/kminilte
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := kminiltexx,kminiltedv,kminilteub,kminilte
 
@@ -39,17 +41,17 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 2147483648
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 12833521664
 
 # Include path
-TARGET_SPECIFIC_HEADER_PATH += device/samsung/kminilte/include
+TARGET_SPECIFIC_HEADER_PATH += $(DEVICE_PATH)/include
 
 # Kernel
 TARGET_KERNEL_CONFIG := kminilte_00_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/kminilte
 
 # CMHW
-BOARD_HARDWARE_CLASS := device/samsung/kminilte/cmhw
+BOARD_HARDWARE_CLASS := $(DEVICE_PATH)/cmhw
 
 # Bluetooth
-BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/kminilte/bluetooth
+BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
 
 # NFC
 # Chipset: Samsung s3fwrn5
@@ -76,11 +78,11 @@ BOARD_EGL_NEEDS_HANDLE_VALUE := true
 
 # Vendor Init
 TARGET_INIT_VENDOR_LIB := libinit_kminilte
-TARGET_LIBINIT_DEFINES_FILE := device/samsung/kminilte/init/init_kminilte.cpp
+TARGET_LIBINIT_DEFINES_FILE := $(DEVICE_PATH)/init/init_kminilte.cpp
 
 # Recovery
-TARGET_RECOVERY_DEVICE_DIRS += device/samsung/kminilte
-TARGET_RECOVERY_FSTAB := device/samsung/kminilte/rootdir/etc/fstab.universal3470
+TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
+TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.universal3470
 BOARD_HAS_LARGE_FILESYSTEM := true
 
 # TWRP
@@ -100,4 +102,4 @@ TWRP_INCLUDE_LOGCAT := true
 
 # SELinux
 BOARD_SEPOLICY_DIRS := \
-	device/samsung/kminilte/sepolicy
+	$(DEVICE_PATH)/sepolicy
