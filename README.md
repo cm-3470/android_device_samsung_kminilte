@@ -63,7 +63,7 @@ Perform the following steps from the above "How to build":
 
 	```sh
 	$ cd ~/android/system/
-	$ repo init -u https://github.com/LineageOS/android.git -b cm-14.1
+	$ repo init -u https://github.com/LineageOS/android.git -b lineage-15.0
 	```
 
 7. Download the source code
@@ -78,13 +78,13 @@ Perform the following steps from the above "How to build":
 	
 	```sh
 	$ cd ~/android/system/
-	$ git clone https://github.com/cm-3470/android_.repo_local_manifests -b cm-14.1 .repo/local_manifests
+	$ git clone https://github.com/cm-3470/android_.repo_local_manifests -b lineage-15.0 .repo/local_manifests
 	```
 	
 	However if you already obtained local manifests from a different device, just copy at least the following files into .repo/local_manifests :
 	
-	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.1/kminilte.xml
-	- https://github.com/cm-3470/android_.repo_local_manifests/blob/cm-14.1/common.xml
+	- https://github.com/cm-3470/android_.repo_local_manifests/blob/lineage-15.0/kminilte.xml
+	- https://github.com/cm-3470/android_.repo_local_manifests/blob/lineage-15.0/common.xml
 	
 	8.2. Fetch device specific repos by synching all repos
 		
@@ -140,7 +140,7 @@ Note that especially the linking process (ld) needs a huge amount of memory. The
 
 When the build-process finished the following files will be available:
 
-	LineageOS image: out/target/product/kminilte/cm-14.1-<date>-UNOFFICIAL-<device>.zip
+	LineageOS image: out/target/product/kminilte/lineage-15.0-<date>-UNOFFICIAL-<device>.zip
 	recovery: out/target/product/kminilte/recovery.img
 
 ### Rebuild:
