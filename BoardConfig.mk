@@ -85,10 +85,8 @@ TARGET_RECOVERY_DEVICE_DIRS += $(DEVICE_PATH)
 TARGET_RECOVERY_FSTAB := $(DEVICE_PATH)/rootdir/etc/fstab.universal3470
 BOARD_HAS_LARGE_FILESYSTEM := true
 
-# TWRP
-ifeq ($(TARGET_BUILD_VARIANT),userdebug)
-RECOVERY_VARIANT := twrp
-endif
+# TWRP (not compatible with user build variant)
+#RECOVERY_VARIANT := twrp
 DEVICE_RESOLUTION := 720x1280
 RECOVERY_SDCARD_ON_DATA := true
 BOARD_HAS_NO_REAL_SDCARD := true
