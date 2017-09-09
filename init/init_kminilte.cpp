@@ -27,54 +27,54 @@
    IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  */
 
+#include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
-#define _REALLY_INCLUDE_SYS__SYSTEM_PROPERTIES_H_
-#include <sys/_system_properties.h>
+#include <android-base/properties.h>
 
-#include "vendor_init.h"
 #include "property_service.h"
-#include "log.h"
 #include "util.h"
+#include "vendor_init.h"
 
-void property_override(char const prop[], char const value[])
-{
-    prop_info *pi;
+#define LOG_TAG "init_properties"
+#include <cutils/log.h>
 
-    pi = (prop_info*) __system_property_find(prop);
-    if (pi)
-        __system_property_update(pi, value, strlen(value));
-    else
-        __system_property_add(prop, strlen(prop), value, strlen(value));
-}
+namespace android {
+namespace init {
 
 void vendor_load_properties()
 {
-    std::string platform = property_get("ro.board.platform");
-    if (platform != ANDROID_TARGET)
-        return;
+    std::string platform = android::base::GetProperty("ro.board.platform", "");
+    std::string bootloader = android::base::GetProperty("ro.bootloader", "");
 
-    std::string bootloader = property_get("ro.bootloader");
-    if (bootloader.find("G800F") == 0) {
+    if (platform != ANDROID_TARGET) {
+        return;
+    }
+
+    if (bootloader.find("G800F") != std::string::npos) {
         /* kminiltexx */
-        property_override("ro.build.fingerprint", "samsung/kminiltexx/kminilte:6.0.1/MMB29K/G800FXXU1CPK5:user/release-keys");
-        property_override("ro.build.description", "kminiltexx-user 6.0.1 MMB29K G800FXXU1CPK5 release-keys");
-        property_override("ro.product.model", "SM-G800F");
-        property_override("ro.product.device", "kminiltexx");
-    } else if (bootloader.find("G800Y") == 0) {
+        android::base::SetProperty("ro.build.fingerprint", "samsung/kminiltexx/kminilte:6.0.1/MMB29K/G800FXXU1CPK5:user/release-keys");
+        android::base::SetProperty("ro.build.description", "kminiltexx-user 6.0.1 MMB29K G800FXXU1CPK5 release-keys");
+        android::base::SetProperty("ro.product.model", "SM-G800F");
+        android::base::SetProperty("ro.product.device", "kminiltexx");
+    } else if (bootloader.find("G800Y") != std::string::npos) {
         /* kminiltedv */
-        property_override("ro.build.fingerprint", "samsung/kminiltedv/kminilte:5.1.1/LMY49J/G800YUIS1BPL1:user/release-keys");
-        property_override("ro.build.description", "kminiltedv-user 5.1.1 LMY49J G800YUIS1BPL1 release-keys");
-        property_override("ro.product.model", "SM-G800Y");
-        property_override("ro.product.device", "kminiltedv");
-    } else if (bootloader.find("G800M") == 0) {
+        android::base::SetProperty("ro.build.fingerprint", "samsung/kminiltedv/kminilte:5.1.1/LMY49J/G800YUIS1BPL1:user/release-keys");
+        android::base::SetProperty("ro.build.description", "kminiltedv-user 5.1.1 LMY49J G800YUIS1BPL1 release-keys");
+        android::base::SetProperty("ro.product.model", "SM-G800Y");
+        android::base::SetProperty("ro.product.device", "kminiltedv");
+    } else if (bootloader.find("G800M") != std::string::npos) {
         /* kminilteub */
-        property_override("ro.build.fingerprint", "samsung/kminilteub/kminilte:6.0.1/MMB29K/G800MUBU1CPL1:user/release-keys");
-        property_override("ro.build.description", "kminilteub-user 6.0.1 MMB29K G800MUBU1CPL1 release-keys");
-        property_override("ro.product.model", "SM-G800M");
-        property_override("ro.product.device", "kminilteub");
+        android::base::SetProperty("ro.build.fingerprint", "samsung/kminilteub/kminilte:6.0.1/MMB29K/G800MUBU1CPL1:user/release-keys");
+        android::base::SetProperty("ro.build.description", "kminilteub-user 6.0.1 MMB29K G800MUBU1CPL1 release-keys");
+        android::base::SetProperty("ro.product.model", "SM-G800M");
+        android::base::SetProperty("ro.product.device", "kminilteub");
     }
     
-    std::string device = property_get("ro.product.device");
-    INFO("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
+    std::string device = android::base::GetProperty("ro.product.device", "");
+    ALOGI("Found bootloader id %s setting build properties for %s device\n", bootloader.c_str(), device.c_str());
+}
+
+}
 }
