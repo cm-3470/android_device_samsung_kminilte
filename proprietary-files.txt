@@ -8,6 +8,9 @@ lib/libexynosscaler.so
 # Needed by libexynosfimc.so
 lib/libexynosv4l2.so
 
+# STL
+lib/libstlport.so
+
 # Bluetooth
 vendor/firmware/bcm4334_V1837.2645.hcd
 vendor/firmware/bcm4339_V1831.2468.hcd
