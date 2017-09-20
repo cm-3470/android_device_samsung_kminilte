@@ -38,12 +38,6 @@ PRODUCT_PACKAGES += \
     init.wifi.rc \
     ueventd.universal3470.rc
 
-#ADB
-#ADDITIONAL_DEFAULT_PROPERTIES += \
-#    ro.adb.secure=0 \
-#    ro.secure=0 \
-#    ro.debuggable=1
-
 # Audio
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/audio/audio_policy.conf:system/etc/audio_policy.conf
@@ -135,6 +129,10 @@ PRODUCT_PACKAGES += \
 
 PRODUCT_PROPERTY_OVERRIDES += \
     persist.sys.isUsbOtgEnabled=true
+
+# ADB
+PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
+    ro.adb.secure=0
 
 # Doze
 PRODUCT_PACKAGES += \
