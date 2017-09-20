@@ -36,7 +36,7 @@ on boot
 # Run deferred initcalls of builtin kernel modules (bcmdhd)
 service wifiloader /system/bin/wifiloader
     class main
-    seclabel u:r:wifiloader:s0
+#    seclabel u:r:wifiloader:s0
     oneshot
 
 service p2p_supplicant /vendor/bin/hw/wpa_supplicant \
@@ -76,7 +76,7 @@ service wlandutservice /system/bin/wlandutservice
 
 service macloader /system/bin/macloader
     class main
-    seclabel u:r:macloader:s0
+#    seclabel u:r:macloader:s0
     oneshot
 
 on property:init.svc.macloader=stopped

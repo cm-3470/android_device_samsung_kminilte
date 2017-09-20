@@ -474,7 +474,7 @@ service prepare_param /system/bin/prepare_param.sh /dev/block/platform/dw_mmc.0/
     class core
     user root
     group root
-    seclabel u:r:prepare_param:s0
+#    seclabel u:r:prepare_param:s0
     oneshot
 
 # service for TZPR provisioning version check app
@@ -504,7 +504,7 @@ service gpsd /system/bin/gpsd -c /system/etc/gps.xml
     user gps
     group system wakelock inet net_raw
     ioprio be 0
-    seclabel u:r:gpsd:s0
+#    seclabel u:r:gpsd:s0
 
 # on userdebug and eng builds, enable kgdb on the serial console
 on property:ro.debuggable=1
@@ -516,7 +516,7 @@ service cpboot-daemon /sbin/cbd -d -t ss222 -b m -m m
     class main
     user root
     group radio cache inet misc audio sdcard_r sdcard_rw log shell
-    seclabel u:r:cpboot-daemon:s0
+#    seclabel u:r:cpboot-daemon:s0
 
 on property:persist.sys.cpboot=disable
     stop ril-daemon
@@ -580,7 +580,7 @@ on property:ro.tvout.enable=false
 
 service charger /charger
     class charger
-    seclabel u:r:healthd:s0
+#    seclabel u:r:healthd:s0
 
 # Secure Storage startup
 service secure_storage /system/bin/secure_storage_daemon
@@ -601,7 +601,7 @@ service swapon /sbin/sswap -s -f 1024
     class core
     user root
     group root
-    seclabel u:r:sswap:s0
+#    seclabel u:r:sswap:s0
     oneshot
 
 # umount service
