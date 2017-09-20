@@ -99,5 +99,5 @@ TW_INCLUDE_CRYPTO := true
 TWRP_INCLUDE_LOGCAT := true
 
 # SELinux
-#BOARD_SEPOLICY_DIRS := \
-#	$(DEVICE_PATH)/sepolicy
+BOARD_SEPOLICY_DIRS := \
+	$(DEVICE_PATH)/sepolicy

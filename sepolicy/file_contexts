@@ -4,7 +4,6 @@
 
 /dev/akm8963                u:object_r:sensors_device:s0
 /dev/alps_io                u:object_r:input_device:s0
-/dev/block/mmcblk0(.*)      u:object_r:mmc_block_device:s0
 /dev/ehci_power             u:object_r:mif_device:s0
 /dev/fimg2d                 u:object_r:video_device:s0
 /dev/mali[0-9]*             u:object_r:gpu_device:s0
@@ -12,15 +11,11 @@
 /dev/mobicore               u:object_r:tee_device:s0
 /dev/mobicore-user          u:object_r:tee_device:s0
 /dev/mtp_usb*               u:object_r:mtp_device:s0
-/dev/rfkill                 u:object_r:rfkill_device:s0
 /dev/sec-nfc                u:object_r:nfc_device:s0
 /dev/s5p-smem               u:object_r:secmem_device:s0
 /dev/ttySAC0                u:object_r:hci_attach_dev:s0
-/dev/ttySAC1                u:object_r:gps_device:s0
 /dev/umts.*                 u:object_r:mif_device:s0
 /dev/v4l-subdev[0-9]*       u:object_r:video_device:s0
-/dev/validity(/.*)?         u:object_r:validity_device:s0
-/dev/vfsspi                 u:object_r:vfsspi_device:s0
 
 ####################################
 # efs files
@@ -57,19 +52,13 @@
 /data/nfc(/.*)?              u:object_r:nfc_data_file:s0
 /data/.wifiver.info          u:object_r:wifi_data_file:s0
 /data/misc/radio(/.*)?       u:object_r:radio_data_file:s0
-/data/system/gps(/.*)?       u:object_r:gps_data_file:s0
 /efs/wifi/.mac.info          u:object_r:wifi_data_file:s0
-/data/validity(/.*)?         u:object_r:vcs_data_file:s0
 
 ####################################
 # sysfs files
 #
 
 /sys/class/graphics/fb[0-9](/.*)?                            -- u:object_r:sysfs_graphics:s0
-/sys/class/power_supply/battery/music                        -- u:object_r:sysfs_writable:s0
-/sys/class/devfreq/exynos4270-busfreq-mif(/.*)?              -- u:object_r:sysfs_writable:s0
-/sys/class/lcd(/.*)?                                         -- u:object_r:sysfs_writable:s0
-/sys/class/sec(/.*)?                                         -- u:object_r:sysfs_writable:s0
 /sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/state -- u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/platform/bcm4334_bluetooth/rfkill/rfkill0/type  -- u:object_r:sysfs_bluetooth_writable:s0
 /sys/devices/platform/s5p-ehci/ehci_power                       u:object_r:sysfs_usb_power_writable:s0
@@ -80,7 +69,4 @@
 # deamons
 #
 /system/bin/mcDriverDaemon -- u:object_r:tee_exec:s0
-/system/bin/vcsFPService      u:object_r:vcs_exec:s0
-/system/bin/macloader         u:object_r:macloader_exec:s0
-/system/bin/wifiloader        u:object_r:wifiloader_exec:s0
-/system/bin/gpsd           -- u:object_r:gpsd_exec:s0
+

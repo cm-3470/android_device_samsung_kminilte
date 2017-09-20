@@ -1,8 +1,0 @@
-userdebug_or_eng(`
-#neverallow Google CTS-android-5.0.2_r1 :    allow su self:capability sys_ptrace;
-
-    ## JDWP on eng binary
-    typeattribute su mlstrustedsubject;
-    allow appdomain su:unix_stream_socket connectto;
-    allow su servicemanager:service_manager list;
-')

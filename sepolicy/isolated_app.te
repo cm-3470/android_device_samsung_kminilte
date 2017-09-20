@@ -1,7 +1,0 @@
-allow isolated_app app_data_file:dir getattr;
-allow isolated_app tombstone_data_file:dir search;
-
-# avc: denied { search } for pid=26268 comm="dboxed_process0" name="tmp" dev="mmcblk0p21" ino=15 scontext=u:r:isolated_app:s0:c512,c768 tcontext=u:object_r:shell_data_file:s0 tclass=dir permissive=0
-# avc: denied { search } for pid=26286 comm="dboxed_process1" name="tmp" dev="mmcblk0p21" ino=15 scontext=u:r:isolated_app:s0:c512,c768 tcontext=u:object_r:shell_data_file:s0 tclass=dir permissive=0
-allow isolated_app shell_data_file:dir r_dir_perms;
-allow isolated_app shell_data_file:file r_file_perms;
