@@ -112,6 +112,9 @@ on post-fs-data
 
     restorecon -R /efs
 
+    # Mark wifi driver as unloaded - "ok" indicates loaded
+    setprop wlan.driver.status not_ok
+
 on property:sys.boot_completed=1
     # Configure the CPU governor
     write /sys/devices/system/cpu/cpu1/online 1
