@@ -21,3 +21,6 @@ persist.radio.add_power_save=1
 
 ro.nfc.sec_hal=true
 
+# this affects lock screen ColorFader and ensures release of /dev/pvrsrvkm GPU ressources
+ro.egl.destroy_after_detach=true
+
