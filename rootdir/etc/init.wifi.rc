@@ -1,8 +1,3 @@
-# Wi-Fi init file
-
-    #Create directory for hostapd
-    mkdir /data/hostapd 0770 system wifi
-
 on post-fs-data
     # give system access to wpa_supplicant.conf for backup and restore
     mkdir /data/misc/wifi 0770 wifi system
@@ -101,9 +96,3 @@ on property:init.svc.dhcpcd_ibss=running
 on property:init.svc.dhcpcd_ibss=stopped
     stop olsrd
 
-service hostapd /system/bin/hostapd -dddd /data/hostapd/hostapd.conf
-    class late_start
-    user root
-    group root
-    oneshot
-    disabled
