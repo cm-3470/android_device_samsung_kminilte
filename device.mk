@@ -83,7 +83,7 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     fingerprint.universal3470 \
     ValidityService \
-    android.hardware.biometrics.fingerprint@2.1-service.2.0
+    android.hardware.biometrics.fingerprint@2.0-service
 
 # Media config
 PRODUCT_COPY_FILES += \
