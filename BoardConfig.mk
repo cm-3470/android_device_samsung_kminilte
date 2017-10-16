@@ -47,8 +47,8 @@ TARGET_SPECIFIC_HEADER_PATH += $(DEVICE_PATH)/include
 TARGET_KERNEL_CONFIG := kminilte_00_defconfig
 TARGET_KERNEL_SOURCE := kernel/samsung/kminilte
 
-# CMHW
-BOARD_HARDWARE_CLASS := $(DEVICE_PATH)/cmhw
+# Lineage Hardware
+BOARD_HARDWARE_CLASS := $(DEVICE_PATH)/lineagehw
 
 # Bluetooth
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := $(DEVICE_PATH)/bluetooth
