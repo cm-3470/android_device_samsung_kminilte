@@ -8,8 +8,6 @@ on early-init
     chmod 0755 /sys/kernel/debug
 
 on init
-    #export LD_SHIM_LIBS "/system/lib/libsec-ril.so|libprotobuf-cpp-fl26.so"
-
     # Support legacy paths
     symlink /sdcard /storage/sdcard0
 
