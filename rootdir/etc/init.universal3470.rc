@@ -583,7 +583,7 @@ on property:ro.tvout.enable=false
 
 service charger /charger
     class charger
-#    seclabel u:r:healthd:s0
+    seclabel u:r:charger:s0
 
 # Secure Storage startup
 service secure_storage /system/bin/secure_storage_daemon
