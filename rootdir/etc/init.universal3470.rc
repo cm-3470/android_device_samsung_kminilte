@@ -77,8 +77,9 @@ on post-fs-data
     restorecon /data/privatemode
 
     # Permission for flashlight control for HAL3.3
-    chmod 0660 /sys/class/camera/flash/rear_torch_flash
-    chown media system /sys/class/camera/flash/rear_torch_flash
+    chmod 0664 /sys/class/camera/flash/rear_flash
+    chmod 0664 /sys/class/camera/flash/rear_torch_flash
+    chown cameraserver system /sys/class/camera/flash/rear_torch_flash
 
     # Permissions Camera
     mkdir /data/camera 0770 media system
@@ -87,7 +88,7 @@ on post-fs-data
     chown system radio /sys/class/camera/rear/rear_camfw_full
     chown system radio /sys/class/camera/rear/rear_camtype
     chown system radio /sys/class/camera/flash/rear_flash
-    chown media system /sys/class/camera/flash/rear_flash_ext
+    chown cameraserver system /sys/class/camera/flash/rear_flash_ext
     chown system radio /sys/class/camera/front/front_camfw
     chown system radio /sys/class/camera/front/front_camtype
 

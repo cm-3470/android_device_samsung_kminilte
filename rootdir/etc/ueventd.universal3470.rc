@@ -22,8 +22,8 @@
 /dev/video27              0660   media      graphics
 
 # scalers
-/dev/video50              0660   media      graphics
-/dev/video51              0660   media      graphics
+/dev/video50              0666   media      graphics
+/dev/video51              0666   media      graphics
 
 /dev/v4l-subdev*          0660   system     camera
 /dev/media0               0660   system     camera
@@ -62,27 +62,27 @@
 /dev/HPD                  0660   system     system
 
 # camera
-/dev/video0               0660   system     camera
-/dev/video1               0660   system     camera
-/dev/video2               0660   system     camera
-/dev/video3               0660   system     camera
-/dev/video100             0660   media      media
-/dev/video101             0660   media      media
-/dev/video102             0660   media      media
-/dev/video103             0660   media      media
-/dev/video110             0660   media      media
-/dev/video111             0660   media      media
-/dev/video112             0660   media      media
-/dev/video114             0660   media      media
-/dev/video115             0660   media      media
-/dev/video116             0660   media      media
-/dev/video130             0660   media      media
-/dev/video134             0660   media      media
-/dev/video137             0660   media      media
-/dev/video140             0660   media      media
-/dev/video141             0660   media      media
-/dev/video146             0660   media      media
-/dev/video149             0660   media      media
+/dev/video0               0660   cameraserver      cameraserver
+/dev/video1               0660   cameraserver      cameraserver
+/dev/video2               0660   cameraserver      cameraserver
+/dev/video3               0660   cameraserver      cameraserver
+/dev/video100             0660   cameraserver      cameraserver
+/dev/video101             0660   cameraserver      cameraserver
+/dev/video102             0660   cameraserver      cameraserver
+/dev/video103             0660   cameraserver      cameraserver
+/dev/video110             0660   cameraserver      cameraserver
+/dev/video111             0660   cameraserver      cameraserver
+/dev/video112             0660   cameraserver      cameraserver
+/dev/video114             0660   cameraserver      cameraserver
+/dev/video115             0660   cameraserver      cameraserver
+/dev/video116             0660   cameraserver      cameraserver
+/dev/video130             0660   cameraserver      cameraserver
+/dev/video134             0660   cameraserver      cameraserver
+/dev/video137             0660   cameraserver      cameraserver
+/dev/video140             0660   cameraserver      cameraserver
+/dev/video141             0660   cameraserver      cameraserver
+/dev/video146             0660   cameraserver      cameraserver
+/dev/video149             0660   cameraserver      cameraserver
 /dev/media2               0660   media      media
 
 /dev/block/mmcblk0p8      0660   system     system
