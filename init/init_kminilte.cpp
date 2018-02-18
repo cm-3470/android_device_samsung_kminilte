@@ -37,7 +37,6 @@
 #include <android-base/properties.h>
 
 #include "property_service.h"
-#include "util.h"
 #include "vendor_init.h"
 
 #define LOG_TAG "init_properties"
