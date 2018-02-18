@@ -9,3 +9,7 @@ type mif_device, dev_type;
 
 # /dev/rfkill
 type rfkill_device, dev_type;
+
+#Added for fm_radio device
+type fm_radio_device, dev_type;
+

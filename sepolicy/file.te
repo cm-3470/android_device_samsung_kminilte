@@ -20,4 +20,8 @@ type sysfs_usb_power_writable, fs_type, sysfs_type, mlstrustedobject;
 type sysfs_otg_writable, fs_type, sysfs_type;
 type sysfs_graphics, fs_type, sysfs_type, mlstrustedobject;
 
+# BRCM BT FM
+type brcm_ldisc_sysfs, sysfs_type, fs_type;
+type brcm_uim_exec, exec_type, file_type;
+
 allow sysfs_type tmpfs:filesystem associate;

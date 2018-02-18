@@ -17,10 +17,12 @@
 /dev/s5p-smem               u:object_r:secmem_device:s0
 /dev/ttySAC0                u:object_r:hci_attach_dev:s0
 /dev/ttySAC1                u:object_r:gps_device:s0
+/dev/brcm_bt_drv            u:object_r:hci_attach_dev:s0
 /dev/umts.*                 u:object_r:mif_device:s0
 /dev/v4l-subdev[0-9]*       u:object_r:video_device:s0
 /dev/validity(/.*)?         u:object_r:validity_device:s0
 /dev/vfsspi                 u:object_r:vfsspi_device:s0
+/dev/radio0                 u:object_r:fm_radio_device:s0
 
 ####################################
 # efs files
@@ -84,3 +86,4 @@
 /system/bin/macloader         u:object_r:macloader_exec:s0
 /system/bin/wifiloader        u:object_r:wifiloader_exec:s0
 /system/bin/gpsd           -- u:object_r:gpsd_exec:s0
+/system/bin/brcm-uim-sysfs    u:object_r:brcm_uim_exec:s0

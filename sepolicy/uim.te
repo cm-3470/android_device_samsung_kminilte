@@ -1,0 +1,20 @@
+type uim, domain;
+
+allow uim sysfs:dir rw_dir_perms;
+allow uim sysfs:{ file lnk_file } rw_file_perms;
+
+allow uim brcm_ldisc_sysfs:dir rw_dir_perms;
+allow uim brcm_ldisc_sysfs:{ file lnk_file } rw_file_perms;
+
+allow uim bluetooth_data_file:dir rw_dir_perms;
+allow uim bluetooth_data_file:{ file lnk_file } rw_file_perms;
+
+allow uim sysfs_bluetooth_writable:dir rw_dir_perms;
+allow uim sysfs_bluetooth_writable:{ file lnk_file } rw_file_perms;
+
+allow uim brcm_uim_exec:file { entrypoint getattr read execute };
+allow uim hci_attach_dev:chr_file { read write ioctl open };
+allow uim self:capability { net_admin dac_override };
+allow uim rootfs:lnk_file getattr;
+allow uim bluetooth_prop:sock_file write;
+

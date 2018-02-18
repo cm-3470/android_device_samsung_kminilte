@@ -7,6 +7,9 @@ allow system_app sysfs_otg_writable:file rw_file_perms;
 
 allow system_app radio_data_file:dir getattr;
 
+# fm_radio app needes  open read write on fm_radio_device
+allow system_app fm_radio_device:chr_file r_file_perms;
+
 # attempt to fix the below neverallowed policy
 allow system_app { service_manager_type -netd_service }:service_manager find;
 

@@ -621,3 +621,11 @@ service fingerprintd /system/bin/fingerprintd
     class late_start
     user system
     group system input
+
+# brcm-uim-sysfs (BT/FM/ANT+)
+service uim /system/bin/brcm-uim-sysfs
+    class late_start
+    user root
+    group bluetooth net_bt_admin net_bt
+    seclabel u:r:uim:s0
+

@@ -225,7 +225,8 @@
 /sys/devices/platform/s3c2440-i2c.7/i2c-7/7-0068/iio:device* shealth_timer						0660   system     radio
 
 # FM Radio
-/dev/radio0               0660   system     audio
+/dev/radio0               0660   system     bluetooth
+/dev/brcm_bt_drv          0660   bluetooth  bluetooth 
 
 # Bluetooth
 /dev/ttySAC0              0600   bluetooth    bluetooth
