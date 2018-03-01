@@ -263,7 +263,6 @@ on boot
 
 on fs
     mount_all /fstab.universal3470
-    setprop ro.crypto.fuse_sdcard true
 
 #For Absolute Persistence Partition
     mkdir /persdata 0755 system system
@@ -552,11 +551,6 @@ on property:sys.mobicoredaemon.enable=true
     start cs_service
     write /proc/iccc_ready 1
 
-#Private Mode
-service privatemode /system/bin/sdcard /data/privatemode /mnt/shell/privatemode 1000 1000
-    class late_start
-    oneshot
-
 # Silent logging daemon (638)
 service DIAG-daemon /system/bin/diagexe
     class main
@@ -586,20 +580,6 @@ service charger /charger
     class charger
     seclabel u:r:charger:s0
 
-# Secure Storage startup
-service secure_storage /system/bin/secure_storage_daemon
-    class core
-    user system
-    group system
-    disabled
-
-on property:ro.securestorage.support=true
-    mkdir /dev/.secure_storage
-    chmod 0711 /dev/.secure_storage
-    chown system system /dev/.secure_storage
-    restorecon -R /dev/.secure_storage
-    start secure_storage
-
 # SSWAP
 service swapon /sbin/sswap -s -f 1024
     class core
@@ -607,17 +587,4 @@ service swapon /sbin/sswap -s -f 1024
     group root
 #    seclabel u:r:sswap:s0
     oneshot
-
-# umount service
-service umount_service /system/bin/umount /preload
-    disabled
-    oneshot
-
-# Support Preload install apks
-on property:persist.sys.storage_preload=1
-    mount ext4 /dev/block/mmcblk0p20 /preload nosuid nodev ro barrier=1
-    #setprop storage.preload.complete 1
-
-on property:persist.sys.storage_preload=0
-    start umount_service
 
