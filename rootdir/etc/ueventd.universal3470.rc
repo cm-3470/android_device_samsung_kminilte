@@ -4,86 +4,66 @@
 /dev/exynos-mem           0660   system     graphics
 
 # mfc
+#s5p-mfc-dec
 /dev/video6               0660   mediacodec mediadrm
+#s5p-mfc-enc
 /dev/video7               0660   media      mediadrm
+#s5p-mfc-dec-secure
 /dev/video8               0660   media      mediadrm
+#s5p-mfc-enc-secure
 /dev/video9               0660   media      mediadrm
 
-/dev/video20              0660   system     system
-/dev/fimg2d               0666   system     graphics
-/dev/i2c-2                0660   system     system
-/dev/HPD                  0660   system     system
+# fimc
+#fimc.0.m2m
+/dev/video23              0660   system     camera
+#fimc.0.capture
+/dev/video24              0660   system     camera
+#fimc.1.m2m
+/dev/video25              0660   system     camera
+#fimc.1.capture
+/dev/video26              0660   system     camera
+#fimc.2.m2m
+/dev/video27              0660   system     camera
+#fimc.2.capture
+/dev/video28              0660   system     camera
+#fimc.3.m2m
+/dev/video29              0660   system     camera
+#fimc.3.capture
+/dev/video30              0660   system     camera
 
-# gscalers
-/dev/video23              0660   media      graphics
-/dev/video26              0660   media      graphics
-
-/dev/video24              0660   media      graphics
-/dev/video27              0660   media      graphics
-
-# scalers
-/dev/video50              0666   media      graphics
-/dev/video51              0666   media      graphics
 
 /dev/v4l-subdev*          0660   system     camera
 /dev/media0               0660   system     camera
 /dev/media1               0660   system     camera
+/dev/media2               0660   media      media
 
-# ALP Audio
-/dev/srp                  0660   system     audio
+# JPEG
+#JPEG HX Dec
+/dev/video11              0660   system     camera
+#JPEG HX Enc
+/dev/video12              0660   system     camera
 
-#mixer
-/dev/video16              0660   system     audio
-/dev/video17              0660   system     system
-/dev/video18              0660   system     system
-/dev/video19              0660   system     system
+# camera
+#exynos-fimc-is-sensor0
+/dev/video100             0660   system     camera
+#exynos-fimc-is-sensor1
+/dev/video101             0660   system     camera
+#exynos-fimc-is-isp
+/dev/video130             0660   system     camera
+#exynos-fimc-is-scalerc
+/dev/video134             0660   system     camera
+#exynos-fimc-is-scalerp
+/dev/video137             0660   system     camera
+
+/dev/fimg2d               0666   system     graphics
+/dev/i2c-2                0660   system     system
+/dev/HPD                  0660   system     system
 
 #CEC
 /dev/CEC                  0660   system     system
 
-#JPEG
-/dev/video11              0660   media      media
-/dev/video12              0660   media      media
-
-/dev/video16              0660   system     system
-/dev/video20              0660   system     system
-
-/dev/video23              0660   media      graphics
-/dev/video25              0660   media      graphics
-/dev/video27              0660   media      graphics
-/dev/video29              0660   media      graphics
-
-/dev/video36              0660   media      media
-/dev/video37              0660   media      media
-
-/dev/fimg2d               0666   system     graphics
-/dev/i2c-2                0660   system     system
-/dev/CEC                  0660   system     system
-/dev/HPD                  0660   system     system
-
-# camera
-/dev/video0               0660   cameraserver      cameraserver
-/dev/video1               0660   cameraserver      cameraserver
-/dev/video2               0660   cameraserver      cameraserver
-/dev/video3               0660   cameraserver      cameraserver
-/dev/video100             0660   cameraserver      cameraserver
-/dev/video101             0660   cameraserver      cameraserver
-/dev/video102             0660   cameraserver      cameraserver
-/dev/video103             0660   cameraserver      cameraserver
-/dev/video110             0660   cameraserver      cameraserver
-/dev/video111             0660   cameraserver      cameraserver
-/dev/video112             0660   cameraserver      cameraserver
-/dev/video114             0660   cameraserver      cameraserver
-/dev/video115             0660   cameraserver      cameraserver
-/dev/video116             0660   cameraserver      cameraserver
-/dev/video130             0660   cameraserver      cameraserver
-/dev/video134             0660   cameraserver      cameraserver
-/dev/video137             0660   cameraserver      cameraserver
-/dev/video140             0660   cameraserver      cameraserver
-/dev/video141             0660   cameraserver      cameraserver
-/dev/video146             0660   cameraserver      cameraserver
-/dev/video149             0660   cameraserver      cameraserver
-/dev/media2               0660   media      media
+# ALP Audio
+/dev/srp                  0660   system     audio
 
 /dev/block/mmcblk0p8      0660   system     system
 
@@ -248,3 +228,31 @@
 
 # Fingerprint Sensor
 /dev/vfsspi               0660   system     system
+
+# unused
+/dev/video0               0660   system     camera
+/dev/video1               0660   system     camera
+/dev/video2               0660   system     camera
+/dev/video3               0660   system     camera
+/dev/video16              0660   system     system
+/dev/video17              0660   system     system
+/dev/video18              0660   system     system
+/dev/video19              0660   system     system
+/dev/video20              0660   system     system
+/dev/video36              0660   media      media
+/dev/video37              0660   media      media
+/dev/video50              0660   media      graphics
+/dev/video51              0660   media      graphics
+/dev/video102             0660   system     camera
+/dev/video103             0660   system     camera
+/dev/video110             0660   system     camera
+/dev/video111             0660   system     camera
+/dev/video112             0660   system     camera
+/dev/video114             0660   system     camera
+/dev/video115             0660   system     camera
+/dev/video116             0660   system     camera
+/dev/video140             0660   system     camera
+/dev/video141             0660   system     camera
+/dev/video146             0660   system     camera
+/dev/video149             0660   system     camera
+
